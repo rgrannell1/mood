@@ -1,0 +1,15 @@
+{
+  "name": "mood",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "python3 -m http.server"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "zero": "^1.0.18"
+  }
+}

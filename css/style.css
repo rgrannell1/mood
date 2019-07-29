@@ -1,0 +1,41 @@
+
+:root {
+  --bg-colour-0: #fc76af;
+  --bg-colour-1: #ffaf8c;
+}
+
+body {
+  background: linear-gradient(to left, var(--bg-colour-0), var(--bg-colour-1));
+}
+
+main {
+  background: white;
+  width: 400px;
+  width: 800px;
+  font-family: Helvetica Neue, sans-serif;
+  border-radius: 5px;
+  padding: 10px 40px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+}
+
+h2 {
+  font-size: 3em;
+  color: grey;
+  border-bottom: 1px solid black;
+}
+
+ol {
+  text-align: center;
+}
+
+.mood {
+  font-size: 3em;
+  list-style-type: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.mood:hover {
+  background: #dddddd;
+}
+
