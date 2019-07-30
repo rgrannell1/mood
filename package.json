@@ -1,15 +1,28 @@
 {
   "name": "mood",
   "version": "1.0.0",
-  "description": "",
+  "description": "This directory is a brief example of a vanilla site that can be deployed to ZEIT Now with zero configuration.",
   "main": "index.js",
+  "dependencies": {
+    "@rgrannell/config": "^8.2.0",
+    "koa": "^2.7.0",
+    "zero": "^1.0.18"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "python3 -m http.server"
+    "build": "node_modules/.bin/tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgrannell1/mood.git"
   },
   "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "zero": "^1.0.18"
-  }
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgrannell1/mood/issues"
+  },
+  "homepage": "https://github.com/rgrannell1/mood#readme"
 }
