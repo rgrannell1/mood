@@ -8,6 +8,13 @@ async function registerServiceWorker () {
   }
 }
 
+const model = {}
+
+model.event = elem => {
+  return {
+    type: 'select-emotion'
+  }
+}
 
 async function main () {
   if ('serviceWorker' in navigator) {
@@ -17,9 +24,7 @@ async function main () {
 
     document.querySelectorAll('.mood').forEach(elem => {
       elem.onclick = () => {
-        sw.postMessage({
-          type: 'select-emotion'
-        })
+        sw.postMessage(model.event(elem))
       }
     })
   }

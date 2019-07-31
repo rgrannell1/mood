@@ -41,7 +41,6 @@ attachRoutes.security = app => {
       'wake-lock',
       'xr'
     ].map(nope).join('; ')
-
   }
 
   app.use(async (ctx, next) => {
