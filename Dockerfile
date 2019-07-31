@@ -10,4 +10,5 @@ COPY package.json package-lock.json server/
 WORKDIR /app/server
 RUN npm install
 
-RUN node index.js
+EXPOSE 3000
+CMD node index.js
