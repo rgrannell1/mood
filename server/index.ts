@@ -1,7 +1,17 @@
 
-import Koa from 'koa'
-import config from '@rgrannell/config'
+const config = require('@rgrannell/config')
+const signale = require('signale')
+const Koa = require('koa')
 
-//const app = new Koa();
+const constants = require('./constants')
 
-console.log(config('development'))
+const main = async () => {
+  const env = config('development')
+
+  const app = new Koa()
+
+  app.listen(env.port)
+  signale.debug(`server running at http://localhost:${env.port}`)
+}
+
+main()

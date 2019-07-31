@@ -6,6 +6,7 @@
   "dependencies": {
     "@rgrannell/config": "^8.2.0",
     "koa": "^2.7.0",
+    "signale": "^1.4.0",
     "zero": "^1.0.18"
   },
   "devDependencies": {
