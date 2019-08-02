@@ -1,0 +1,13 @@
+{
+  "name": "mood",
+  "version": 2,
+  "env": {
+
+  },
+  "build": [
+    {
+      "src": "public/*/**",
+      "use": "@now/static"
+    }
+  ]
+}
