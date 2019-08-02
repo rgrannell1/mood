@@ -6,7 +6,7 @@
     "sourceMap": true
   },
   "include": [
-    "server/**/*.ts"
+    "public/api/**/*.ts"
   ],
   "exclude": [
     "node_modules"
