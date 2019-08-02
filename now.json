@@ -6,7 +6,7 @@
   },
   "builds": [
     {
-      "src": "public/*/**",
+      "src": "public/**/**",
       "use": "@now/static"
     }
   ]
