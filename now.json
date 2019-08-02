@@ -3,11 +3,5 @@
   "version": 2,
   "env": {
 
-  },
-  "builds": [
-    {
-      "src": "public/**/**",
-      "use": "@now/static"
-    }
-  ]
+  }
 }
