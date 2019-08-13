@@ -1,4 +1,6 @@
 
+import { request } from "https"
+
 async function registerServiceWorker () {
   try {
     const reg = await navigator.serviceWorker.register('service-worker.js')
@@ -17,17 +19,13 @@ model.event = elem => {
 }
 
 async function main () {
-  if ('serviceWorker' in navigator) {
-    await registerServiceWorker()
+  await registerServiceWorker()
 
-    const sw = navigator.serviceWorker.controller
-
-    document.querySelectorAll('.mood').forEach(elem => {
-      elem.onclick = () => {
-        sw.postMessage(model.event(elem))
-      }
-    })
-  }
+  document.querySelectorAll('.mood').forEach(elem => {
+    elem.onclick = () => {
+      request.send()
+    }
+  })
 }
 
 main()
