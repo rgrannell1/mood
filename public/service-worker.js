@@ -14,7 +14,7 @@ service.install = async () => {
   return self.skipWaiting()
 }
 
-service.fetch = async () => {
+service.fetch = async event => {
   const cachedRes = await caches.match(event.request)
   if (cachedRes) {
     return cachedRes
@@ -45,7 +45,7 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
   const isSameOrigin = event.request.url.startsWith(self.location.origin)
 
-  event.respondWith(service.fetch())
+  event.respondWith(service.fetch(event))
 
   console.log('⛏ fetch')
 })
