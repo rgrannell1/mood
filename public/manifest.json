@@ -44,9 +44,9 @@
       "type": "image/png"
     },
     {
-      "src": "icon-512x512.jpg",
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/jpg"
+      "type": "image/png"
     }
   ]
 }
