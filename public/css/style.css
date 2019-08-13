@@ -10,12 +10,13 @@ body {
 
 main {
   background: white;
-  width: 400px;
-  width: 800px;
   font-family: Helvetica Neue, sans-serif;
   border-radius: 5px;
   padding: 10px 40px;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  grid-column-start: 2;
+  grid-column-end: 3;
+
 }
 
 h2 {
@@ -39,3 +40,8 @@ ol {
   background: #dddddd;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 10px;
+}
