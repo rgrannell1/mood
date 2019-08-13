@@ -21,7 +21,14 @@ async function main () {
 
   document.querySelectorAll('.mood').forEach(elem => {
     elem.onclick = () => {
-      //request.send()
+      fetch('api/save-mood', {
+        method: 'POST',
+        body: {
+
+        }
+      }).then(res => {
+        console.log(res)
+      })
     }
   })
 }
