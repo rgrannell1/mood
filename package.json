@@ -7,6 +7,7 @@
     "@rgrannell/config": "^8.2.0",
     "koa": "^2.7.0",
     "koa-static": "^5.0.0",
+    "mongodb": "^3.3.0",
     "signale": "^1.4.0",
     "zero": "^1.0.18"
   },
