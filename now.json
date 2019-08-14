@@ -6,8 +6,8 @@
       "use": "@now/static"
     },
     {
-      "src": "./api/**/*.ts",
-      "use": "@now/node@canary"
+      "src": "api/*.ts",
+      "use": "@now/node"
     }
   ],
   "routes": [
