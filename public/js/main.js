@@ -12,7 +12,8 @@ const model = {}
 
 model.event = elem => {
   return {
-    type: 'select-emotion'
+    type: 'select-emotion',
+    mood: elem.title
   }
 }
 
@@ -21,8 +22,7 @@ async function main () {
 
   document.querySelectorAll('.mood').forEach(elem => {
     elem.onclick = event => {
-      console.log(event.target)
-      const body = JSON.stringify(model.event())
+      const body = JSON.stringify(model.event(event.target))
 
       fetch('api/save-mood.ts', {
         method: 'POST',
