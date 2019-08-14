@@ -16,8 +16,8 @@
       "dest": "/public/$1"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/save-mood",
+      "dest": "/api/save-mood.ts"
     }
   ]
 }
