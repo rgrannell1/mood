@@ -21,7 +21,7 @@ async function main () {
 
   document.querySelectorAll('.mood').forEach(elem => {
     elem.onclick = () => {
-      fetch('api/save-mood.js', {
+      fetch('api/save-mood.ts', {
         method: 'POST',
         body: {
 
