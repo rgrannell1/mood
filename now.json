@@ -4,12 +4,20 @@
     {
       "src": "public/**",
       "use": "@now/static"
+    },
+    {
+      "src": "./api/**/*.ts",
+      "use": "@now/node@canary"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
       "dest": "/public/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     }
   ]
 }
