@@ -9,9 +9,7 @@ const {
 const url = `mongodb+srv://${mongo_user}:${mongo_password}@${mongo_cluster}.mongodb.net/test?retryWrites=true&w=majority`
 
 export default async (req, res) => {
-  const db = await MongoClient.connect(url)
+  //const db = await MongoClient.connect(url)
 
-  res.json({
-    message: 'hi'
-  })
+  res.end('hello')
 }
