@@ -1,15 +1,39 @@
 
 const MongoClient = require('mongodb').MongoClient
-const {
-  mongo_user,
-  mongo_password,
-  mongo_cluster
-} = process.env
 
-const url = `mongodb+srv://${mongo_user}:${mongo_password}@${mongo_cluster}.mongodb.net/test?retryWrites=true&w=majority`
+const getUrl = () => {
+  const {
+    mongo_user,
+    mongo_password,
+    mongo_cluster
+  } = process.env
+
+  if (!mongo_user) {
+    throw new Error('fatal: environmental variable "mongo_user" missing')
+  }
+  if (!mongo_password) {
+    throw new Error('fatal: environmental variable "mongo_password" missing')
+  }
+  if (!mongo_cluster) {
+    throw new Error('fatal: environmental variable "mongo_cluster" missing')
+  }
+
+  return `mongodb+srv://${mongo_user}:${mongo_password}@${mongo_cluster}.mongodb.net/test?retryWrites=true&w=majority`
+}
+
+const writeMood = async () => {
+  const db = await MongoClient.connect(getUrl(), {
+    useNewUrlParser: true
+  })
+}
 
 export default async (req, res) => {
-  //const db = await MongoClient.connect(url)
-
-  res.end('hello')
+  try {
+    await writeMood()
+    res.end('connection opened')
+  }
+  catch (err) {
+    res.end('hello')
+  }
 }
+

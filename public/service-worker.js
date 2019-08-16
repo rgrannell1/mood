@@ -1,9 +1,9 @@
 
 const cached = [
-  '/',
-  '/css/style.css',
-  '/js/main.js',
-  '/favicon.ico'
+//  '/',
+//  '/css/style.css',
+//  '/js/main.js',
+//  '/favicon.ico'
 ]
 
 const service = {}
