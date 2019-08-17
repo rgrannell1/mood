@@ -3,8 +3,21 @@
   --bg-colour-0: #fc76af;
   --bg-colour-1: #ffaf8c;
   --emoji-hover: #db8787;
+  --font-colour: #a7a7a7;
+  --brand-colour: #fc76af;
 
   font-size: 62.5%;
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#brand {
+  margin-left: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: var(--brand-colour)
 }
 
 * {
@@ -15,23 +28,22 @@
 body {
   background: linear-gradient(to left, var(--bg-colour-0), var(--bg-colour-1));
   font-size: 1.4rem;
+  font-weight: 100
 }
 
 header {
   background: white;
   grid-column: 1 / 4;
-  height: 50px;
   z-index: 1;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
 
 }
 
 #mood-box {
   background: white;
-  font-family: Helvetica Neue, sans-serif;
   border-radius: 5px;
   padding: 10px 40px;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
   grid-column-start: 2;
   grid-column-end: 3;
   user-select: none;
@@ -40,8 +52,8 @@ header {
 }
 
 #mood-question {
-  font-size: 3em;
-  color: grey;
+  font-size: 2em;
+  color: #8f9a93;
   border-bottom: 1px solid black;
   margin-bottom: 35px;
 }
@@ -51,7 +63,7 @@ header {
 }
 
 .mood {
-  font-size: 3em;
+  font-size: 2.8em;
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
@@ -60,7 +72,6 @@ header {
 .mood:hover {
   background: var(--emoji-hover);
 }
-
 
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
@@ -72,7 +83,7 @@ header {
   }
 
   body {
-      font-size: 1.4rem;
+    font-size: 1.4rem;
   }
 
 }
@@ -87,7 +98,7 @@ header {
   }
 
   body {
-      font-size: 1.4rem;
+    font-size: 1.4rem;
   }
 
 }
@@ -102,7 +113,7 @@ header {
   }
 
   body {
-      font-size: 1.4rem;
+    font-size: 1.4rem;
   }
 
 }
