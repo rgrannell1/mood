@@ -21,15 +21,13 @@ async function main () {
   await registerServiceWorker()
 
   document.querySelectorAll('.mood').forEach(elem => {
-    elem.onclick = event => {
+    elem.onclick = async event => {
       const body = JSON.stringify(model.event(event.target))
-
-      fetch('api/save-mood.ts', {
+      const res = fetch('api/save-mood.ts', {
         method: 'POST',
         body,
-      }).then(res => {
-        console.log(res)
       })
+
     }
   })
 }

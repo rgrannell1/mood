@@ -3,8 +3,9 @@
   --bg-colour-0: #fc76af;
   --bg-colour-1: #ffaf8c;
   --emoji-hover: #db8787;
-  --font-colour: #a7a7a7;
+  --font-colour: #fc76af;
   --brand-colour: #fc76af;
+  --divider-colour: #bfbfbf;
 
   font-size: 62.5%;
 }
@@ -13,16 +14,16 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 
+* {
+	padding: 0;
+	margin: 0;
+}
+
 #brand {
   margin-left: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
   color: var(--brand-colour)
-}
-
-* {
-	padding: 0;
-	margin: 0;
 }
 
 body {
@@ -53,8 +54,8 @@ header {
 
 #mood-question {
   font-size: 2em;
-  color: #8f9a93;
-  border-bottom: 1px solid black;
+  color: var(--font-colour);
+  border-bottom: 1px solid var(--divider-colour);
   margin-bottom: 35px;
 }
 
@@ -73,23 +74,8 @@ header {
   background: var(--emoji-hover);
 }
 
-/* Mobile Styles */
-@media only screen and (max-width: 400px) {
-  .container {
-    display: grid;
-    grid-template-columns: 1fr 12fr 1fr;
-    grid-gap: 10px;
-    grid-row-gap: 60px;
-  }
-
-  body {
-    font-size: 1.4rem;
-  }
-
-}
-
 /* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
+@media only screen and (min-width: 416px) and (max-width: 960px) {
   .container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
@@ -98,9 +84,13 @@ header {
   }
 
   body {
-    font-size: 1.4rem;
+    font-size: 1.4rem
   }
 
+  .emoji-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* Desktop */
@@ -114,6 +104,30 @@ header {
 
   body {
     font-size: 1.4rem;
+  }
+
+  .emoji-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 415px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 16fr 1fr;
+    grid-gap: 10px;
+    grid-row-gap: 60px;
+  }
+
+  body {
+    font-size: 1.4rem;
+  }
+
+  .emoji-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 
 }
