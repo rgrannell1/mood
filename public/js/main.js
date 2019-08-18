@@ -27,7 +27,6 @@ async function main () {
         method: 'POST',
         body,
       })
-
     }
   })
 }

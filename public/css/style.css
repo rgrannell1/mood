@@ -93,6 +93,10 @@ header {
   }
 }
 
+.emoji-container {
+  text-align: center;
+}
+
 /* Desktop */
 @media only screen and (min-width: 961px) {
   .container {
