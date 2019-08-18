@@ -24,7 +24,7 @@ service.fetch = async event => {
 
   const isUncacheable = !uncachedRes || uncachedRes.status !== 200 || uncachedRes.type !== 'basic'
   if (isUncacheable) {
-    return uncachedRes;
+    return uncachedRes
   }
 
   const toCache = uncachedRes.clone()
@@ -57,4 +57,16 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('message', event => {
   console.log(`⛏ recieved message: ${event.data}`)
+})
+
+async function sendEvents () {
+  // generate a body from data in localstorage and send it on
+
+  console.log(`⛏ syncing events`)
+}
+
+self.addEventListener('sync', function (event) {
+  if (event.tag == 'sync') {
+    event.waitUntil(sendEvents())
+  }
 })
