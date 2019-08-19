@@ -17,14 +17,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/tsc",
-    "start": "find public | entr -s 'npx now dev'"
+    "start": "find public | entr -s 'npx now dev'",
+    "clean": "find public -name '*.js*' -delete"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rgrannell1/mood.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Róisín Grannell",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rgrannell1/mood/issues"
   },

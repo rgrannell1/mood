@@ -2,12 +2,9 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "outDir": "dist",
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": ["esnext", "webworker.importscripts", "dom"],
   },
-  "include": [
-    "public/api/**/*.ts"
-  ],
   "exclude": [
     "node_modules"
   ]

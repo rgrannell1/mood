@@ -14,14 +14,16 @@ type Mood = string
 
 interface Event {
   type: 'select-emotion',
-  mood: Mood
+  mood: Mood,
+  timestamp: number
 }
 
 const model = {
   event (elem):Event {
     return {
       type: 'select-emotion',
-      mood: elem.title
+      mood: elem.title,
+      timestamp: Date.now()
     }
   }
 }
