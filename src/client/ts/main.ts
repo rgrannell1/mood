@@ -1,5 +1,8 @@
 
 import local from './local'
+import {
+  sendEvents
+} from './send-events'
 
 async function registerServiceWorker () {
   try {
@@ -78,7 +81,13 @@ async function main () {
         const data = model.event(event.target)
         writeCache(data)
       }
-      await syncData()
+
+      try {
+        await sendEvents()
+      } catch (err) {
+        console.error(`failed to send events: ${err.message}`)
+        await syncData()
+      }
     }
   })
 }

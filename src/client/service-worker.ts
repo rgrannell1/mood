@@ -1,5 +1,7 @@
 
-import local from './ts/local'
+import {
+  sendEvents
+} from './ts/send-events'
 
 const cached:Array<string> = [
 //  '/',
@@ -48,24 +50,10 @@ self.addEventListener('fetch', (event: any) => {
   console.log('⛏ fetch')
 })
 
+// -- remove old caches, when needed
 self.addEventListener('activate', () => {
-  // -- remove old caches, when needed
   console.log('⛏ activated')
 })
-
-async function sendEvents () {
-  // generate a body from data in localstorage and send it on
-
-  console.log(`⛏ syncing events to server`)
-  const events:Array<any> = local.get('cached-events')
-
-  const body = JSON.stringify({ events }, null, 2)
-
-  return fetch('URL', {
-    method: 'POST',
-    body
-  })
-}
 
 self.addEventListener('sync', (event:any) => {
   if (event.tag === 'sync') {

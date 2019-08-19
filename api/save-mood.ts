@@ -1,6 +1,9 @@
 
 const MongoClient = require('mongodb').MongoClient
 
+/**
+ * Get the mongodb connection URL.
+ */
 const getUrl = () => {
   const {
     mongo_user,
@@ -21,19 +24,21 @@ const getUrl = () => {
   return `mongodb+srv://${mongo_user}:${mongo_password}@${mongo_cluster}.mongodb.net/test?retryWrites=true&w=majority`
 }
 
-const writeMood = async () => {
+/**
+ * Write mood data to MongoDB
+ */
+const writeEvents = async () => {
   const db = await MongoClient.connect(getUrl(), {
     useNewUrlParser: true
   })
 }
 
-export default async () => {
+export default async (_:any, res:any) => {
   try {
-    await writeMood()
+    await writeEvents()
     res.end('connection opened')
   }
   catch (err) {
-    res.end('hello')
+    res.end(err.message)
   }
 }
-
