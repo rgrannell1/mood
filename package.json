@@ -4,6 +4,7 @@
   "description": "This directory is a brief example of a vanilla site that can be deployed to ZEIT Now with zero configuration.",
   "main": "index.js",
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.5.5",
     "@rgrannell/config": "^8.2.0",
     "koa": "^2.7.0",
     "koa-static": "^5.0.0",
@@ -12,13 +13,20 @@
     "zero": "^1.0.18"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@rgrannell/pulp": "^8.4.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.26.0",
+    "now": "^16.1.1",
+    "parcel": "^1.12.3",
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/.bin/tsc",
+    "deploy": "node_modules/.bin/now",
+    "build": "node_modules/.bin/parcel build src/client/index.html --out-dir public --public-url .",
     "start": "find public | entr -s 'npx now dev'",
-    "clean": "find public -name '*.js*' -delete; find public -name '*.js.map' -delete"
+    "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
   "repository": {
     "type": "git",

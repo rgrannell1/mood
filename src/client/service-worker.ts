@@ -1,7 +1,7 @@
 
 import local from './ts/local'
 
-const cached = [
+const cached:Array<string> = [
 //  '/',
 //  '/css/style.css',
 //  '/js/main.js',
@@ -14,7 +14,7 @@ const install = async () => {
   return (self as any).skipWaiting()
 }
 
-const fetchResponse = async event => {
+const fetchResponse = async (event:any) => {
   const cachedRes = await caches.match(event.request)
   if (cachedRes) {
     return cachedRes
@@ -43,14 +43,12 @@ self.addEventListener('install', (event: any) => {
 })
 
 self.addEventListener('fetch', (event: any) => {
-  const isSameOrigin = event.request.url.startsWith(self.location.origin)
-
   event.respondWith(fetchResponse(event))
 
   console.log('⛏ fetch')
 })
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', () => {
   // -- remove old caches, when needed
   console.log('⛏ activated')
 })

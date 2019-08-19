@@ -3,7 +3,7 @@ import local from './local'
 
 async function registerServiceWorker () {
   try {
-    const reg = await navigator.serviceWorker.register('./../service-worker.js')
+    const reg = await navigator.serviceWorker.register('./../service-worker.ts')
     console.log(`registered service-worker: scope is ${reg.scope}`)
   } catch (err) {
     console.error(`failed to register service-worker: ${err.message}`)
@@ -19,7 +19,7 @@ interface Event {
 }
 
 const model = {
-  event (elem):Event {
+  event (elem:{title:string}):Event {
     return {
       type: 'select-emotion',
       mood: elem.title,
@@ -55,19 +55,30 @@ async function syncData () {
   reg.sync.register('sync');
 }
 
+interface MoodElem {
+  title: string
+}
+
+const isMoodElem = (value:any):value is MoodElem => {
+  return value.hasOwnProperty('title')
+}
+
 /**
  * Run the client-side code
  */
 async function main () {
   await registerServiceWorker()
 
-  document.querySelectorAll('.mood').forEach((elem: HTMLElement) => {
-    elem.onclick = async event => {
-      const data = model.event(event.target)
+  const $moods = document.querySelectorAll('.mood')
 
-      writeCache(data)
+  $moods.forEach((elem: HTMLElement) => {
+    elem.onclick = async (event:MouseEvent) => {
+
+      if (isMoodElem(event.target)) {
+        const data = model.event(event.target)
+        writeCache(data)
+      }
       await syncData()
-
     }
   })
 }

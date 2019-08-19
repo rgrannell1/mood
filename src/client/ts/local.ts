@@ -7,7 +7,7 @@ const local = {
     return localStorage.setItem(key, JSON.stringify(value))
   },
   get<T>(key:string):T {
-    return JSON.parse(localStorage.getItem(key))
+    return JSON.parse(localStorage.getItem(key) as string)
   }
 }
 

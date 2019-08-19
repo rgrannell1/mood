@@ -1,11 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "target": "es5",
     "sourceMap": true,
-    "lib": ["esnext", "webworker.importscripts", "dom"],
+    "declaration": true,
+    "outDir": "./public/",
+    "lib": [
+      "esnext",
+      "webworker.importscripts",
+      "dom"
+    ],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": [
+    ".git",
     "node_modules"
   ]
 }

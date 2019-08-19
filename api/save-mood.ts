@@ -27,7 +27,7 @@ const writeMood = async () => {
   })
 }
 
-export default async (req, res) => {
+export default async () => {
   try {
     await writeMood()
     res.end('connection opened')
