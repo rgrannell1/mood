@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <title>mood.</title>
+    <meta charset="utf-8">
+    <meta name="Description" content="A PWA for recording your mood.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="favicon.ico">
+    <link href="css/style.css" rel="stylesheet">
+    <meta name="application-name" content="Notes">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="./manifest.webmanifest">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <h1 id="brand">mood.</h1>
+        </nav>
+      </header>
+      <main id="mood-box">
+        <h2 id="mood-question">How are you?</h2>
+        <div class="emoji-container">
+          <div id="mood-0" class="mood" title="Atrocious">💀</div>
+          <div id="mood-1" class="mood" title="In pain">😩</div>
+          <div id="mood-2" class="mood" title="Ennui">😔</div>
+          <div id="mood-3" class="mood" title="Bad">😑</div>
+          <div id="mood-4" class="mood" title="Neutral">😐</div>
+          <div id="mood-5" class="mood" title="Decent">🙂</div>
+          <div id="mood-6" class="mood" title="Fine">😊</div>
+          <div id="mood-7" class="mood" title="Stellar">😇</div>
+        </div>
+      </main>
+    </div>
+  </body>
+
+  <script type="module" src="js/main.js"></script>
+</html>

@@ -3,5 +3,4 @@ node_modules
 dist
 *.js
 *.js.map
-public/
 .cache/
