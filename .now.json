@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "build": {
+    "env": {
+      "mongo_user": "@mongo_user",
+      "mongo_password": "@mongo_password",
+      "mongo_cluster": "@mongo_cluster"
+    }
+  }
+}

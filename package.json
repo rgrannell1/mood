@@ -1,24 +1,19 @@
 {
   "name": "mood",
   "version": "1.0.0",
-  "description": "This directory is a brief example of a vanilla site that can be deployed to ZEIT Now with zero configuration.",
+  "description": "Publish a mood tracker to Zeit.",
   "main": "index.js",
   "dependencies": {
     "@rgrannell/config": "8.2.0",
-    "koa": "2.7.0",
-    "koa-static": "5.0.0",
     "mongodb": "3.3.0",
-    "signale": "1.4.0",
-    "zero": "1.0.18"
+    "signale": "1.4.0"
   },
   "devDependencies": {
     "now": "16.1.1",
-    "parcel": "1.12.3",
     "typescript": "3.5.3"
   },
   "scripts": {
     "deploy": "node_modules/.bin/now",
-    "build": "node_modules/.bin/parcel build src/client/index.html --out-dir public --public-url .",
     "start": "find public | entr -s 'npx now dev'",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
