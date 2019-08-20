@@ -7,4 +7,4 @@
 
 - Hosted on Zeit.co
 - Written in TypeScript
-- Responsive stylesheets built with modern css
+- Responsive stylesheets built with modern CSS
