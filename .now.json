@@ -11,5 +11,18 @@
       "mongo_password": "@mongo_password",
       "mongo_cluster": "@mongo_cluster"
     }
+  },
+  "static": {
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "x-frame-options",
+            "value": "deny"
+          }
+        ]
+      }
+    ]
   }
 }
