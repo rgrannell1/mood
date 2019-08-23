@@ -1,7 +1,7 @@
 {
   "name": "mood.",
   "short_name": "mood.",
-  "theme_color": "#fc76af",
+  "theme_color": "#fff",
   "background_color": "#fc76af",
   "display": "standalone",
   "orientation": "portrait",
