@@ -2,7 +2,7 @@
   "name": "mood.",
   "short_name": "mood.",
   "theme_color": "#fff",
-  "background_color": "#fc76af",
+  "background_color": "#fff",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
