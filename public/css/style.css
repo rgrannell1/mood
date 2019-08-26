@@ -106,9 +106,13 @@ main {
   grid-row: 2;
 }
 
-
 #mood-list {
   text-align: center;
+}
+
+#mood-over-time {
+  width: 100%;
+  height: calc(width);
 }
 
 /* RESPONSIVE PANELS */
