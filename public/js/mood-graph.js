@@ -1,9 +1,10 @@
 
-const readMoodData = () => {
+const readMoodData = (opts = { from = 'now', mood = 'now-30d' }) => {
   // fetch
 
-  return fetch({
-    // -- get between two date bounds
+  return fetch('api/moods', {
+    method: 'GET',
+    qs: { from, to }
   })
 }
 
@@ -24,8 +25,61 @@ const asRanking = mood => {
     : mappings['Neutral']
 }
 
-const renderMoodData = data => {
+const findDateBounds = date => {
+  return data.reduce((acc, curr) => {
+    const data = {}
 
+    if (acc.from == null) {
+      data.from = curr.date
+    }
+    if (acc.to == null) {
+      data.to = curr.date
+    }
+
+    if (curr.data > acc.to) {
+      data.to = curr.date
+    } else if (curr.date < acc.from) {
+      data.from = curr.date
+    }
+
+    return data
+  }, {
+      from: null,
+      to: null
+    })
+}
+
+const xata = [
+  {
+    date: Date.parse('26 Aug 16:11 00:12:00 GMT'),
+    mood: 'bad'
+  },
+  {
+    date: Date.parse('25 Aug 16:11 00:12:00 GMT'),
+    mood: 'bad'
+  },
+  {
+    date: Date.parse('24 Aug 16:11 00:12:00 GMT'),
+    mood: 'bad'
+  },
+  {
+    date: Date.parse('23 Aug 16:11 00:12:00 GMT'),
+    mood: 'decent'
+  },
+  {
+    date: Date.parse('22 Aug 16:11 00:12:00 GMT'),
+    mood: 'stellar'
+  },
+  {
+    date: Date.parse('21 Aug 16:11 00:12:00 GMT'),
+    mood: 'stellar'
+  }
+]
+
+const renderMoodData = (data, opts) => {
+  const timeBounds = findDateBounds(xata)
+
+  // -- todo
 }
 
 export default {

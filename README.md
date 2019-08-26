@@ -8,6 +8,11 @@
 - Hosted on Zeit.co
 - Responsive stylesheets built with modern CSS
 
+## Features
+
+- Stores mood over time in an offline-first fashion
+- Displays a graph and analytics of mood over time
+
 ## License
 
 Copyright (c) 2019 Róisín Grannell
