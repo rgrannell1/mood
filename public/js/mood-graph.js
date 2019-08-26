@@ -1,7 +1,5 @@
 
 const readMoodData = (opts = { from = 'now', mood = 'now-30d' }) => {
-  // fetch
-
   return fetch('api/moods', {
     method: 'GET',
     qs: { from, to }

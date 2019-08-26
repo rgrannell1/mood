@@ -7,8 +7,8 @@ async function sendEvents() {
 
   const body = JSON.stringify({ events }, null, 2)
 
-  return fetch('api/save-mood', {
-    method: 'POST',
+  return fetch('api/moods', {
+    method: 'PATCH',
     body
   })
 }

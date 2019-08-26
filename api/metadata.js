@@ -1,12 +1,6 @@
 
-const package = require('../package.json')
+const methods = new Map()
 
-export default async (_, res) => {
-  const body = JSON.stringify({
-    description: 'mood\'s api',
-    version: package.version
-  }, null, 2)
+methods.set('GET', require('../routes/get-metadata'))
 
-  res.setHeader('Content-Type', 'application/json')
-  res.end(body)
-}
+export default shared.routeMethod(methods)
