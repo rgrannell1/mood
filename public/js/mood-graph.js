@@ -20,10 +20,10 @@ const asRanking = mood => {
 
   return mappings.hasOwnProperty(mood.toLowerCase())
     ? mappings[mood]
-    : mappings['Neutral']
+    : mappings['neutral']
 }
 
-const findDateBounds = date => {
+const findDateBounds = data => {
   return data.reduce((acc, curr) => {
     const data = {}
 
@@ -49,37 +49,48 @@ const findDateBounds = date => {
 
 const xata = [
   {
-    date: Date.parse('26 Aug 16:11 00:12:00 GMT'),
+    date: new Date(0),
     mood: 'bad'
   },
   {
-    date: Date.parse('25 Aug 16:11 00:12:00 GMT'),
+    date: new Date(1e5),
     mood: 'bad'
   },
   {
-    date: Date.parse('24 Aug 16:11 00:12:00 GMT'),
+    date: new Date(2e5),
     mood: 'bad'
   },
   {
-    date: Date.parse('23 Aug 16:11 00:12:00 GMT'),
+    date: new Date(3e5),
     mood: 'decent'
   },
   {
-    date: Date.parse('22 Aug 16:11 00:12:00 GMT'),
+    date: new Date(4e5),
     mood: 'stellar'
   },
   {
-    date: Date.parse('21 Aug 16:11 00:12:00 GMT'),
+    date: new Date(45e5),
     mood: 'stellar'
   }
 ]
 
-const renderMoodData = (data, opts) => {
-  const timeBounds = findDateBounds(xata)
+const bucketData = (data, bounds) => {
+  const timestamps = {
+    to: bounds.to.getTime(),
+    from: bounds.from.getTime()
+  }
 
-  // -- todo
+
+
 }
 
+const renderMoodData = (data, opts) => {
+  const timeBounds = findDateBounds(data)
+  const bounds = bucketData(data, timeBounds)
+
+  // -- todo; automatically bucket information? Probably
+  // -- include a loess curve though the whole thing
+}
 export default {
   renderMoodData,
   readMoodData

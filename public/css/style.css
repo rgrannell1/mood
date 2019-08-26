@@ -10,16 +10,16 @@
   --bg-colour-1: #ffaf8c;
   --emoji-hover: #db8787;
   --emoji-click: #744646;
-  --font-colour: #E10564;
-  --brand-colour: #E10564;
+  --font-colour: #e10564;
+  --brand-colour: #e10564;
   --divider-colour: #bfbfbf;
 
   font-size: 62.5%;
 }
 
 * {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 html {
@@ -29,7 +29,7 @@ html {
 body {
   background: linear-gradient(to left, var(--bg-colour-0), var(--bg-colour-1));
   font-size: 1.4rem;
-  font-weight: 100
+  font-weight: 100;
 }
 
 /* HEADER CSS */
@@ -38,7 +38,7 @@ body {
   margin-left: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
-  color: var(--brand-colour)
+  color: var(--brand-colour);
 }
 
 header {
@@ -62,7 +62,6 @@ main {
   border-radius: 5px;
   padding: 10px 40px;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
-  padding: 25px;
   padding-bottom: 35px;
 }
 
@@ -131,7 +130,7 @@ main {
   }
 
   body {
-    font-size: 1.4rem
+    font-size: 1.4rem;
   }
 
   .emoji-container {

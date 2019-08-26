@@ -56,7 +56,7 @@ async function syncData () {
 async function main () {
   await registerServiceWorker()
 
-  const $moods = document.querySelectorAll('.mood')
+  const $moods = document.querySelectorAll('.mood-emotion')
 
   $moods.forEach(elem => {
     elem.onclick = async event => {
