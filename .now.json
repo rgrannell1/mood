@@ -1,25 +1,13 @@
 {
   "version": 2,
-    "env": {
-      "mongo_user": "@mongo_user",
-      "mongo_password": "@mongo_password",
-      "mongo_cluster": "@mongo_cluster"
-    },
-  "build": {
-    "env": {
-      "mongo_user": "@mongo_user",
-      "mongo_password": "@mongo_password",
-      "mongo_cluster": "@mongo_cluster"
-    }
-  },
   "static": {
     "headers": [
       {
         "source": "**",
         "headers": [
           {
-            "key": "x-frame-options",
-            "value": "deny"
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
           }
         ]
       }

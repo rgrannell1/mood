@@ -5,10 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "@rgrannell/config": "8.2.0",
+    "chai": "^4.2.0",
     "mongodb": "3.3.0",
     "signale": "1.4.0"
   },
   "devDependencies": {
+    "@rgrannell/index": "^8.2.0",
+    "@rgrannell/pulp": "^8.4.0",
+    "folder-hash": "^3.2.0",
     "now": "16.1.2",
     "typescript": "3.5.3"
   },

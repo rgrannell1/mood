@@ -12,26 +12,30 @@
     <link rel="manifest" href="./manifest.webmanifest">
   </head>
   <body>
-    <div class="container">
+    <div class="grid-container">
       <header>
         <nav>
           <h1 id="brand">mood.</h1>
         </nav>
       </header>
-      <main id="mood-box">
-        <h2 id="mood-question">How are you?</h2>
-        <div class="emoji-container">
-          <div id="mood-0" class="mood" title="Atrocious">💀</div>
-          <div id="mood-1" class="mood" title="In pain">😩</div>
-          <div id="mood-2" class="mood" title="Ennui">😔</div>
-          <div id="mood-3" class="mood" title="Bad">😑</div>
-          <div id="mood-4" class="mood" title="Neutral">😐</div>
-          <div id="mood-5" class="mood" title="Decent">🙂</div>
-          <div id="mood-6" class="mood" title="Fine">😊</div>
-          <div id="mood-7" class="mood" title="Stellar">😇</div>
-        </div>
+      <main>
+        <section id="mood-box" class="mood-panel">
+          <h2 class="mood-h2">How are you?</h2>
+          <div class="emoji-container">
+            <div id="mood-0" class="mood-emotion" title="Atrocious">💀</div>
+            <div id="mood-1" class="mood-emotion" title="In pain">😩</div>
+            <div id="mood-2" class="mood-emotion" title="Ennui">😔</div>
+            <div id="mood-3" class="mood-emotion" title="Bad">😑</div>
+            <div id="mood-4" class="mood-emotion" title="Neutral">😐</div>
+            <div id="mood-5" class="mood-emotion" title="Decent">🙂</div>
+            <div id="mood-6" class="mood-emotion" title="Fine">😊</div>
+            <div id="mood-7" class="mood-emotion" title="Stellar">😇</div>
+          </div>
+        </section>
+        <section id="mood-graph" class="mood-panel">
+          <h2 class="mood-h2">Mood over time</h2>
+        </section>
       </main>
-    </div>
   </body>
 
   <script type="module" src="js/main.js"></script>

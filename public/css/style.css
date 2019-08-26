@@ -26,6 +26,14 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 
+body {
+  background: linear-gradient(to left, var(--bg-colour-0), var(--bg-colour-1));
+  font-size: 1.4rem;
+  font-weight: 100
+}
+
+/* HEADER CSS */
+
 #brand {
   margin-left: 20px;
   margin-top: 15px;
@@ -33,65 +41,89 @@ html {
   color: var(--brand-colour)
 }
 
-body {
-  background: linear-gradient(to left, var(--bg-colour-0), var(--bg-colour-1));
-  font-size: 1.4rem;
-  font-weight: 100
-}
-
 header {
   background: white;
   grid-column: 1 / 4;
   z-index: 1;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
-
 }
 
-#mood-box {
+/* GENERIC */
+
+main {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.mood-panel {
   background: white;
   border-radius: 5px;
   padding: 10px 40px;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
-  grid-column-start: 2;
-  grid-column-end: 3;
-  user-select: none;
   padding: 25px;
   padding-bottom: 35px;
 }
 
-#mood-question {
+.mood-h2 {
   font-size: 2em;
   color: var(--font-colour);
   border-bottom: 1px solid var(--divider-colour);
   margin-bottom: 35px;
 }
 
-#mood-list {
+.emoji-container {
   text-align: center;
 }
 
-.mood {
+/* MOOD QUESTION PANEL */
+
+#mood-box {
+  grid-row: 1;
+  user-select: none;
+  grid-row-gap: 100px;
+}
+
+.mood-emotion {
   font-size: 2.8em;
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
 }
 
-.mood:hover {
+.mood-emotion:hover {
   background: var(--emoji-hover);
 }
 
-.mood:active {
+.mood-emotion:active {
   background: var(--emoji-click);
 }
 
+/* MOOD GRAPH PANEL */
+
+#mood-graph {
+  grid-row: 2;
+}
+
+
+#mood-list {
+  text-align: center;
+}
+
+/* RESPONSIVE PANELS */
+
 /* Tablet Styles */
 @media only screen and (min-width: 416px) and (max-width: 960px) {
-  .container {
+  .grid-container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-gap: 10px;
     grid-row-gap: 60px;
+  }
+
+  main {
+    grid-row-gap: 4em;
   }
 
   body {
@@ -104,17 +136,17 @@ header {
   }
 }
 
-.emoji-container {
-  text-align: center;
-}
-
 /* Desktop */
 @media only screen and (min-width: 961px) {
-  .container {
+  .grid-container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-gap: 10px;
     grid-row-gap: 60px;
+  }
+
+  main {
+    grid-row-gap: 4em;
   }
 
   body {
@@ -129,11 +161,15 @@ header {
 
 /* Mobile Styles */
 @media only screen and (max-width: 415px) {
-  .container {
+  .grid-container {
     display: grid;
     grid-template-columns: 1fr 16fr 1fr;
     grid-gap: 10px;
     grid-row-gap: 60px;
+  }
+
+  main {
+    grid-row-gap: 2em;
   }
 
   body {
