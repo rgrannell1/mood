@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: 'Open Sans';
-  font-display: auto;
+  font-display: fallback;
   src: url('../fonts/open-sans.woff2') format('woff2');
 }
 

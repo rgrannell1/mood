@@ -7,6 +7,7 @@ export default async (req, res) => {
     version: package.version
   }
 
+  res.statusCode = 200
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(body, null, 2))
 }

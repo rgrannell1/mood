@@ -1,5 +1,8 @@
 
-const readMoodData = (opts = { from = 'now', mood = 'now-30d' }) => {
+
+const def = {from: 'now', mood: 'now-30d'}
+
+export const readMoodData = (opts = def) => {
   return fetch('api/moods', {
     method: 'GET',
     qs: { from, to }
@@ -23,75 +26,97 @@ const asRanking = mood => {
     : mappings['neutral']
 }
 
+const minBy = (data, fn) => {
+  const selected = {
+    value: null,
+    metric: Infinity
+  }
+  for (const datum of data) {
+    const metric = fn(datum)
+
+    if (metric < selected.metric) {
+      selected.value = datum
+      selected.metric = metric
+    }
+  }
+
+  return selected.value
+}
+
+const maxBy = (data, fn) => {
+  const selected = {
+    value: null,
+    metric: -Infinity
+  }
+  for (const datum of data) {
+    const metric = fn(datum)
+
+    if (metric > selected.metric) {
+      selected.value = datum
+      selected.metric = metric
+    }
+  }
+
+  return selected.value
+}
+
 const findDateBounds = data => {
-  return data.reduce((acc, curr) => {
-    const data = {}
+  const to = maxBy(data, datum => datum.date.getTime())
+  const from = minBy(data, datum => datum.date.getTime())
 
-    if (acc.from == null) {
-      data.from = curr.date
-    }
-    if (acc.to == null) {
-      data.to = curr.date
-    }
+  return {
+    to: to ? to.date : null,
+    from: from ? from.date : null
+  }
+}
 
-    if (curr.data > acc.to) {
-      data.to = curr.date
-    } else if (curr.date < acc.from) {
-      data.from = curr.date
+const addOffsets = (data, bounds) => {
+  return data.map(datum => {
+    return {
+      ...datum,
+      offset: datum.date.getTime() - bounds.from.getTime()
     }
-
-    return data
-  }, {
-      from: null,
-      to: null
-    })
+  })
 }
 
 const xata = [
   {
-    date: new Date(0),
+    date: new Date(1e11),
     mood: 'bad'
   },
   {
-    date: new Date(1e5),
+    date: new Date(2e11),
     mood: 'bad'
   },
   {
-    date: new Date(2e5),
-    mood: 'bad'
-  },
-  {
-    date: new Date(3e5),
+    date: new Date(3e11),
     mood: 'decent'
   },
   {
-    date: new Date(4e5),
+    date: new Date(4e11),
     mood: 'stellar'
   },
   {
-    date: new Date(45e5),
+    date: new Date(45e11),
     mood: 'stellar'
   }
 ]
 
-const bucketData = (data, bounds) => {
-  const timestamps = {
-    to: bounds.to.getTime(),
-    from: bounds.from.getTime()
-  }
+export const renderMoodData = (data, opts) => {
+  const bounds = findDateBounds(xata)
+  const withOffsets = addOffsets(xata, bounds)
 
+  const {offset: maxOffset} = maxBy(withOffsets, datum => datum.offset)
 
+  const coords = withOffsets.map(datum => {
+    return {
+      x: datum.offset / maxOffset,
+      y: asRanking(datum.mood)
+    }
+  })
+
+  // scale, add axis
 
 }
 
-const renderMoodData = (data, opts) => {
-  const timeBounds = findDateBounds(data)
-  const bounds = bucketData(data, timeBounds)
-
-  // -- todo; automatically bucket information? Probably
-  // -- include a loess curve though the whole thing
-}
-export default {
-  renderMoodData,
-  readMoodData
-}
+renderMoodData()

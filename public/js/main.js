@@ -1,6 +1,10 @@
 
 import local from './local.js'
 import {
+  renderMoodData
+} from './mood-graph.js'
+
+import {
   sendEvents
 } from './send-events.js'
 
@@ -72,6 +76,8 @@ async function main () {
       }
     }
   })
+
+  renderMoodData(null, {})
 }
 
 main()
