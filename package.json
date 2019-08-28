@@ -7,18 +7,15 @@
     "@rgrannell/config": "8.2.0",
     "@rgrannell/errors": "^8.2.0",
     "chai": "^4.2.0",
-    "mongodb": "3.3.0",
     "signale": "^1.4.0",
     "standard": "^14.0.2"
   },
   "devDependencies": {
     "@rgrannell/index": "^8.2.0",
     "@rgrannell/pulp": "^8.4.0",
-    "folder-hash": "^3.2.0",
     "now": "16.1.2",
     "stylelint": "^10.1.0",
-    "stylelint-config-standard": "^18.3.0",
-    "typescript": "3.5.3"
+    "stylelint-config-standard": "^18.3.0"
   },
   "scripts": {
     "deploy": "node_modules/.bin/now",

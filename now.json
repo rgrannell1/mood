@@ -8,9 +8,6 @@
   ],
   "routes": [
     {
-      "src": "public/index.html"
-    },
-    {
       "src": ".*",
       "headers": {
         "key": "X-XSS-Protection",
