@@ -4,6 +4,11 @@
     {
       "src": "/.*",
       "headers": {
+        "Content-Security-Policy": "script-src 'self'",
+        "Feature-Policy": "geolocation 'none'; camera 'none'; microphone 'none'",
+        "Referrer-Policy": "no-referrer",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
         "X-XSS-Protection": "1; mode=block"
       },
       "continue": true
