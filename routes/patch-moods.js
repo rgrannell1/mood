@@ -1,5 +1,7 @@
 
-export default async (_, res) => {
-  res.statusCode = 200
+const patchMoods = async (_, res) => {
+  res.status(200)
   res.end('PATCH api/moods')
 }
+
+export default patchMoods

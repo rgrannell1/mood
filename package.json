@@ -5,9 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "@rgrannell/config": "8.2.0",
+    "@rgrannell/errors": "^8.2.0",
     "chai": "^4.2.0",
     "mongodb": "3.3.0",
-    "signale": "1.4.0"
+    "signale": "^1.4.0",
+    "standard": "^14.0.2"
   },
   "devDependencies": {
     "@rgrannell/index": "^8.2.0",

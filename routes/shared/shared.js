@@ -1,19 +1,30 @@
 
-const shared = {
-  methods: new Map()
+import signale from 'signale'
+import errors from '@rgrannell/errors'
+
+const handleErrors = async (err, req, res) => {
+  console.log(err)
+
+  // -- add custom errors for handling.
 }
 
-shared.methods.set('NOT_SUPPORTED', async (req, res) => {
-  res.statusCode = 405
-  res.end('method not supported')
-})
+export const routeMethod = methods => async (req, res) => {
+  signale.debug(`${req.method} ${req.path}`)
 
-shared.routeMethod = methods => (req, res) => {
-  if (methods.has(req.method)) {
-    methods.get(req.method)(req, res)
-  } else {
-    await shared.methods.NOT_SUPPORTED(req, res)
+  try {
+    if (!methods.has(req.method)) {
+      const err = errors.METHOD_NOT_ALLOWED(`method ${req.method} not supported`, 'HTTP_405')
+      throw err
+    }
+
+    await methods.get(req.method)(req, res)
+
+  } catch (err) {
+    const isError = err instanceof Error
+    const requestError = isError
+      ? err
+      : errors.INTERNAL_SERVER_ERROR('server failed to handle request', 'HTTP_500')
+
+    await handleErrors(requestError, req, res)
   }
 }
-
-module.exports = shared
