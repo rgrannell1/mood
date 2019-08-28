@@ -1,18 +1,16 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "public/**",
-      "use": "@now/static"
-    }
-  ],
   "routes": [
     {
-      "src": ".*",
+      "src": "/.*",
       "headers": {
-        "key": "X-XSS-Protection",
-        "value": "1; mode=block"
-      }
+        "X-XSS-Protection": "1; mode=block"
+      },
+      "continue": true
+    },
+    {
+
+      "handle": "filesystem"
     }
   ]
 }
