@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/**",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "public/index.html"
+    },
+    {
+      "src": ".*",
+      "headers": {
+        "key": "X-XSS-Protection",
+        "value": "1; mode=block"
+      }
+    }
+  ]
+}
