@@ -1,10 +1,7 @@
 
-const package = require('../package.json')
-
 const getMetadata = async (req, res) => {
   const body = {
-    description: 'mood\'s api',
-    version: package.version
+    description: 'mood\'s api'
   }
 
   res.status(200)

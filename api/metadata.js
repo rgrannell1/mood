@@ -1,8 +1,12 @@
 
 import { routeMethod } from '../routes/shared/shared.js'
 
+import getMetadata from '../routes/get-metadata'
+
 const methods = new Map()
 
-methods.set('GET', require('../routes/get-metadata'))
+methods.set('GET', getMetadata)
 
-export default routeMethod(methods)
+const metadata = routeMethod(methods)
+
+export default metadata

@@ -1,8 +1,10 @@
 
 import signale from 'signale'
-//const errors = require('@rgrannell/errors')
 import * as errors from '@rgrannell/errors'
-//import * as createError from 'http-errors'
+
+const is = val => {
+  return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
+}
 
 const handleErrors = async (err, req, res) => {
   res
@@ -11,21 +13,18 @@ const handleErrors = async (err, req, res) => {
 }
 
 export const routeMethod = methods => async (req, res) => {
-  signale.debug(`${req.method} ${req.originalUrl}`)
+  if (is(methods) !== 'map') {
+    throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)
+  }
+
+  signale.debug(`received request ${req.method} ${req.originalUrl}`)
 
   try {
     if (!methods.has(req.method)) {
-      const err = errors.methodNotAllowed(`method ${req.method} not supported`, 405)
-      throw err
+      throw errors.methodNotAllowed(`method ${req.method} not supported`, 405)
     }
 
     const route = methods.get(req.method)
-
-    if (typeof route !== 'function') {
-      signale.error(`unsupported method ${req.method}`)
-      throw errors.internalServerError('server failed to handle request', 500)
-    }
-
     await route(req, res)
 
   } catch (err) {
