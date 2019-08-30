@@ -1,5 +1,5 @@
 
-import { routeMethod } from '../routes/shared/shared.js'
+import { routeMethod } from '../routes/shared/routes.js'
 
 const methods = new Map()
 
