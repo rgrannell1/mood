@@ -8,6 +8,7 @@
     "@rgrannell/errors": "^8.2.0",
     "chai": "^4.2.0",
     "http-errors": "^1.7.3",
+    "lit-html": "^1.1.2",
     "signale": "^1.4.0",
     "standard": "^14.0.2"
   },
