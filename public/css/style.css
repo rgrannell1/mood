@@ -39,6 +39,8 @@ body {
   margin-top: 15px;
   margin-bottom: 15px;
   color: var(--brand-colour);
+  grid-column-start: 1;
+  grid-column-end: 2;
 }
 
 header {
@@ -46,6 +48,18 @@ header {
   grid-column: 1 / 4;
   z-index: 1;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
+}
+
+#google-signin {
+  margin-left: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  grid-column-start: 8;
+}
+
+#mood-header {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
 }
 
 /* GENERIC */
@@ -125,6 +139,15 @@ main {
     grid-row-gap: 60px;
   }
 
+  #mood-header {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  #google-signin {
+    grid-column-start: 6;
+  }
+
   main {
     grid-row-gap: 4em;
   }
@@ -148,6 +171,15 @@ main {
     grid-row-gap: 60px;
   }
 
+  #mood-header {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  #google-signin {
+    grid-column-start: 8;
+  }
+
   main {
     grid-row-gap: 4em;
   }
@@ -169,6 +201,15 @@ main {
     grid-template-columns: 1fr 16fr 1fr;
     grid-gap: 10px;
     grid-row-gap: 60px;
+  }
+
+  #mood-header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #google-signin {
+    grid-column-start: 3;
   }
 
   main {

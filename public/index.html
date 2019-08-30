@@ -11,14 +11,18 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon-180x180" />
+    <meta name="google-signin-client_id" content="1053339394516-8m3pa0tvsejqha2usv84rkul7ja804s6.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <script type="module" src="js/main.js"></script>
+    <script src="js/login.js"></script>
   </head>
   <body>
     <div class="grid-container">
       <header>
-        <nav>
+        <nav id="mood-header">
           <h1 id="brand">mood.</h1>
+          <div id="google-signin" class="g-signin2" data-onsuccess="onSignIn"></div>
         </nav>
       </header>
       <main>
@@ -41,5 +45,4 @@
         </section>
       </main>
   </body>
-
 </html>
