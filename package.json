@@ -4,10 +4,11 @@
   "description": "Publish a mood tracker to Zeit.",
   "main": "index.js",
   "dependencies": {
-    "@rgrannell/config": "8.2.0",
+    "@rgrannell/config": "^8.2.0",
     "@rgrannell/errors": "^8.2.0",
     "chai": "^4.2.0",
     "http-errors": "^1.7.3",
+    "jsonbin-io-api": "^1.0.2",
     "lit-html": "^1.1.2",
     "signale": "^1.4.0",
     "standard": "^14.0.2"

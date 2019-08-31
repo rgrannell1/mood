@@ -1,14 +1,16 @@
 
-import local from './local.js'
+import { render } from 'https://unpkg.com/lit-html@1.1.2/lit-html.js'
+
+import local from './services/local.js'
 import {
   renderMoodData
-} from './mood-graph.js'
+} from './services/mood-graph.js'
 
 import {
   sendEvents
-} from './send-events.js'
+} from './services/send-events.js'
 
-import { html, render } from 'https://unpkg.com/lit-html@1.1.2/lit-html.js'
+import pages from './view/pages.js'
 
 async function registerServiceWorker () {
   try {
@@ -83,69 +85,5 @@ async function main () {
 }
 
 main()
-
-const components = {}
-
-components.page = main => {
-  return html`
-  <div class="grid-container">
-    ${components.header()}
-    <main>
-    ${main}
-    </main>
-  </div>
-  `
-}
-
-components.header = () => {
-  return html`
-  <header>
-    <nav id="mood-header">
-      <h1 id="brand">mood.</h1>
-      <div id="google-signin" class="g-signin2" data-onsuccess="onSignIn"></div>
-      </nav>
-  </header>
-  `
-}
-
-components.sectionHeader = title => {
-  return html`<h2 class="mood-h2">${title}</h2>`
-}
-
-components.moodGraph = () => {
-  return html`
-  <section id="mood-graph" class="mood-panel">
-    ${components.sectionHeader('Mood over time')}
-    <canvas id="mood-over-time"></canvas>
-  </section>`
-}
-
-components.moodPanel = () => {
-  return html`
-  <section id="mood-box" class="mood-panel">
-  ${components.sectionHeader('How are you?')}
-  <div class="emoji-container">
-      <div id="mood-0" class="mood-emotion" title="Atrocious">💀</div>
-      <div id="mood-1" class="mood-emotion" title="In pain">😩</div>
-      <div id="mood-2" class="mood-emotion" title="Ennui">😔</div>
-      <div id="mood-3" class="mood-emotion" title="Bad">😑</div>
-      <div id="mood-4" class="mood-emotion" title="Neutral">😐</div>
-      <div id="mood-5" class="mood-emotion" title="Decent">🙂</div>
-      <div id="mood-6" class="mood-emotion" title="Fine">😊</div>
-      <div id="mood-7" class="mood-emotion" title="Stellar">😇</div>
-    </div>
-  </section>
-  `
-}
-
-const pages = {}
-
-pages.index = () => {
-  const indexMain = html`
-    ${components.moodPanel()}
-    ${components.moodGraph()}
-  `
-  return components.page(indexMain)
-}
 
 render(pages.index(), document.body)
