@@ -7,6 +7,8 @@
     "@rgrannell/config": "^8.2.0",
     "@rgrannell/errors": "^8.2.0",
     "chai": "^4.2.0",
+    "google-auth-library": "^5.2.0",
+    "googleapis": "^42.0.0",
     "http-errors": "^1.7.3",
     "jsonbin-io-api": "^1.0.2",
     "lit-html": "^1.1.2",

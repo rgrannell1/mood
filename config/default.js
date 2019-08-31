@@ -5,6 +5,9 @@ module.exports = () => {
   }
 
   return {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID
+    },
     jsonbin: {
       key: process.env.JSONBIN_API_KEY
     }
