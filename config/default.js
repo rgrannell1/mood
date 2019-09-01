@@ -1,8 +1,19 @@
 
-module.exports = () => {
-  if (!process.env.JSONBIN_API_KEY) {
-    throw new Error('environmental variable JSONBIN_API_KEY was missing.')
+const expect = {}
+
+expect.variables = names => {
+  for (const name of names) {
+    if (!process.env[name]) {
+      throw new Error(`environmental variable ${name} was missing.`)
+    }
   }
+}
+
+module.exports = () => {
+  expect.variables([
+    'GOOGLE_CLIENT_ID',
+    'JSONBIN_API_KEY'
+  ])
 
   return {
     google: {

@@ -19,10 +19,9 @@ components.header = () => {
     <header>
       <nav id="mood-header">
         <h1 id="brand">mood.</h1>
-        <div id="google-signin" class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div id="google-signin" class="g-signin2"></div>
         </nav>
-    </header>
-  `
+    </header>`
 }
 
 components.sectionHeader = title => {
@@ -65,6 +64,11 @@ components.moodPanel = () => {
 
 const pages = {}
 
+/**
+ * Create the index-page component
+ *
+ * @returns {HTML} index-page
+ */
 pages.index = () => {
   const indexMain = html`
     ${components.moodPanel()}

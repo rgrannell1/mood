@@ -6,8 +6,13 @@
 
 // use sub as user primary key
 
+import path from 'path'
+import { constants } from './constants.js'
+
 const environment = 'default'
-const values = config(environment)
+const values = config(environment, {
+  root: constants.paths.root
+})
 
 import OAuth2Client from 'google-auth-library'
 const client = new OAuth2Client(values.google.clientId)
