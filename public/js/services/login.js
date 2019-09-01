@@ -18,9 +18,11 @@ handlers.onSuccess = user => {
 
 /**
  * report the error to the user
+ *
+ * @param err {Error} the login error
  */
 handlers.onFailure = err => {
-  console.error(err.message)
+  console.error(err)
 }
 
 window.onload = function () {
