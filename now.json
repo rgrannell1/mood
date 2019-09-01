@@ -1,5 +1,9 @@
 {
   "version": 2,
+  "env": {
+    "GOOGLE_CLIENT_ID": "@google_client_id",
+    "JSONBIN_API_KEY": "@jsonbin_api_key"
+  },
   "routes": [
     {
       "src": "/.*",
