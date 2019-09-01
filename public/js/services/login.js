@@ -1,16 +1,26 @@
 
+import local from './local.js'
+import constants from '../shared/constants.js'
+
 const handlers = {}
 
-handlers.onSuccess = () => {
-  alert('ready')
+/**
+ * set up ID token when signed in correctly
+ */
+handlers.onSuccess = user => {
+  console.log('setting google id token')
+
+  const authResponse = user.getAuthResponse()
+
+  // -- should be refactored.
+  local.set(constants.keys.googleToken, authResponse.id_token)
 }
 
-handlers.onFailure = () => {
-  alert('error')
-}
-
-const attachSignIn = ($button, api) => {
-  api.attachClickHandler($button, {}, handlers.onSuccess, handlers.onFailure)
+/**
+ * report the error to the user
+ */
+handlers.onFailure = err => {
+  console.error(err.message)
 }
 
 window.onload = function () {
@@ -22,10 +32,11 @@ window.onload = function () {
 
   gapi.load('auth2', () => {
     const api = gapi.auth2.init({
-      clientId: '1053339394516-8m3pa0tvsejqha2usv84rkul7ja804s6.apps.googleusercontent.com'
+      clientId: constants.google.clientId
     })
 
     const $button = document.querySelector('#google-signin')
-    attachSignIn($button, api)
+
+    api.attachClickHandler($button, {}, handlers.onSuccess, handlers.onFailure)
   })
 }
