@@ -1,5 +1,5 @@
 
-import jsonbin from '../shared/jsonbin.js'
+import jsonbin from './shared/jsonbin.js'
 
 const patchMoods = async (_, res) => {
 
