@@ -13,7 +13,26 @@
   --font-colour: #e10564;
   --brand-colour: #e10564;
   --divider-colour: #bfbfbf;
+  --header-colour: white;
+}
 
+/*
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-colour-0: #fc76af;
+    --bg-colour-1: #ffaf8c;
+    --emoji-hover: #db8787;
+    --emoji-click: #744646;
+    --font-colour: #e10564;
+    --brand-colour: #e10564;
+    --divider-colour: #bfbfbf;
+    --header-colour: white;
+  }
+}
+*/
+
+:root {
   font-size: 62.5%;
 }
 
@@ -44,7 +63,7 @@ body {
 }
 
 header {
-  background: white;
+  background: var(--header-colour);
   grid-column: 1 / 4;
   z-index: 1;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
@@ -76,7 +95,7 @@ main {
 }
 
 .mood-panel {
-  background: white;
+  background: var(--header-colour);
   border-radius: 5px;
   padding: 10px 40px;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
@@ -86,8 +105,10 @@ main {
 .mood-h2 {
   font-size: 2em;
   color: var(--font-colour);
+  padding-top: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--divider-colour);
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 
 .emoji-container {
@@ -209,7 +230,7 @@ main {
 
   #mood-header {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 4fr 1fr 4fr;
   }
 
   #google-signin {

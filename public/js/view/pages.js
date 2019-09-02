@@ -62,6 +62,19 @@ components.moodPanel = () => {
   `
 }
 
+components.privacyPolicy = () => {
+  return html`
+    <section id="mood-box" class="mood-panel">
+    ${components.sectionHeader('Privacy Policy')}
+    <div>
+      <p>TLDR: this site will not use your data in a malicious manner</p>
+
+      <p>NOTE: this site is not finished!</p>
+    </div>
+    </section>
+  `
+}
+
 const pages = {}
 
 /**
@@ -75,6 +88,13 @@ pages.index = () => {
     ${components.moodGraph()}
   `
   return components.page(indexMain)
+}
+
+pages.privacy = () => {
+  const privacyMain = html`
+    ${components.privacyPolicy()}
+  `
+  return components.page(privacyMain)
 }
 
 export default pages

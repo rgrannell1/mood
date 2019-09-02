@@ -23,7 +23,7 @@ async function sendEvents () {
 const cached = [
   '/',
   '/css/style.css',
-  '/js/main.js',
+  '/js/pages/index.js',
   '/js/services/local.js',
   '/js/services/send-events.js',
   '/fonts/open-sans.woff2',
