@@ -1,6 +1,6 @@
 
-const { local } = require('../shared/utils.js')
-const constants = require('../shared/constants.js')
+import { local } from '../shared/utils.js'
+import constants from '../shared/constants.js'
 
 const initialiseCache = () => {
   const events = local.get(constants.keys.cachedEvents)

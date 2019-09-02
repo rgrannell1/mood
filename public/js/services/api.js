@@ -1,6 +1,6 @@
 
 import { local } from '../shared/utils.js'
-import cache from '../shared/cache.js'
+import cache from '../services/cache.js'
 import constants from '../shared/constants.js'
 
 const api = {
@@ -31,7 +31,6 @@ const withToken = fn => {
  */
 api.moods.post = async () => {
   console.log('⛏ syncing events to server')
-  const events = local.get('cached-events')
 
   const events = cache.retrieveEvents()
 
