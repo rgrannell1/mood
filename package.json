@@ -4,7 +4,6 @@
   "description": "Publish a mood tracker to Zeit.",
   "main": "index.js",
   "dependencies": {
-    "@rgrannell/config": "9.0.0",
     "@rgrannell/errors": "8.2.0",
     "chai": "4.2.0",
     "google-auth-library": "5.2.0",

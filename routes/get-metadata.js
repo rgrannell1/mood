@@ -1,7 +1,8 @@
 
 const getMetadata = async (req, res) => {
   const body = {
-    description: 'mood\'s api'
+    description: 'mood\'s api',
+    version: 'alpha'
   }
 
   res.status(200)

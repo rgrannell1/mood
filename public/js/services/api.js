@@ -7,7 +7,14 @@ const api = {
   moods: {}
 }
 
-const asBody = value => JSON.stringify(value, null, 2)
+/**
+ * convert an object to a string.
+ *
+ * @param {Object} value
+ */
+const asBody = value => {
+  return JSON.stringify(value, null, 2)
+}
 
 /**
  * Retrieve a token and call an underlying REST method

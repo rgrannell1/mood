@@ -1,15 +1,10 @@
 
 import path from 'path'
 import api from 'jsonbin-io-api'
-import config from '@rgrannell/config'
 import constants from './constants.js'
+import config from './config.js'
 
-const environment = 'default'
-const values = config(environment, {
-  root: constants.paths.root
-})
-
-const jsonbin = new api(values.jsonbin.key)
+const jsonbin = new api(config.jsonbin.key)
 
 export const moodStore = {}
 

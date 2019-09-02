@@ -36,6 +36,8 @@ export async function registerServiceWorker() {
 export const model = {
   event(elem) {
     return {
+      // -- todo change to hash.
+      id: `${elem.title} ${Date.now}`,
       type: 'select-emotion',
       mood: elem.title,
       timestamp: Date.now()

@@ -8,15 +8,11 @@
 
 import path from 'path'
 import constants from './constants.js'
-import config from '@rgrannell/config'
+import config from './config.js'
 
 import OAuth2Client from 'google-auth-library'
 
-const environment = 'default'
-const values = config(environment, {
-  root: constants.paths.root
-})
-const client = new OAuth2Client(values.google.clientId)
+const client = new OAuth2Client(config.google.clientId)
 
 /**
  * Ensure that a user is logged in through Google.
@@ -28,7 +24,7 @@ const client = new OAuth2Client(values.google.clientId)
 const verifyToken = async token => {
   const ticket = await client.verifyIdToken({
     idToken: token,
-    audience: values.google.clientId
+    audience: config.google.clientId
   })
   const payload = ticket.getPayload()
   const userId = payload.sub
