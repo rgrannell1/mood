@@ -6,8 +6,8 @@ import {
 } from '../services/mood-graph.js'
 
 import {
-  sendEvents
-} from '../services/send-events.js'
+  api
+} from '../services/api.js'
 
 import pages from '../view/pages.js'
 
@@ -31,7 +31,7 @@ async function main () {
       writeCache(data)
 
       try {
-        await sendEvents()
+        await api.moods.post()
       } catch (err) {
         console.error(`failed to send events: ${err.message}`)
         await syncData()

@@ -8,7 +8,11 @@ const local = {
   }
 }
 
-async function sendEvents () {
+const api = {}
+
+
+// -- todo use an import here instead?
+api.sendEvents = () => {
   const events = local.get('cached-events')
   console.log(`⛏ syncing ${events.length} events to server`)
 
@@ -20,6 +24,7 @@ async function sendEvents () {
   })
 }
 
+// -- todo expand caceable
 const cached = [
   '/',
   '/css/style.css',
