@@ -90,6 +90,11 @@ pages.index = () => {
   return components.page(indexMain)
 }
 
+/**
+ * Create the privacy-page component
+ *
+ * @returns {HTML} index-page
+ */
 pages.privacy = () => {
   const privacyMain = html`
     ${components.privacyPolicy()}

@@ -2,8 +2,6 @@
 import { local } from '../shared/utils.js'
 import constants from '../shared/constants.js'
 
-const cache = {}
-
 const api = {
   moods: {}
 }
