@@ -1,13 +1,9 @@
 
 import { render } from 'https://unpkg.com/lit-html@1.1.2/lit-html.js'
 
-import {
-  renderMoodData
-} from '../services/mood-graph.js'
-
-import {
-  api
-} from '../services/api.js'
+import { renderMoodData } from '../services/mood-graph.js'
+import { api } from '../services/api.js'
+import cache from '../services/cache.js'
 
 import pages from '../view/pages.js'
 
@@ -28,13 +24,13 @@ async function main () {
   $moods.forEach(elem => {
     elem.onclick = async event => {
       const data = model.event(event.target)
-      writeCache(data)
+      cache.addEvent(data)
 
       try {
         await api.moods.post()
       } catch (err) {
         console.error(`failed to send events: ${err.message}`)
-        await syncData()
+        // await api.moods.post()
       }
     }
   })

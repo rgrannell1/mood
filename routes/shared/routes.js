@@ -1,6 +1,10 @@
 
+import {
+  trackingId
+} from './utils.js'
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
+import { fdatasync } from 'fs';
 
 const is = val => {
   return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
@@ -14,9 +18,22 @@ const is = val => {
  * @param {Response} res the response error
  */
 const handleErrors = async (err, req, res) => {
+  const ctx = req.state
+
   res
     .status(500)
-    .end('error handling not working ')
+    .end('error handling not implemented')
+}
+
+const attachMetadata = req => {
+  const state = {}
+
+  state.trackingId = trackingId()
+  state.ip = hash(req.headers['x-real-ip'] || '')
+  state.forwardedFor = hash(req.headers['x-forwarded-for'] || '')
+  state.userAgent = req.headers['user-agent'] || 'unknown'
+
+  return state
 }
 
 /**
@@ -25,6 +42,8 @@ const handleErrors = async (err, req, res) => {
  * @param {Map<string, function>} methods the available methods for this request.
  */
 export const routeMethod = methods => async (req, res) => {
+  req.state = requestMetadata(req)
+
   if (is(methods) !== 'map') {
     throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)
   }

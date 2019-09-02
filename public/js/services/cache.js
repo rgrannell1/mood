@@ -37,7 +37,7 @@ cache.retrieveEvents = () => {
 
   const value = local.get(constants.keys.cachedEvents)
 
-  return JSON.parse(value)
+  return value
 }
 
 /**

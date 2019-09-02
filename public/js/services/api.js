@@ -67,7 +67,7 @@ api.moods.get = async () => {
     return fetch('api/moods', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`
+        'x-auth-token': `Bearer ${token}`
       },
       qs: { from, to }
     })

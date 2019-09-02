@@ -46,27 +46,12 @@ export const model = {
 }
 
 /**
- * Writes an event to a temporary cache, so that fetch requests can attempt to
- * send them to the server when a connection is available.
- *
- * @param event {Event} the event to write to the cache
- */
-export function writeCache(event) {
-  const currentCache = local.get('cached-events')
-
-  if (!Array.isArray(currentCache)) {
-    local.set('cached-events', [])
-  }
-
-  currentCache.push(event)
-  console.log('pushed event to cache')
-}
-
-/**
  * Sends the events queued into the cache to the server for storage
  * when a connection is available.
  */
 export async function syncData() {
-  const reg = await navigator.serviceWorker.ready
-  reg.sync.register('sync')
+
+
+//  const reg = await navigator.serviceWorker.ready
+//  reg.sync.register('sync')
 }
