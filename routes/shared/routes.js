@@ -26,7 +26,6 @@ export const routeMethod = methods => async (req, res) => {
 
     const route = methods.get(req.method)
     await route(req, res)
-
   } catch (err) {
     signale.warn(`error-response received: ${err.message ? err.message : err}`)
 

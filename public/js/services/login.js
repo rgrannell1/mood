@@ -25,6 +25,9 @@ handlers.onFailure = err => {
   console.error(err)
 }
 
+/**
+ * load gooogle signin
+ */
 window.onload = function () {
   console.log('setting up google login.')
 

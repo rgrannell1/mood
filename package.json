@@ -4,24 +4,23 @@
   "description": "Publish a mood tracker to Zeit.",
   "main": "index.js",
   "dependencies": {
-    "@rgrannell/config": "^9.0.0",
-    "@rgrannell/errors": "^8.2.0",
-    "chai": "^4.2.0",
-    "google-auth-library": "^5.2.0",
-    "googleapis": "^42.0.0",
-    "http-errors": "^1.7.3",
-    "jsonbin-io-api": "^1.0.2",
-    "lit-html": "^1.1.2",
-    "signale": "^1.4.0"
+    "@rgrannell/config": "9.0.0",
+    "@rgrannell/errors": "8.2.0",
+    "chai": "4.2.0",
+    "google-auth-library": "5.2.0",
+    "http-errors": "1.7.3",
+    "jsonbin-io-api": "1.0.2",
+    "lit-html": "1.1.2",
+    "signale": "1.4.0"
   },
   "devDependencies": {
-    "@rgrannell/index": "^8.2.0",
-    "@rgrannell/pulp": "^8.4.0",
-    "express": "^4.17.1",
+    "@rgrannell/index": "8.2.0",
+    "@rgrannell/pulp": "8.4.0",
+    "express": "4.17.1",
     "now": "16.1.2",
-    "standard": "^14.0.2",
-    "stylelint": "^10.1.0",
-    "stylelint-config-standard": "^18.3.0"
+    "standard": "14.0.2",
+    "stylelint": "10.1.0",
+    "stylelint-config-standard": "18.3.0"
   },
   "scripts": {
     "deploy": "node_modules/.bin/now",

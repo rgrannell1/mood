@@ -18,7 +18,7 @@ components.header = () => {
   return html`
     <header>
       <nav id="mood-header">
-        <h1 id="brand">mood.</h1>
+        <a href="/"><h1 id="brand">mood.</h1></a>
         <div id="google-signin" class="g-signin2"></div>
         </nav>
     </header>`

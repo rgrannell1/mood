@@ -64,6 +64,10 @@ header {
 
 /* GENERIC */
 
+a {
+  text-decoration: none;
+}
+
 main {
   grid-column-start: 2;
   grid-column-end: 3;

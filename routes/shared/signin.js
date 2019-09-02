@@ -7,14 +7,15 @@
 // use sub as user primary key
 
 import path from 'path'
-import { constants } from './constants.js'
+import constants from './constants.js'
+import config from '@rgrannell/config'
+
+import OAuth2Client from 'google-auth-library'
 
 const environment = 'default'
 const values = config(environment, {
   root: constants.paths.root
 })
-
-import OAuth2Client from 'google-auth-library'
 const client = new OAuth2Client(values.google.clientId)
 
 /**
@@ -24,7 +25,7 @@ const client = new OAuth2Client(values.google.clientId)
  *
  * @returns {object} data about the user
  */
-const ensureLoggedIn = async token => {
+const verifyToken = async token => {
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: values.google.clientId
@@ -34,6 +35,15 @@ const ensureLoggedIn = async token => {
 
   return {
     userId
+  }
+}
+
+const ensureLoggedIn = async (req, res) => {
+  try {
+    verifyToken(req.headers.Authorization)
+  } catch (err) {
+    // -- send http errors if couldn't verify login.
+    console.error(err)
   }
 }
 

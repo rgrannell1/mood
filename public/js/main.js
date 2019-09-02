@@ -41,7 +41,6 @@ function writeCache (event) {
   const currentCache = local.get('cached-events')
 
   if (!Array.isArray(currentCache)) {
-    console.error('invalid cached-events list; writing an empty array to cache')
     local.set('cached-events', [])
   }
 
@@ -55,7 +54,7 @@ function writeCache (event) {
  */
 async function syncData () {
   const reg = await navigator.serviceWorker.ready
-  reg.sync.register('sync');
+  reg.sync.register('sync')
 }
 
 /**
@@ -68,7 +67,6 @@ async function main () {
 
   $moods.forEach(elem => {
     elem.onclick = async event => {
-
       const data = model.event(event.target)
       writeCache(data)
 

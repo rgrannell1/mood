@@ -1,6 +1,5 @@
 
-
-const def = {from: 'now', mood: 'now-30d'}
+const def = { from: 'now', mood: 'now-30d' }
 
 export const readMoodData = (opts = def) => {
   return fetch('api/moods', {
@@ -11,19 +10,19 @@ export const readMoodData = (opts = def) => {
 
 const asRanking = mood => {
   const mappings = {
-    'atrocious': 0,
+    atrocious: 0,
     'in pain': 1,
-    'ennui': 2,
-    'bad': 3,
-    'neutral': 4,
-    'decent': 5,
-    'fine': 6,
-    'stellar': 7
+    ennui: 2,
+    bad: 3,
+    neutral: 4,
+    decent: 5,
+    fine: 6,
+    stellar: 7
   }
 
   return mappings.hasOwnProperty(mood.toLowerCase())
     ? mappings[mood]
-    : mappings['neutral']
+    : mappings.neutral
 }
 
 const minBy = (data, fn) => {
@@ -106,7 +105,7 @@ export const renderMoodData = (data, opts) => {
   const bounds = findDateBounds(xata)
   const withOffsets = addOffsets(xata, bounds)
 
-  const {offset: maxOffset} = maxBy(withOffsets, datum => datum.offset)
+  const { offset: maxOffset } = maxBy(withOffsets, datum => datum.offset)
 
   const coords = withOffsets.map(datum => {
     return {
@@ -116,7 +115,6 @@ export const renderMoodData = (data, opts) => {
   })
 
   // scale, add axis
-
 }
 
 renderMoodData()

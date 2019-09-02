@@ -1,9 +1,8 @@
 
-const getMoods = async (req, res) => {
+import ensureLoggedIn from './shared/signin'
 
-  // from
-  // to
-  // userId
+const getMoods = async (req, res) => {
+  await ensureLoggedIn(req, res)
 
   res.status(200)
   res.end('GET api/moods')

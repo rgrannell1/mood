@@ -1,14 +1,14 @@
 
 const local = {
-  set(key, value) {
+  set (key, value) {
     return localStorage.setItem(key, JSON.stringify(value))
   },
-  get(key) {
+  get (key) {
     return JSON.parse(localStorage.getItem(key))
   }
 }
 
-async function sendEvents() {
+async function sendEvents () {
   const events = local.get('cached-events')
   console.log(`⛏ syncing ${events.length} events to server`)
 
@@ -62,7 +62,7 @@ const fetchResponse = async event => {
   return uncachedRes
 }
 
-console.log(`⛏ service-worker started`)
+console.log('⛏ service-worker started')
 
 self.addEventListener('install', event => {
   console.log('⛏ installed')

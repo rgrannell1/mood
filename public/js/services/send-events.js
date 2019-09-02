@@ -2,8 +2,8 @@
 import local from './local.js'
 import constants from '../shared/constants.js'
 
-async function sendEvents() {
-  console.log(`⛏ syncing events to server`)
+async function sendEvents () {
+  console.log('⛏ syncing events to server')
   const events = local.get('cached-events')
 
   const body = JSON.stringify({ events }, null, 2)
@@ -19,7 +19,7 @@ async function sendEvents() {
       body
     })
   } else {
-    throw new Error(`token was absent, so could not log in`)
+    throw new Error('token was absent, so could not log in')
   }
 }
 
