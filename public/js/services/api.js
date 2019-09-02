@@ -1,10 +1,13 @@
 
 import { local } from '../shared/utils.js'
+import cache from '../shared/cache.js'
 import constants from '../shared/constants.js'
 
 const api = {
   moods: {}
 }
+
+const asBody = value => JSON.stringify(value, null, 2)
 
 /**
  * Retrieve a token and call an underlying REST method
@@ -30,17 +33,22 @@ api.moods.post = async () => {
   console.log('⛏ syncing events to server')
   const events = local.get('cached-events')
 
-  const body = JSON.stringify({ events }, null, 2)
+  const events = cache.retrieveEvents()
 
-  return withToken(token => {
+  const response =  withToken(token => {
     return fetch('api/moods', {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${token}`
       },
-      body
+      body: asBody({
+        events
+      })
     })
   })
+
+  // -- if successful, wipe results from cache.
+  cache.removeEvents(events)
 }
 
 /**

@@ -2,25 +2,35 @@
 const { local } = require('../shared/utils.js')
 const constants = require('../shared/constants.js')
 
+const initialiseCache = () => {
+  const events = local.get(constants.keys.cachedEvents)
+
+  if (typeof events === 'undefined' || events === null) {
+    local.set(constants.keys.cachedEvents, [])
+  }
+}
+
 const cache = {}
 
 cache.addEvent = event => {
-  const events = local.get(constants.keys.cachedEvents)
+  initialiseCache()
 
-  if (typeof cache === 'undefined' || cache === null) {
-    local.set(constants.keys.cachedEvents, [])
-  }
+  const events = local.get(constants.keys.cachedEvents)
 
   events.push(event)
   local.set(constants.keys.cachedEvents, events)
 }
 
 cache.retrieveEvents = () => {
-  return local.get(constants.kets.cachedEvents)
+  initialiseCache()
+
+  const value = local.get(constants.keys.cachedEvents)
+
+  return JSON.parse(value)
 }
 
 cache.removeEvents = events => {
-
+  initialiseCache()
 }
 
 export default cache
