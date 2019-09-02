@@ -1,5 +1,28 @@
 
-import local from '../services/local.js'
+/**
+ * Typed wrapper for localstorage
+ */
+export const local = {
+  /**
+   * set a value in localstorage
+   *
+   * @param {string} key the property name
+   * @param {string} value the property value
+   */
+  set(key, value) {
+    return localStorage.setItem(key, JSON.stringify(value))
+  },
+  /**
+ * set a value in localstorage
+ *
+ * @param {string} key the property name
+ *
+ * @returns {string} the value stored in localstorage
+ */
+  get(key) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+}
 
 export async function registerServiceWorker() {
   try {
@@ -45,7 +68,3 @@ export async function syncData() {
   const reg = await navigator.serviceWorker.ready
   reg.sync.register('sync')
 }
-
-// -- to remove
-let x = 1
-export default x

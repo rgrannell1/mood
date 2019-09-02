@@ -28,9 +28,16 @@ api.sendEvents = () => {
 const cached = [
   '/',
   '/css/style.css',
+
   '/js/pages/index.js',
-  '/js/services/local.js',
-  '/js/services/send-events.js',
+  '/js/pages/privacy.js',
+  '/js/services/api.js',
+  '/js/services/login.js',
+  '/js/services/mood-graph.js',
+  '/js/shared/constants.js',
+  '/js/shared/utils.js',
+  '/js/view/pages.js',
+
   '/fonts/open-sans.woff2',
   '/favicon.ico',
   '/manifest.webmanifest',

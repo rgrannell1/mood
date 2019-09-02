@@ -1,5 +1,5 @@
 
-import local from './local.js'
+import { local } from '../shared/utils.js'
 import constants from '../shared/constants.js'
 
 const handlers = {}
