@@ -25,6 +25,11 @@ const handleErrors = async (err, req, res) => {
     .end('error handling not implemented')
 }
 
+/**
+ * attach tracking information to the request object.
+ *
+ * @param {Request} req a request object
+ */
 const attachMetadata = req => {
   const state = {}
 

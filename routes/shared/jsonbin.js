@@ -8,6 +8,13 @@ const jsonbin = new api(config.jsonbin.key)
 
 export const moodStore = {}
 
+/**
+ * create a collection for a user if it does not exist
+ *
+ * @param {string} userId the user ID
+ *
+ * @returns {Promise<*>}
+ */
 moodStore.create = userId => {
   return jsonbin.createCollection({
     data: {
@@ -18,11 +25,18 @@ moodStore.create = userId => {
 
 export const userStore = {}
 
-userStore.create = (userId, userData) => {
-  return jsonbin.createCollection({
-    data: {
-      name: `users-${userId}`,
-      ...userData
-    }
+/**
+ * create a collection for a user if it does not exist
+ *
+ * @param {string} userId the user id
+ * @param {string} data the event-content to save
+ *
+ * @returns {Promise<*>}
+ */
+userStore.create = (userId, data) => {
+  return jsonbin.createBin({
+    collectionId: `moods-${userId}`,
+    data,
+    isPrivate: true
   })
 }

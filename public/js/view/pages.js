@@ -69,6 +69,14 @@ components.privacyPolicy = () => {
     <div>
       <p>TLDR: this site will not use your data in a malicious manner</p>
 
+      <p>The site may track:</p>
+      <ul>
+        <li>a hash of the users ip-address</li>
+        <li>the user-agent</li>
+      </ul>
+
+      <p>the user-agent is only used to spot poorly-crafted bots.</p>
+
       <p>NOTE: this site is not finished!</p>
     </div>
     </section>

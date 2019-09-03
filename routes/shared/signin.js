@@ -3,8 +3,6 @@
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
 
-// take id token
-// decode with google client libraries
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
 
@@ -46,10 +44,11 @@ const verifyToken = async token => {
 
 const ensureLoggedIn = async (req, res) => {
   try {
-    verifyToken(req.headers['x-auth-token'])
+    return verifyToken(req.headers['x-auth-token'])
   } catch (err) {
     // -- send http errors if couldn't verify login.
     console.error(err)
+    throw err
   }
 }
 
