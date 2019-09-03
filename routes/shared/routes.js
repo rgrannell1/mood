@@ -1,6 +1,7 @@
 
 import {
-  trackingId
+  trackingId,
+  hash
 } from './utils.js'
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
@@ -47,7 +48,7 @@ const attachMetadata = req => {
  * @param {Map<string, function>} methods the available methods for this request.
  */
 export const routeMethod = methods => async (req, res) => {
-  req.state = requestMetadata(req)
+  req.state = attachMetadata(req)
 
   if (is(methods) !== 'map') {
     throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)

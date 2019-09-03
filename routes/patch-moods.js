@@ -1,5 +1,6 @@
 
 import jsonbin from './shared/jsonbin.js'
+import ensureLoggedIn from './shared/signin'
 
 const patchMoods = async (req, res) => {
   const {userId} = await ensureLoggedIn(req, res)

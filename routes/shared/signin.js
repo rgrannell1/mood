@@ -23,7 +23,19 @@ const client = new OAuth2Client(config.google.clientId)
  *
  * @returns {object} data about the user
  */
-const verifyToken = async token => {
+const verifyToken = async req => {
+  if (!req.headers.hasOwnProperty('authorization')) {
+    throw errors.unprocessableEntity(`"authorization" absent from request requiring authentication`, 422)
+  }
+
+  let token
+  const prefix = 'Bearer'
+  const header = req.headers['authorization']
+
+  if (header.startsWith(prefix)) {
+    token = header.slice(prefix.length)
+  }
+
   if (!token) {
     throw errors.unprocessableEntity(`id_token was not supplied alongside request to server`, 422)
   }
@@ -44,7 +56,7 @@ const verifyToken = async token => {
 
 const ensureLoggedIn = async (req, res) => {
   try {
-    return verifyToken(req.headers['x-auth-token'])
+    return verifyToken(req)
   } catch (err) {
     // -- send http errors if couldn't verify login.
     console.error(err)
