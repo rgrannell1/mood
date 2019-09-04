@@ -1,34 +1,12 @@
 
 const signale = require('signale')
 const api = require('jsonbin-io-api')
+const fetch = require('node-fetch')
 const config = require('./config')
 
-const jsonbin = new api(config.jsonbin.key)
+const asBody = data => JSON.stringify(data, null, 2)
 
-const moodStore = {}
-
-/**
- * create a collection for a user if it does not exist
- *
- * @param {string} userId the user ID
- *
- * @returns {Promise<*>}
- */
-moodStore.create = userId => {
-  const collectionId = `moods-${userId}`
-
-  const res = await jsonbin.createCollection({
-    data: {
-      name: collectionId
-    }
-  })
-
-  if (res.success === false) {
-    throw new Error(res.message)
-  }
-}
-
-const userStore = {}
+const userData = {}
 
 /**
  * create a collection for a user if it does not exist
@@ -38,15 +16,20 @@ const userStore = {}
  *
  * @returns {Promise<*>}
  */
-userStore.create = (userId, data) => {
-  const collectionId = `moods-${userId}`
-
-  const res = await jsonbin.createBin({
-    collectionId,
-    data: {
-
+userData.create = async (userId, data = { }) => {
+  const res = await fetch('https://api.jsonbin.io/b', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'secret-key': config.jsonbin.key,
+      'private': true,
+      'name': `userdata-${userId}`
     },
-    isPrivate: true
+    body: asBody({
+      userId,
+      creationDate: new Date(),
+      ...data
+    })
   })
 
   if (res.success === false) {
@@ -54,22 +37,6 @@ userStore.create = (userId, data) => {
   }
 }
 
-const storage = {}
-
-/**
- * @param {string} userId
- */
-storage.createUser = async userId => {
-  await Promise.all([
-    userStore.create(userId),
-    moodStore.create(userId)
-  ])
-
-  signale.success(`created storage for user ${userId}`)
-}
-
 module.exports = {
-  userStore,
-  moodStore,
-  storage
+  userData
 }

@@ -54,7 +54,7 @@ export const routeMethod = methods => async (req, res) => {
     throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)
   }
 
-  signale.debug(`received request ${req.method} ${req.originalUrl}`)
+  signale.debug(`received request ${req.method} ${req.url}`)
 
   try {
     if (!methods.has(req.method)) {

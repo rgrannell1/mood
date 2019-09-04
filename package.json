@@ -11,6 +11,7 @@
     "jsonbin-io-api": "1.0.2",
     "lit-html": "1.1.2",
     "nanoid": "^2.1.0",
+    "node-fetch": "^2.6.0",
     "signale": "1.4.0"
   },
   "devDependencies": {

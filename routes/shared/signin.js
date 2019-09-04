@@ -7,10 +7,7 @@ import * as errors from '@rgrannell/errors'
 
 // use sub as user primary key
 
-import path from 'path'
-import constants from './constants.js'
 import config from './config.js'
-
 import { OAuth2Client } from 'google-auth-library'
 
 const client = new OAuth2Client(config.google.clientId)
@@ -24,7 +21,7 @@ const client = new OAuth2Client(config.google.clientId)
  */
 const verifyToken = async req => {
   if (!req.headers.hasOwnProperty('authorization')) {
-    throw errors.unprocessableEntity('"authorization" absent from request requiring authentication', 401)
+    throw errors.unauthorized('"authorization" absent from request requiring authentication', 401)
   }
 
   let token
@@ -36,15 +33,20 @@ const verifyToken = async req => {
   }
 
   if (!token) {
-    throw errors.unprocessableEntity('id_token was not supplied alongside request to server', 401)
+    throw errors.unauthorized('id_token was not supplied alongside request to server', 401)
   }
 
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: config.google.clientId
   })
+
   const payload = ticket.getPayload()
   const userId = payload.sub
+
+  if (payload.aud !== config.google.audience) {
+    throw errors.unauthorized('invalid token audience', 401)
+  }
 
   signale.debug('verified user id_token')
 
