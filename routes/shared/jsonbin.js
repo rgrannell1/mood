@@ -1,7 +1,6 @@
 
-import path from 'path'
+import signale from 'signale'
 import api from 'jsonbin-io-api'
-import constants from './constants.js'
 import config from './config.js'
 
 const jsonbin = new api(config.jsonbin.key)
@@ -39,4 +38,16 @@ userStore.create = (userId, data) => {
     data,
     isPrivate: true
   })
+}
+
+export const storage = {}
+
+/**
+ * @param {string} userId
+ */
+storage.createUser = userId => {
+  await userStore.create(userId)
+  await moodStore.create(userId)
+
+  signale.success(`created storage for user ${userId}`)
 }

@@ -1,6 +1,8 @@
 
 /**
  * Typed wrapper for localstorage
+ *
+ * Remove, not very good.
  */
 export const local = {
   /**
@@ -9,8 +11,10 @@ export const local = {
    * @param {string} key the property name
    * @param {string} value the property value
    */
-  set(key, value) {
-    return localStorage.setItem(key, JSON.stringify(value))
+  set (key, value) {
+    return typeof value === 'string'
+      ? localStorage.setItem(key, value)
+      : localStorage.setItem(key, JSON.stringify(value))
   },
   /**
  * set a value in localstorage
@@ -19,12 +23,16 @@ export const local = {
  *
  * @returns {string} the value stored in localstorage
  */
-  get(key) {
-    return JSON.parse(localStorage.getItem(key))
+  get (key) {
+    try {
+      return JSON.parse(localStorage.getItem(key))
+    } catch (err) {
+      return localStorage.getItem(key)
+    }
   }
 }
 
-export async function registerServiceWorker() {
+export async function registerServiceWorker () {
   try {
     const reg = await navigator.serviceWorker.register('./../service-worker.js')
     console.log(`registered service-worker: scope is ${reg.scope}`)
@@ -34,7 +42,7 @@ export async function registerServiceWorker() {
 }
 
 export const model = {
-  event(elem) {
+  event (elem) {
     return {
       // -- todo change to hash.
       id: `${elem.title} ${Date.now}`,
@@ -49,8 +57,7 @@ export const model = {
  * Sends the events queued into the cache to the server for storage
  * when a connection is available.
  */
-export async function syncData() {
-
+export async function syncData () {
 
 //  const reg = await navigator.serviceWorker.ready
 //  reg.sync.register('sync')

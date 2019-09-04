@@ -41,7 +41,7 @@ api.moods.post = async () => {
 
   const events = cache.retrieveEvents()
 
-  const response =  withToken(token => {
+  const response = withToken(token => {
     return fetch('api/moods', {
       method: 'PATCH',
       headers: {

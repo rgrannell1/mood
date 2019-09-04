@@ -7,7 +7,7 @@ import { registerServiceWorker } from '../shared/utils.js'
 /**
  * Run the client-side code
  */
-async function main() {
+async function main () {
   await registerServiceWorker()
 }
 

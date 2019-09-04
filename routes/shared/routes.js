@@ -5,7 +5,7 @@ import {
 } from './utils.js'
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
-import { fdatasync } from 'fs';
+import { fdatasync } from 'fs'
 
 const is = val => {
   return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()

@@ -1,5 +1,4 @@
 
-
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
 
@@ -25,19 +24,19 @@ const client = new OAuth2Client(config.google.clientId)
  */
 const verifyToken = async req => {
   if (!req.headers.hasOwnProperty('authorization')) {
-    throw errors.unprocessableEntity(`"authorization" absent from request requiring authentication`, 422)
+    throw errors.unprocessableEntity('"authorization" absent from request requiring authentication', 401)
   }
 
   let token
   const prefix = 'Bearer'
-  const header = req.headers['authorization']
+  const header = req.headers.authorization
 
   if (header.startsWith(prefix)) {
-    token = header.slice(prefix.length)
+    token = header.slice(prefix.length).trim()
   }
 
   if (!token) {
-    throw errors.unprocessableEntity(`id_token was not supplied alongside request to server`, 422)
+    throw errors.unprocessableEntity('id_token was not supplied alongside request to server', 401)
   }
 
   const ticket = await client.verifyIdToken({
@@ -54,6 +53,14 @@ const verifyToken = async req => {
   }
 }
 
+/**
+ * throw an error if a user is not successfully logged in
+ *
+ * @param {Request} req
+ * @param {Response} res
+ *
+ *
+ */
 const ensureLoggedIn = async (req, res) => {
   try {
     return verifyToken(req)

@@ -10,7 +10,6 @@ const local = {
 
 const api = {}
 
-
 // -- todo use an import here instead?
 api.sendEvents = () => {
   const events = local.get('cached-events')
