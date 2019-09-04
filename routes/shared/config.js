@@ -1,6 +1,11 @@
 
 const expect = {}
 
+/**
+ * Ensure required variables are present
+ *
+ * @param {Array<string>} names an array of variable names
+ */
 expect.variables = names => {
   for (const name of names) {
     if (!process.env[name]) {
@@ -14,11 +19,11 @@ expect.variables([
   'JSONBIN_API_KEY'
 ])
 
-export default {
+module.exports = {
   google: {
-    clientId: process.env.GOOGLE_CLIENT_ID
+    clientId: process.env.google_client_id
   },
   jsonbin: {
-    key: process.env.JSONBIN_API_KEY
+    key: process.env.jsonbin_api_key
   }
 }

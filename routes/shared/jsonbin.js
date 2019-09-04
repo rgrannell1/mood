@@ -1,11 +1,11 @@
 
-import signale from 'signale'
-import api from 'jsonbin-io-api'
-import config from './config.js'
+const signale = require('signale')
+const api = require('jsonbin-io-api')
+const config = require('./config')
 
 const jsonbin = new api(config.jsonbin.key)
 
-export const moodStore = {}
+const moodStore = {}
 
 /**
  * create a collection for a user if it does not exist
@@ -15,14 +15,20 @@ export const moodStore = {}
  * @returns {Promise<*>}
  */
 moodStore.create = userId => {
-  return jsonbin.createCollection({
+  const collectionId = `moods-${userId}`
+
+  const res = await jsonbin.createCollection({
     data: {
-      name: `moods-${userId}`
+      name: collectionId
     }
   })
+
+  if (res.success === false) {
+    throw new Error(res.message)
+  }
 }
 
-export const userStore = {}
+const userStore = {}
 
 /**
  * create a collection for a user if it does not exist
@@ -33,21 +39,37 @@ export const userStore = {}
  * @returns {Promise<*>}
  */
 userStore.create = (userId, data) => {
-  return jsonbin.createBin({
-    collectionId: `moods-${userId}`,
-    data,
+  const collectionId = `moods-${userId}`
+
+  const res = await jsonbin.createBin({
+    collectionId,
+    data: {
+
+    },
     isPrivate: true
   })
+
+  if (res.success === false) {
+    throw new Error(res.message)
+  }
 }
 
-export const storage = {}
+const storage = {}
 
 /**
  * @param {string} userId
  */
-storage.createUser = userId => {
-  await userStore.create(userId)
-  await moodStore.create(userId)
+storage.createUser = async userId => {
+  await Promise.all([
+    userStore.create(userId),
+    moodStore.create(userId)
+  ])
 
   signale.success(`created storage for user ${userId}`)
+}
+
+module.exports = {
+  userStore,
+  moodStore,
+  storage
 }
