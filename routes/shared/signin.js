@@ -61,7 +61,7 @@ const verifyToken = async req => {
  * @param {Request} req
  * @param {Response} res
  *
- *
+ * @returns {Promise<*>}
  */
 const ensureLoggedIn = async (req, res) => {
   try {

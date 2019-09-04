@@ -4,7 +4,9 @@ const api = require('jsonbin-io-api')
 const fetch = require('node-fetch')
 const config = require('./config')
 
-const asBody = data => JSON.stringify(data, null, 2)
+const asBody = data => {
+  return JSON.stringify(data, null, 2)
+}
 
 const userData = {}
 
@@ -17,6 +19,8 @@ const userData = {}
  * @returns {Promise<*>}
  */
 userData.create = async (userId, data = { }) => {
+  // -- check if it already exists
+
   const res = await fetch('https://api.jsonbin.io/b', {
     method: 'POST',
     headers: {
@@ -31,6 +35,10 @@ userData.create = async (userId, data = { }) => {
       ...data
     })
   })
+
+  if (res.status !== 200) {
+    signale.error(`failed to create entry in JSONBin; response had status ${res.status} and message ${res.body.message}`)
+  }
 
   if (res.success === false) {
     throw new Error(res.message)
