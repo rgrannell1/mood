@@ -41,17 +41,18 @@ const verifyToken = async req => {
     audience: config.google.clientId
   })
 
-  const payload = ticket.getPayload()
-  const userId = payload.sub
+  const { sub, aud } = ticket.getPayload()
 
-  if (payload.aud !== config.google.audience) {
+  if (aud !== config.google.audience) {
     throw errors.unauthorized('invalid token audience', 401)
   }
 
   signale.debug('verified user id_token')
 
+  req.state.userId = sub
+
   return {
-    userId
+    userId: sub
   }
 }
 

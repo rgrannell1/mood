@@ -4,11 +4,12 @@
   "description": "Publish a mood tracker to Zeit.",
   "main": "index.js",
   "dependencies": {
+    "@google-cloud/firestore": "^2.2.9",
     "@rgrannell/errors": "8.2.0",
     "chai": "4.2.0",
+    "firebase-admin": "^8.5.0",
     "google-auth-library": "5.2.0",
     "http-errors": "1.7.3",
-    "jsonbin-io-api": "1.0.2",
     "lit-html": "1.1.2",
     "nanoid": "^2.1.0",
     "node-fetch": "^2.6.0",

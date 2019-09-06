@@ -1,0 +1,5 @@
+name: Continuous Integration
+on: [push]
+jobs:
+  build:
+    name: Lighthouse
