@@ -7,5 +7,8 @@ module.exports = {
   },
   sizes: {
     trackingId: 16
+  },
+  limits: {
+    moodsLength: 50
   }
 }

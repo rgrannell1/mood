@@ -1,14 +1,14 @@
 
-import signale from 'signale'
-import * as errors from '@rgrannell/errors'
+const log = require('./log')
+const errors = require('@rgrannell/errors')
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
 
 // use sub as user primary key
 
-import config from './config.js'
-import { OAuth2Client } from 'google-auth-library'
+const config = require('./config')
+const { OAuth2Client } = require('google-auth-library')
 
 const client = new OAuth2Client(config.google.clientId)
 
@@ -47,9 +47,8 @@ const verifyToken = async req => {
     throw errors.unauthorized('invalid token audience', 401)
   }
 
-  signale.debug('verified user id_token')
-
   req.state.userId = sub
+  log.debug(req.state, 'verified user id_token')
 
   return {
     userId: sub
@@ -74,4 +73,4 @@ const ensureLoggedIn = async (req, res) => {
   }
 }
 
-export default ensureLoggedIn
+module.exports = ensureLoggedIn

@@ -55,14 +55,29 @@ firebase.createUser = async (userId, ctx) => {
       ]
     })
   }
-
-  console.log(doc.data())
 }
 
-firebase.saveMoods = async (userId, moods) => {
-  await db.collection('users').doc(userId).update({
-    userId
-  })
+firebase.saveMoods = async (userId, ctx, moods) => {
+  const ref = db.collection('users').doc(userId)
+  const doc = await ref.get()
+
+  if (!doc.exists) {
+    log.fatal(ctx, `profile missing for user ${userId}`)
+    process.exit(1)
+  }
+
+  const existing = doc.data()
+  const updated = {...existing}
+
+  updated.moods = updated.moods
+    ? updated.moods.concat(moods)
+    : moods
+
+  log.debug(ctx, `adding moods for user ${userId}`)
+
+  await db.collection('users').doc(userId).update(updated)
+
+  log.success(ctx, `moods successfully added for user ${userId}`)
 }
 
 module.exports = firebase
