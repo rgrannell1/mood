@@ -2,16 +2,15 @@
   "name": "mood",
   "version": "1.0.0",
   "description": "Publish a mood tracker to Zeit.",
-  "main": "index.js",
+  "private": true,
   "dependencies": {
     "@google-cloud/firestore": "^2.2.9",
     "@rgrannell/errors": "8.2.0",
     "chai": "4.2.0",
-    "dotenv": "^8.1.0",
     "firebase-admin": "^8.5.0",
     "google-auth-library": "5.2.0",
     "http-errors": "1.7.3",
-    "lit-html": "1.1.2",
+    "lit-html": "^1.1.2",
     "nanoid": "^2.1.0",
     "node-fetch": "^2.6.0",
     "signale": "1.4.0"
@@ -19,13 +18,19 @@
   "devDependencies": {
     "@rgrannell/index": "8.2.0",
     "@rgrannell/pulp": "8.4.0",
-    "express": "4.17.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "fs-extra": "^8.1.0",
     "now": "^16.1.3",
     "standard": "14.0.2",
     "stylelint": "10.1.0",
-    "stylelint-config-standard": "18.3.0"
+    "stylelint-config-standard": "18.3.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-merge": "^4.2.2"
   },
   "scripts": {
+    "build": "node --no-warnings pulpfile.js build",
     "deploy": "node_modules/.bin/now",
     "start": "find public | entr -s 'npx now dev'",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"

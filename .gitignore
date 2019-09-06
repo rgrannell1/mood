@@ -3,3 +3,4 @@
 .now
 dist
 node_modules
+public/

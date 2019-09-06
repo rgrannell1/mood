@@ -9,7 +9,6 @@
     {
       "src": "/.*",
       "headers": {
-        "Content-Security-Policy": "script-src 'self' https://apis.google.com https://unpkg.com",
         "Feature-Policy": "geolocation 'none'; camera 'none'; microphone 'none'",
         "Referrer-Policy": "no-referrer",
         "X-Content-Type-Options": "nosniff",

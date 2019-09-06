@@ -80,4 +80,17 @@ firebase.saveMoods = async (userId, ctx, moods) => {
   log.success(ctx, `moods successfully added for user ${userId}`)
 }
 
+firebase.getMoods = async (userId, ctx, opts) => {
+  const ref = db.collection('users').doc(userId)
+  const doc = await ref.get()
+
+  if (!doc.exists) {
+    return []
+  }
+
+  const userData = doc.data()
+
+  return userData.moods
+}
+
 module.exports = firebase

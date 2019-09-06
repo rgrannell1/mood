@@ -1,5 +1,5 @@
 
-import { html } from 'https://unpkg.com/lit-html@1.1.2/lit-html.js'
+import { html } from 'lit-html'
 
 const components = {}
 

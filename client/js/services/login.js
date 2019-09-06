@@ -28,20 +28,24 @@ handlers.onFailure = err => {
 /**
  * load gooogle signin
  */
-window.onload = function () {
-  console.log('setting up google login.')
+const addLogin = () => {
+  window.onload = function () {
+    console.log('setting up google login.')
 
-  if (!gapi) {
-    console.error('failed to load gapi')
-  }
+    if (!gapi) {
+      console.error('failed to load gapi')
+    }
 
-  gapi.load('auth2', () => {
-    const api = gapi.auth2.init({
-      clientId: constants.google.clientId
+    gapi.load('auth2', () => {
+      const api = gapi.auth2.init({
+        clientId: constants.google.clientId
+      })
+
+      const $button = document.querySelector('#google-signin')
+
+      api.attachClickHandler($button, {}, handlers.onSuccess, handlers.onFailure)
     })
-
-    const $button = document.querySelector('#google-signin')
-
-    api.attachClickHandler($button, {}, handlers.onSuccess, handlers.onFailure)
-  })
+  }
 }
+
+export { addLogin }
