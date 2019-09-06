@@ -30,7 +30,7 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "node --no-warnings pulpfile.js build",
+    "build": "node --no-warnings pulpfile.js build --production",
     "deploy": "node_modules/.bin/now",
     "start": "find public | entr -s 'npx now dev'",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"

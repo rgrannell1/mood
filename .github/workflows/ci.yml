@@ -2,4 +2,8 @@ name: Continuous Integration
 on: [push]
 jobs:
   build:
-    name: Lighthouse
+  name: Audits
+  runs-on: ubuntu-latest
+  steps:
+    - name: Lighthouse Audit
+      uses: jakejarvis/lighthouse-action@v0.1.0
