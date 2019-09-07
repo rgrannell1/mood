@@ -26,7 +26,7 @@ const verifyToken = async (req: ContextRequest): Promise<{ userId: string }> => 
 
   let token
   const prefix = 'Bearer'
-  const header: string = req.headers.authorization
+  const header: string = (req.headers as any).authorization
 
   if (header.startsWith(prefix)) {
     token = header.slice(prefix.length).trim()

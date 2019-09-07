@@ -5,9 +5,6 @@ export default {
   paths: {
     root: path.resolve(path.join(__dirname, '..'))
   },
-  sizes: {
-    trackingId: 16
-  },
   limits: {
     moodsLength: 50
   }

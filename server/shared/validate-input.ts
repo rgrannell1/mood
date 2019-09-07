@@ -1,6 +1,7 @@
 
 import errors from '@rgrannell/errors'
 import constants from './constants'
+import { MoodBody } from './types'
 
 export const mood = (event, ith: number): void => {
   for (const prop of ['type', 'mood', 'timestamp']) {
