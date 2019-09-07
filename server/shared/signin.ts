@@ -25,7 +25,7 @@ const verifyToken = async req => {
 
   let token
   const prefix = 'Bearer'
-  const header = req.headers.authorization
+  const header:string = req.headers.authorization
 
   if (header.startsWith(prefix)) {
     token = header.slice(prefix.length).trim()
@@ -62,7 +62,7 @@ const verifyToken = async req => {
  *
  * @returns {Promise<*>}
  */
-const ensureLoggedIn = async (req, res) => {
+const ensureLoggedIn = async (req, res): Promise<{ userId: string }> => {
   try {
     return verifyToken(req)
   } catch (err) {

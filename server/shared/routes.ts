@@ -5,11 +5,7 @@ import {
 } from './utils.js'
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
-import { fdatasync } from 'fs'
-
-const is = val => {
-  return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
-}
+import { route } from './types.js'
 
 /**
  * Convert error conditions into HTTP responses
@@ -18,8 +14,8 @@ const is = val => {
  * @param {Request} req the request object
  * @param {Response} res the response error
  */
-const handleErrors = async (err, req, res) => {
-  const ctx = req.state
+const handleErrors = (_: Error, req, res): any => {
+  // const ctx = req.state
 
   res
     .status(500)
@@ -38,13 +34,13 @@ interface Context {
  *
  * @param {Request} req a request object
  */
-const attachMetadata = req => {
-  const state = {} as Context
-
-  state.trackingId = trackingId()
-  state.ip = hash(req.headers['x-real-ip'] || '')
-  state.forwardedFor = hash(req.headers['x-forwarded-for'] || '')
-  state.userAgent = req.headers['user-agent'] || 'unknown'
+const attachMetadata = (req: Request): Context => {
+  const state: Context = {
+    trackingId: trackingId(),
+    ip: hash(req.headers['x-real-ip']),
+    forwardedFor: hash(req.headers['x-forwarded-for']),
+    userAgent: req.headers['user-agent']
+  }
 
   return state
 }
@@ -54,12 +50,8 @@ const attachMetadata = req => {
  *
  * @param {Map<string, function>} methods the available methods for this request.
  */
-export const routeMethod = methods => async (req, res) => {
+export const routeMethod = (methods: Map<string, route>) => async (req, res) => {
   req.state = attachMetadata(req)
-
-  if (is(methods) !== 'map') {
-    throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)
-  }
 
   signale.debug(`received request ${req.method} ${req.url}`)
 

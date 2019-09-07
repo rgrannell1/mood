@@ -1,11 +1,11 @@
 
-import * as firebase from './shared/db'
+import * as firebase from '../shared/db'
 import errors from '@rgrannell/errors'
 
-import ensureLoggedIn from './shared/signin'
-import * as validate from './shared/validate-input'
+import ensureLoggedIn from '../shared/signin'
+import * as validate from '../shared/validate-input'
 
-const patchMoods = async (req, res) => {
+const patchMoods = async (req, res):Promise<void> => {
   const { userId } = await ensureLoggedIn(req, res)
 
   try {

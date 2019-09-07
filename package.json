@@ -11,7 +11,6 @@
     "google-auth-library": "5.2.0",
     "http-errors": "1.7.3",
     "lit-html": "^1.1.2",
-    "nanoid": "^2.1.0",
     "node-fetch": "^2.6.0",
     "signale": "1.4.0"
   },
@@ -28,6 +27,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "fs-extra": "^8.1.0",
+    "husky": "^3.0.5",
     "now": "^16.2.0",
     "stylelint": "10.1.0",
     "stylelint-config-standard": "18.3.0",
@@ -51,5 +51,10 @@
   "bugs": {
     "url": "https://github.com/rgrannell1/mood/issues"
   },
-  "homepage": "https://github.com/rgrannell1/mood#readme"
+  "homepage": "https://github.com/rgrannell1/mood#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build"
+    }
+  }
 }

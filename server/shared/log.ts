@@ -1,11 +1,12 @@
 
 import signale from 'signale'
+import { Context } from './types'
 
-const attachContext = (ctx, message) => {
+const attachContext = (ctx: Context, message: string): string => {
   return message
 }
 
-const logger = (level, ctx, message) => {
+const logger = (level: string, ctx: Context, message: string): void => {
   signale[level](attachContext(ctx, message))
 }
 

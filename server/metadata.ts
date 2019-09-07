@@ -1,5 +1,5 @@
 
-import { routeMethod } from './routes/shared/routes'
+import { routeMethod } from './shared/routes'
 import getMetadata from './routes/get-metadata'
 
 const methods = new Map()

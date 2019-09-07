@@ -10,7 +10,7 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
-const getEmptyProfile = (userId, ctx) => {
+const getEmptyProfile = (userId:string, ctx) => {
   return {
     userId,
     ips: [
@@ -40,7 +40,7 @@ const firebase = {}
  *
  * @returns {Promise<*>}
  */
-export const createUser = async (userId: string, ctx: any) => {
+export const createUser = async (userId: string, ctx: any): Promise<void> => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
@@ -85,7 +85,7 @@ export const saveMoods = async (userId: string, ctx: object, moods: object[]) =>
   log.success(ctx, `moods successfully added for user ${userId}`)
 }
 
-export const getMoods = async (userId: string) => {
+export const getMoods = async (userId: string): Promise<object[]> => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 

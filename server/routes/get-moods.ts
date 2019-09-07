@@ -1,8 +1,8 @@
 
-import * as firebase from './shared/db'
-import ensureLoggedIn from './shared/signin'
+import * as firebase from '../shared/db'
+import ensureLoggedIn from '../shared/signin'
 
-const getMoods = async (req, res) => {
+const getMoods = async (req, res): Promise<void> => {
   const { userId } = await ensureLoggedIn(req, res)
 
   const moods = await firebase.getMoods(userId)
