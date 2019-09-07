@@ -26,13 +26,20 @@ const handleErrors = async (err, req, res) => {
     .end('error handling not implemented')
 }
 
+interface Context {
+  trackingId: string
+  ip: string
+  forwardedFor: string
+  userAgent: string
+}
+
 /**
  * attach tracking information to the request object.
  *
  * @param {Request} req a request object
  */
 const attachMetadata = req => {
-  const state = {}
+  const state = {} as Context
 
   state.trackingId = trackingId()
   state.ip = hash(req.headers['x-real-ip'] || '')

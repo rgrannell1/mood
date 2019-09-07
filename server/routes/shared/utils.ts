@@ -1,8 +1,8 @@
 
 import nanoid from 'nanoid'
-import crypto from 'crypto'
+import * as crypto from 'crypto'
 
-import constants from './constants.js'
+import constants from './constants'
 
 /**
  * Create a request-tracking id, to uniquely identify a function

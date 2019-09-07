@@ -1,7 +1,7 @@
 
-const admin = require('firebase-admin')
-const config = require('./config')
-const log = require('./log')
+import * as admin from 'firebase-admin'
+import config from './config'
+import log from './log'
 
 admin.initializeApp({
   credential: admin.credential.cert(config.google.privateKey),
@@ -9,6 +9,25 @@ admin.initializeApp({
 })
 
 const db = admin.firestore()
+
+const getEmptyProfile = (userId, ctx) => {
+  return {
+    userId,
+    ips: [
+      ctx.ip || 'unknown'
+    ],
+    forwardedFor: [
+      ctx.forwardedFor || 'unknown'
+    ],
+    trackingId: [
+      ctx.trackingId
+    ]
+  }
+}
+
+const unique = (arr0, arr1) => {
+  return Array.from(new Set([...arr0, ...arr1]))
+}
 
 const firebase = {}
 
@@ -21,25 +40,14 @@ const firebase = {}
  *
  * @returns {Promise<*>}
  */
-firebase.createUser = async (userId, ctx) => {
+export const createUser = async (userId: string, ctx: any) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
   if (!doc.exists) {
     log.debug(ctx, `storing information for new user ${userId}`)
 
-    await ref.set({
-      userId,
-      ips: [
-        ctx.ip || 'unknown',
-      ],
-      forwardedFor: [
-        ctx.forwardedFor || 'unknown',
-      ],
-      trackingId: [
-        ctx.trackingId
-      ]
-    })
+    await ref.set(getEmptyProfile(userId, ctx))
   } else {
     log.debug(ctx, `user ${userId} already exists`)
 
@@ -47,27 +55,24 @@ firebase.createUser = async (userId, ctx) => {
 
     await ref.update({
       userId,
-      ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
-      forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
-      trackingId: [
-        ...existing.trackingId,
-        ctx.trackingId
-      ]
+      ips: unique(existing.ips, [ctx.ip || 'unknown']),
+      forwardedFor: unique(existing.forwardedFor, [ctx.forwardedFor || 'unknown']),
+      trackingId: unique(existing.trackingId, [ctx.trackingId])
     })
   }
 }
 
-firebase.saveMoods = async (userId, ctx, moods) => {
+export const saveMoods = async (userId: string, ctx: object, moods: object[]) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
   if (!doc.exists) {
-    log.fatal(ctx, `profile missing for user ${userId}`)
+    log.error(ctx, `profile missing for user ${userId}`)
     process.exit(1)
   }
 
   const existing = doc.data()
-  const updated = {...existing}
+  const updated = { ...existing }
 
   updated.moods = updated.moods
     ? updated.moods.concat(moods)
@@ -80,7 +85,7 @@ firebase.saveMoods = async (userId, ctx, moods) => {
   log.success(ctx, `moods successfully added for user ${userId}`)
 }
 
-firebase.getMoods = async (userId, ctx, opts) => {
+export const getMoods = async (userId: string) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
@@ -92,5 +97,3 @@ firebase.getMoods = async (userId, ctx, opts) => {
 
   return userData.moods
 }
-
-module.exports = firebase

@@ -1,7 +1,9 @@
 
-const firebase = require('./shared/db')
-const ensureLoggedIn = require('./shared/signin')
-const validate = require('./shared/validate-input')
+import * as firebase from './shared/db'
+import errors from '@rgrannell/errors'
+
+import ensureLoggedIn from './shared/signin'
+import * as validate from './shared/validate-input'
 
 const patchMoods = async (req, res) => {
   const { userId } = await ensureLoggedIn(req, res)
@@ -21,4 +23,4 @@ const patchMoods = async (req, res) => {
   res.end('PATCH api/moods')
 }
 
-module.exports = patchMoods
+export default patchMoods

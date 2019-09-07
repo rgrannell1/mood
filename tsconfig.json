@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "sourceMap": false,
+    "outDir": "./api/"
+  },
+  "exclude": [
+    ".git",
+    "node_modules"
+  ],
+  "lib": "esnext"
+}

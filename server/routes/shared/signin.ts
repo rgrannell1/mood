@@ -1,14 +1,13 @@
 
-const log = require('./log')
-const errors = require('@rgrannell/errors')
+import log from './log'
+import config from './config'
+import errors from '@rgrannell/errors'
+import { OAuth2Client } from 'google-auth-library'
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
 
 // use sub as user primary key
-
-const config = require('./config')
-const { OAuth2Client } = require('google-auth-library')
 
 const client = new OAuth2Client(config.google.clientId)
 
@@ -73,4 +72,4 @@ const ensureLoggedIn = async (req, res) => {
   }
 }
 
-module.exports = ensureLoggedIn
+export default ensureLoggedIn

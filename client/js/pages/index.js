@@ -1,7 +1,6 @@
 
 import { render } from 'lit-html'
 
-import { renderMoodData } from '../services/mood-graph.js'
 import { api } from '../services/api.js'
 import cache from '../services/cache.js'
 import { addLogin } from '../services/login.js'
@@ -14,10 +13,16 @@ import {
   syncData
 } from '../shared/utils.js'
 
+async function renderGraph () {
+  const moods = await api.moods.get()
+
+  console.log(moods)
+}
+
 /**
  * Run the client-side code
  */
-async function main() {
+async function main () {
   await registerServiceWorker()
 
   const $moods = document.querySelectorAll('.mood-emotion')
@@ -29,13 +34,15 @@ async function main() {
 
       try {
         await api.moods.post()
+        renderGraph()
       } catch (err) {
         console.error(`failed to send events: ${err.message}`)
         // await api.moods.post()
       }
     }
   })
-  renderMoodData(null, {})
+
+  renderGraph()
 }
 
 addLogin()

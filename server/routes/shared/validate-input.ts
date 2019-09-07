@@ -1,11 +1,8 @@
 
-const errors = require('@rgrannell/errors')
+import errors from '@rgrannell/errors'
+import constants from './constants'
 
-const constants = require('./constants')
-
-const validate = {}
-
-validate.mood = (event, ith) => {
+export const mood = (event, ith) => {
   for (const prop of ['type', 'mood', 'timestamp']) {
     if (!event.hasOwnProperty(prop)) {
       throw errors.unprocessableEntity(`${ith}th event was missing property "${prop}"`, 422)
@@ -15,10 +12,9 @@ validate.mood = (event, ith) => {
   if (event.type !== 'send-mood') {
     throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
   }
-
 }
 
-validate.body = (userId, content) => {
+export const body = (userId, content) => {
   if (!content.hasOwnProperty('events')) {
     throw errors.unprocessableEntity('request body was missing field "events"', 422)
   }
@@ -32,10 +28,8 @@ validate.body = (userId, content) => {
   }
 
   content.events.forEach((event, ith) => {
-    validate.mood(event, ith)
+    mood(event, ith)
   })
 
   return content
 }
-
-module.exports = validate

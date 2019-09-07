@@ -5,7 +5,7 @@
  * @param {Request} req a request object
  * @param {Response} res a response object
  */
-const getMetadata = async (req, res) => {
+const getMetadata = async (req: any, res: any): Promise<void> => {
   const body = {
     description: 'mood\'s api',
     version: 'alpha'

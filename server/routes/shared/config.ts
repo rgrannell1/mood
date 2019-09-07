@@ -1,12 +1,10 @@
 
-const expect = {}
-
 /**
  * Ensure required variables are present
  *
  * @param {Array<string>} names an array of variable names
  */
-expect.variables = names => {
+const expectVariables = (names: string[]) => {
   for (const name of names) {
     const val = process.env[name]
     if (!val) {
@@ -19,20 +17,21 @@ expect.variables = names => {
   }
 }
 
-expect.variables([
+expectVariables([
   'GOOGLE_CLIENT_ID',
   'GOOGLE_PRIVATE_KEY'
 ])
 
-const parseGooglePrivateKey = content => {
-  return JSON.parse(Buffer.from(content, 'base64'))
+const parseGooglePrivateKey = (content: string) => {
+  const decoded = Buffer.from(content, 'base64')
+  return JSON.parse((decoded as any))
 }
 
-module.exports = {
+export default {
   google: {
     db: 'https://mood-251413.firebaseio.com',
-    clientId: process.env.google_client_id || process.env.GOOGLE_CLIENT_ID,
+    clientId: (process.env.google_client_id || process.env.GOOGLE_CLIENT_ID),
     audience: '1053339394516-8m3pa0tvsejqha2usv84rkul7ja804s6.apps.googleusercontent.com',
-    privateKey: parseGooglePrivateKey(process.env.google_private_key || process.env.GOOGLE_PRIVATE_KEY)
+    privateKey: parseGooglePrivateKey((process.env.google_private_key || process.env.GOOGLE_PRIVATE_KEY))
   }
 }
