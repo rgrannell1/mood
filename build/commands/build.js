@@ -5,7 +5,7 @@ const webpack = require('webpack')
 
 const command = {
   name: 'build',
-  dependencies: []
+  dependencies: ['build-typescript']
 }
 
 command.cli = `

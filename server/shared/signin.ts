@@ -3,6 +3,7 @@ import log from './log'
 import config from './config'
 import errors from '@rgrannell/errors'
 import { OAuth2Client } from 'google-auth-library'
+import { ContextRequest } from './types'
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
@@ -18,14 +19,14 @@ const client = new OAuth2Client(config.google.clientId)
  *
  * @returns {object} data about the user
  */
-const verifyToken = async req => {
+const verifyToken = async (req: ContextRequest): Promise<{ userId: string }> => {
   if (!req.headers.hasOwnProperty('authorization')) {
     throw errors.unauthorized('"authorization" absent from request requiring authentication', 401)
   }
 
   let token
   const prefix = 'Bearer'
-  const header:string = req.headers.authorization
+  const header: string = req.headers.authorization
 
   if (header.startsWith(prefix)) {
     token = header.slice(prefix.length).trim()

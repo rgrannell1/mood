@@ -2,7 +2,7 @@
 import errors from '@rgrannell/errors'
 import constants from './constants'
 
-export const mood = (event, ith) => {
+export const mood = (event, ith: number): void => {
   for (const prop of ['type', 'mood', 'timestamp']) {
     if (!event.hasOwnProperty(prop)) {
       throw errors.unprocessableEntity(`${ith}th event was missing property "${prop}"`, 422)
@@ -14,7 +14,7 @@ export const mood = (event, ith) => {
   }
 }
 
-export const body = (userId, content) => {
+export const body = (userId: string, content: any): MoodBody => {
   if (!content.hasOwnProperty('events')) {
     throw errors.unprocessableEntity('request body was missing field "events"', 422)
   }

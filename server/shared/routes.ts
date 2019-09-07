@@ -3,7 +3,7 @@ import {
   trackingId,
   hash
 } from './utils.js'
-import signale from 'signale'
+import log from './log'
 import * as errors from '@rgrannell/errors'
 import { route } from './types.js'
 
@@ -53,7 +53,7 @@ const attachMetadata = (req: Request): Context => {
 export const routeMethod = (methods: Map<string, route>) => async (req, res) => {
   req.state = attachMetadata(req)
 
-  signale.debug(`received request ${req.method} ${req.url}`)
+//  log.debug(req.state, `received request ${req.method} ${req.url}`)
 
   try {
     if (!methods.has(req.method)) {
@@ -63,7 +63,7 @@ export const routeMethod = (methods: Map<string, route>) => async (req, res) => 
     const route = methods.get(req.method)
     await route(req, res)
   } catch (err) {
-    signale.warn(`error-response received: ${err.message ? err.message : err} \n${err.stack}`)
+ //   log.warn(req.state, `error-response received: ${err.message ? err.message : err} \n${err.stack}`)
 
     const requestError = err.message
       ? err
