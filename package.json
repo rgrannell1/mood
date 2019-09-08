@@ -10,6 +10,7 @@
     "firebase-admin": "^8.5.0",
     "google-auth-library": "5.2.0",
     "http-errors": "1.7.3",
+    "husky": "^3.0.5",
     "lit-html": "^1.1.2",
     "nanoid": "^2.1.0",
     "node-fetch": "^2.6.0",
@@ -30,7 +31,7 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "node --no-warnings pulpfile.js build --production",
+    "build": "node --no-warnings pulpfile.js build",
     "deploy": "node_modules/.bin/now",
     "start": "find public | entr -s 'npx now dev'",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
@@ -44,5 +45,10 @@
   "bugs": {
     "url": "https://github.com/rgrannell1/mood/issues"
   },
-  "homepage": "https://github.com/rgrannell1/mood#readme"
+  "homepage": "https://github.com/rgrannell1/mood#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build"
+    }
+  }
 }
