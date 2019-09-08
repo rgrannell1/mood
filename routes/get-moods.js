@@ -9,8 +9,6 @@ const getMoods = async (req, res) => {
 
   })
 
-console.log(req.qs)
-
   res.status(200)
   res.end(JSON.stringify(moods))
 }

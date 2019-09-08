@@ -90,7 +90,17 @@ firebase.getMoods = async (userId, ctx, opts) => {
 
   const userData = doc.data()
 
-  return userData.moods
+  userData.moods.sort((datum0, datum1) => {
+    return datum0.timestamp - datum1.timestamp
+  })
+
+  return {
+    moods: userData.moods,
+    stats: {
+      from: Math.min(...userData.moods.map(datum => datum.timestamp)),
+      to: Math.max(...userData.moods.map(datum => datum.timestamp))
+    }
+  }
 }
 
 module.exports = firebase

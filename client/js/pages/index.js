@@ -1,7 +1,7 @@
 
 import { render } from 'lit-html'
 
-import { renderMoodData } from '../services/mood-graph.js'
+import moodGraphs from '../view/mood-graphs.js'
 import { api } from '../services/api.js'
 import cache from '../services/cache.js'
 import { addLogin } from '../services/login.js'
@@ -33,9 +33,14 @@ async function main() {
         console.error(`failed to send events: ${err.message}`)
         // await api.moods.post()
       }
+
+      const moodData = await api.moods.get()
+      moodGraphs.scatterplot(moodData)
     }
   })
-  renderMoodData(null, {})
+
+  const moodData = await api.moods.get()
+  moodGraphs.scatterplot(await moodData.json())
 }
 
 addLogin()
