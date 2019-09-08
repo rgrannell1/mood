@@ -63,14 +63,11 @@ api.moods.post = async () => {
  * @returns {Promise<Response>} a fetch response
  */
 api.moods.get = async () => {
-  const from = -Infinity
-  const to = +Infinity
-
   return withToken(token => {
     return fetch('api/moods', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`
+        'x-auth-token': `Bearer ${token}`
       },
       qs: { from, to }
     })
