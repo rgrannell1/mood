@@ -12,6 +12,7 @@
     "fs-extra": "^8.1.0",
     "pixelmatch": "^5.0.2",
     "pngjs": "^3.4.0",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^1.19.0",
+    "signale": "^1.4.0"
   }
 }

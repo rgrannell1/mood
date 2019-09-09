@@ -5,6 +5,7 @@ const path = require('path')
 const { PNG } = require('pngjs')
 const pixelmatch = require('pixelmatch')
 const puppeteer = require('puppeteer')
+const signale = require('signale')
 
 const viewports = [
   {
@@ -51,6 +52,8 @@ const captureViewportScreenshots = async (browser, viewports) => {
   const dir = path.join(__dirname, '../../data/')
 
   for (const viewport of viewports) {
+    signale.debug(`capturing ${viewport.device} screenshots`)
+
     const { page } = await createPage(browser, viewport)
     const filenames = {
       full: `${viewport.device}-${(new Date()).toISOString()}.png`,
@@ -65,29 +68,40 @@ const captureViewportScreenshots = async (browser, viewports) => {
       diff: path.resolve(dir, filenames.diff)
     }
 
-    await page.screenshot({
-      path: paths.full
-    })
+    await page.screenshot({ path: paths.full })
+    signale.success(`saved screen shot for ${viewport.device}`)
 
     try {
       await fse.copy(paths.latest, paths.previous)
+      signale.success(`wrote existing 'latest' screenshot to 'previous'`)
+
     } catch (err) {
-      console.log(err)
-      continue
+      signale.error(`'latest' screenshot did not exist`)
     }
 
     await fse.copy(paths.full, paths.latest)
 
-    const images = {
-      old: PNG.sync.read(await fs.readFile(paths.previous)),
-      new: PNG.sync.read(await fs.readFile(paths.latest))
+    try {
+      const images = {
+        old: PNG.sync.read(await fs.readFile(paths.previous)),
+        new: PNG.sync.read(await fs.readFile(paths.latest))
+      }
+
+      const diff = new PNG({ width: viewport.width, height: viewport.height })
+      const diffPixels = pixelmatch(images.old.data, images.new.data, diff.data, viewport.width, viewport.height)
+
+      if (diffPixels) {
+        signale.warn(`pixels differed between accepted previous and latest for ${viewport.device}`)
+      }
+
+      await fs.writeFile(paths.diff, PNG.sync.write(diff))
+
+      signale.success(`saved diffs for ${viewport.device}`)
+    } catch (err) {
+      signale.error(`failed to diff screenshots: ${err.message}`)
     }
 
-    const diff = new PNG({ width: viewport.width, height: viewport.height })
-
-    pixelmatch(images.old.data, images.new.data, diff.data, viewport.width, viewport.height)
-
-    await fs.writeFile(paths.diff, PNG.sync.write(diff))
+    // -- todo warn on diff
   }
 }
 
@@ -95,6 +109,12 @@ async function main () {
   const browser = await puppeteer.launch()
 
   await captureViewportScreenshots(browser, viewports)
+
+  // -- login
+  // -- perform end-to-end test
+  // -- capture login times
+  // -- capture console errors
+  // -- play with service worker
 
   await browser.close()
 }
