@@ -14,6 +14,11 @@ import {
   syncData
 } from '../shared/utils.js'
 
+const refreshMoodGraphs = () => {
+  const moodData = await api.moods.get()
+  moodGraphs.scatterplot(await moodData.json())
+}
+
 /**
  * Run the client-side code
  */
@@ -31,16 +36,13 @@ async function main() {
         await api.moods.post()
       } catch (err) {
         console.error(`failed to send events: ${err.message}`)
-        // await api.moods.post()
       }
 
-      const moodData = await api.moods.get()
-      moodGraphs.scatterplot(moodData)
+      refreshMoodGraphs()
     }
   })
 
-  const moodData = await api.moods.get()
-  moodGraphs.scatterplot(await moodData.json())
+  refreshMoodGraphs()
 }
 
 addLogin()
