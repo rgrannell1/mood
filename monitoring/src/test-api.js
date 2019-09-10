@@ -43,7 +43,18 @@ tests.metadata.get = async () => {
 }
 
 tests.moods.get = async () => {
+  const result = await fetch(`${constants.urls.mood}/api/moods`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`
+    }
+  })
 
+  if (result.status !== 200) {
+    signale.error(`GET api/moods returned ${result.status}`)
+  } else {
+    signale.success('GET api/moods worked as expected')
+  }
 }
 
 tests.moods.patch = async () => {
@@ -78,16 +89,12 @@ tests.moods.patch = async () => {
   }
 }
 
-tests.moods.delete = async () => {
-
-}
-
 const apiTests = async () => {
-  await tests.metadata.get()
-  await tests.moods.patch()
-  // -- does metadata work?
-  // -- does get work?
-  // -- does patch then get work?
+  await Promise.all([
+    tests.metadata.get(),
+    tests.moods.patch(),
+    tests.moods.get()
+  ])
 }
 
 module.exports = apiTests
