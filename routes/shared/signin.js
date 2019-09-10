@@ -13,19 +13,21 @@ const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(config.google.clientId)
 
 const allowSchemes = (schemes, req) => {
-  if (!req.headers.hasOwnProperty('authorization')) {
+  if (!Object.prototype.hasOwnProperty.call(req.headers, 'authorization')) {
     throw errors.unauthorized('"authorization" absent from request requiring authentication', 401)
   }
 
   const header = req.headers.authorization
-  const matchingScheme = schemes.find(scheme => header.startsWith(scheme))
+  const matchingScheme = schemes.find(scheme => {
+    return header.toLowerCase().startsWith(scheme)
+  })
 
   if (!matchingScheme) {
     throw errors.unauthorized('invalid authorization scheme provided', 401)
   }
 
   return {
-    scheme: matchingScheme,
+    scheme: matchingScheme.toLowerCase(),
     value: header.slice(matchingScheme.length).trim()
   }
 }
@@ -40,8 +42,12 @@ const verify = {}
  *
  */
 verify.testCredential = async (password, req) => {
+  if (!password) {
+    throw errors.unauthorized('no credential provided for basic-authentication', 401)
+  }
+
   if (password !== config.test.credential) {
-    log.warn(req.state, 'unauthenticated attempt to access test-account')
+    log.warn(req.state, 'unauthenticated basic-auth attempt to access test-account')
     throw errors.unauthorized('invalid basic-auth credential provided', 401)
   }
 
@@ -102,7 +108,7 @@ const ensureLoggedIn = async (req, res) => {
     const auth = allowSchemes(['basic', 'bearer'], req)
 
     if (auth.scheme === 'basic') {
-      return verify.testCredential(req)
+      return verify.testCredential(auth.value, req)
     } else if (auth.scheme === 'bearer') {
       return verify.token(auth.value, req)
     } else {
