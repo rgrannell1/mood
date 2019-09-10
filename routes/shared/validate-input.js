@@ -5,9 +5,11 @@ const constants = require('./constants')
 
 const validate = {}
 
+const hasOwnProperty = (tgt, prop) => Object.prototype.hasOwnProperty.call
+
 validate.mood = (event, ith) => {
   for (const prop of ['type', 'mood', 'timestamp']) {
-    if (!event.hasOwnProperty(prop)) {
+    if (!hasOwnProperty(event, prop)) {
       throw errors.unprocessableEntity(`${ith}th event was missing property "${prop}"`, 422)
     }
   }
@@ -19,7 +21,7 @@ validate.mood = (event, ith) => {
 }
 
 validate.body = (userId, content) => {
-  if (!content.hasOwnProperty('events')) {
+  if (!hasOwnProperty(content, 'events')) {
     throw errors.unprocessableEntity('request body was missing field "events"', 422)
   }
 

@@ -7,6 +7,7 @@
     "@google-cloud/firestore": "^2.2.9",
     "@rgrannell/errors": "8.2.0",
     "chai": "4.2.0",
+    "dotenv": "^8.1.0",
     "firebase-admin": "^8.5.0",
     "google-auth-library": "5.2.0",
     "http-errors": "1.7.3",
@@ -32,7 +33,7 @@
   },
   "scripts": {
     "build": "node --no-warnings pulpfile.js build",
-    "deploy": "node_modules/.bin/now",
+    "deploy": "time node_modules/.bin/now",
     "start": "find public | entr -s 'npx now dev'",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
