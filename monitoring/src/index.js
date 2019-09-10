@@ -5,7 +5,7 @@ const {
   viewports
 } = require('./capture-viewport-screenshots')
 
-const apiTests = require('./api-tests')
+const apiTests = require('./test-api')
 
 async function main () {
   const browser = await puppeteer.launch()
