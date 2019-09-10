@@ -59,7 +59,7 @@ const captureViewportScreenshots = async (browser, viewports) => {
       full: `${viewport.device}-${(new Date()).toISOString()}.png`,
       latest: `${viewport.device}-latest.png`,
       previous: `${viewport.device}-previous.png`,
-      diff: `${viewport.device}-diff.png`,
+      diff: `${viewport.device}-diff.png`
     }
     const paths = {
       full: path.resolve(dir, filenames.full),
@@ -73,10 +73,9 @@ const captureViewportScreenshots = async (browser, viewports) => {
 
     try {
       await fse.copy(paths.latest, paths.previous)
-      signale.success(`wrote existing 'latest' screenshot to 'previous'`)
-
+      signale.success('wrote existing \'latest\' screenshot to \'previous\'')
     } catch (err) {
-      signale.error(`'latest' screenshot did not exist`)
+      signale.error('\'latest\' screenshot did not exist')
     }
 
     await fse.copy(paths.full, paths.latest)

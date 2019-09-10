@@ -21,7 +21,8 @@ expect.variables = names => {
 
 expect.variables([
   'GOOGLE_CLIENT_ID',
-  'GOOGLE_PRIVATE_KEY'
+  'GOOGLE_PRIVATE_KEY',
+  'TEST_ACCOUNT_CREDENTIAL'
 ])
 
 const parseGooglePrivateKey = content => {
@@ -29,6 +30,9 @@ const parseGooglePrivateKey = content => {
 }
 
 module.exports = {
+  test: {
+    credential: process.env.TEST_ACCOUNT_CREDENTIAL
+  },
   google: {
     db: 'https://mood-251413.firebaseio.com',
     clientId: process.env.google_client_id || process.env.GOOGLE_CLIENT_ID,

@@ -15,6 +15,17 @@
   --divider-colour: #bfbfbf;
   --header-colour: white;
 
+  /* graph colours */
+  --graph-colour-stellar: red;
+  --graph-colour-stellar: red;
+  --graph-colour-fine: red;
+  --graph-colour-decent: red;
+  --graph-colour-neutral: red;
+  --graph-colour-bad: red;
+  --graph-colour-ennui: red;
+  --graph-colour-in-pain: red;
+  --graph-colour-atrocious: red;
+
   font-size: 62.5%;
 }
 

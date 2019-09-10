@@ -22,7 +22,7 @@ const refreshMoodGraphs = async () => {
 /**
  * Run the client-side code
  */
-async function main() {
+async function main () {
   await registerServiceWorker()
 
   const $moods = document.querySelectorAll('.mood-emotion')

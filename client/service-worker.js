@@ -1,3 +1,4 @@
+/* eslint-env serviceworker */
 
 const local = {
   set (key, value) {
