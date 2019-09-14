@@ -10,8 +10,7 @@ import pages from '../view/pages.js'
 
 import {
   registerServiceWorker,
-  model,
-  syncData
+  model
 } from '../shared/utils.js'
 
 const refreshMoodGraphs = async () => {

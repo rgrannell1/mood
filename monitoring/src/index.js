@@ -6,6 +6,7 @@ const {
   captureViewportScreenshots,
   viewports
 } = require('./capture-viewport-screenshots')
+const captureConsoleErrors = require('./capture-console-errors')
 
 const apiTests = require('./test-api')
 
@@ -15,7 +16,7 @@ async function main () {
   await captureViewportScreenshots(browser, viewports)
   await apiTests()
 
-  // -- capture console errors
+  await captureConsoleErrors(browser)
   // -- play with service worker
 
   await browser.close()

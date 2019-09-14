@@ -1,10 +1,16 @@
 /* eslint-env serviceworker */
 
+const config = {
+  cacheName: 'sw-cache'
+}
+
 const local = {
   set (key, value) {
+    // eslint-disable-next-line no-undef
     return localStorage.setItem(key, JSON.stringify(value))
   },
   get (key) {
+    // eslint-disable-next-line no-undef
     return JSON.parse(localStorage.getItem(key))
   }
 }
@@ -40,28 +46,27 @@ const install = async () => {
   return self.skipWaiting()
 }
 
-const fetchResponse = async event => {
-  const cachedRes = await caches.match(event.request)
-  if (cachedRes) {
-    return cachedRes
+/**
+ * Fetch an uncached version of a request from a server and store it
+ * if the request succeeds.
+ *
+ * @param {Event} event
+ */
+const fetchUncachedResponse = async event => {
+  const res = await fetch(event.request)
+
+  const isCacheable = res &&
+    res.status === 200 &&
+    res.type === 'basic' &&
+    event.request.method === 'GET'
+
+  if (isCacheable) {
+    const toCache = res.clone()
+    const cache = await caches.open(config.cacheName)
+    cache.put(event.request, toCache)
   }
 
-  const uncachedRes = await fetch(event.request)
-
-  const isUncacheable = !uncachedRes ||
-    uncachedRes.status !== 200 ||
-    uncachedRes.type !== 'basic' ||
-    event.request.method !== 'GET'
-
-  if (isUncacheable) {
-    return uncachedRes
-  }
-
-  const toCache = uncachedRes.clone()
-  const cache = await caches.open('sw-cache')
-  cache.put(event.request, toCache)
-
-  return uncachedRes
+  return res
 }
 
 console.log('⛏ service-worker started')
@@ -72,10 +77,21 @@ self.addEventListener('install', event => {
   event.waitUntil(install())
 })
 
-self.addEventListener('fetch', event => {
-  event.respondWith(fetchResponse(event))
+/**
+ * Respond with a cached response if possible, but update to a
+ * recent version of the resource.
+ */
+self.addEventListener('fetch', async event => {
+  const cachedRes = await caches.match(event.request)
 
-  console.log('⛏ fetch')
+  console.log(`fetching request ${event.request}`)
+
+  if (cachedRes) {
+    event.waitUntil(fetchUncachedResponse(event))
+    event.respondWith(cachedRes)
+  } else {
+    event.respondWith(fetchUncachedResponse(event))
+  }
 })
 
 // -- remove old caches, when needed
@@ -85,6 +101,6 @@ self.addEventListener('activate', () => {
 
 self.addEventListener('sync', event => {
   if (event.tag === 'sync') {
-    event.waitUntil(sendEvents())
+    event.waitUntil(api.sendEvents())
   }
 })
