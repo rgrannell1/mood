@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/public/js/pages'
+    path: path.join(__dirname, '/public/js/pages')
   },
   plugins: [
     new CleanWebpackPlugin({
