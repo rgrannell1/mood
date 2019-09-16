@@ -74,6 +74,11 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', async event => {
   const cachedRes = await caches.match(event.request)
 
+  // -- workaround for Chromium bug
+  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') {
+    return
+  }
+
   if (cachedRes) {
     event.waitUntil(fetchUncachedResponse(event))
     event.respondWith(cachedRes)
