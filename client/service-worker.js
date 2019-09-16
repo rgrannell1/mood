@@ -4,22 +4,11 @@ const config = {
   cacheName: 'sw-cache'
 }
 
-const local = {
-  set (key, value) {
-    // eslint-disable-next-line no-undef
-    return localStorage.setItem(key, JSON.stringify(value))
-  },
-  get (key) {
-    // eslint-disable-next-line no-undef
-    return JSON.parse(localStorage.getItem(key))
-  }
-}
-
 const api = {}
 
 // -- todo use an import here instead?
 api.sendEvents = () => {
-  const events = local.get('cached-events')
+  const events = JSON.parse(localStorage.getItem('cached-events'))
   console.log(`⛏ syncing ${events.length} events to server`)
 
   const body = JSON.stringify({ events }, null, 2)
@@ -33,6 +22,7 @@ api.sendEvents = () => {
 // -- todo expand caceable
 const cached = [
   '/',
+  '/js/pages/index.js',
   '/css/style.css',
   '/fonts/open-sans.woff2',
   '/favicon.ico',
@@ -83,8 +73,6 @@ self.addEventListener('install', event => {
  */
 self.addEventListener('fetch', async event => {
   const cachedRes = await caches.match(event.request)
-
-  console.log(`fetching request ${event.request}`)
 
   if (cachedRes) {
     event.waitUntil(fetchUncachedResponse(event))

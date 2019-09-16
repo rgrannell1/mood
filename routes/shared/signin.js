@@ -1,7 +1,7 @@
 
 const log = require('./log')
 const errors = require('@rgrannell/errors')
-const config = require('./config')
+const config = require('./config')()
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify

@@ -1,6 +1,6 @@
 
 const admin = require('firebase-admin')
-const config = require('./config')
+const config = require('./config')()
 const log = require('./log')
 
 admin.initializeApp({
@@ -31,10 +31,10 @@ firebase.createUser = async (userId, ctx) => {
     await ref.set({
       userId,
       ips: [
-        ctx.ip || 'unknown',
+        ctx.ip || 'unknown'
       ],
       forwardedFor: [
-        ctx.forwardedFor || 'unknown',
+        ctx.forwardedFor || 'unknown'
       ],
       trackingId: [
         ctx.trackingId
