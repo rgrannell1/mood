@@ -1,15 +1,7 @@
 
 require('dotenv').config()
-const config = require('../routes/shared/config')()
 
 const admin = require('firebase-admin')
-
-admin.initializeApp({
-  credential: admin.credential.cert(config.google.privateKey),
-  databaseURL: config.google.db
-})
-
-const db = admin.firestore()
 
 const command = {
   name: 'firebase',
@@ -25,6 +17,15 @@ Description:
 
 command.task = async args => {
   const userId = args['--userId']
+
+  const config = require('../routes/shared/config')()
+
+  admin.initializeApp({
+    credential: admin.credential.cert(config.google.privateKey),
+    databaseURL: config.google.db
+  })
+
+  const db = admin.firestore()
 
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()

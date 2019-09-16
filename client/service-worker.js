@@ -43,7 +43,7 @@ const install = async () => {
  * @param {Event} event
  */
 const fetchUncachedResponse = async event => {
-  const res = await fetch(event.request)
+  const res = await fetch(event.request.clone())
 
   const isCacheable = res &&
     res.status === 200 &&

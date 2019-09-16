@@ -32,7 +32,7 @@ components.moodGraph = () => {
   return html`
     <section id="mood-graph" class="mood-panel">
       ${components.sectionHeader('Mood over time')}
-      <canvas id="mood-over-time"></canvas>
+      <div id="mood-over-time"></div>
     </section>`
 }
 

@@ -19,12 +19,6 @@ expect.variables = names => {
   }
 }
 
-expect.variables([
-  'GOOGLE_CLIENT_ID',
-  'GOOGLE_PRIVATE_KEY',
-  'TEST_ACCOUNT_CREDENTIAL'
-])
-
 const parseGooglePrivateKey = content => {
   return JSON.parse(Buffer.from(content, 'base64'))
 }
@@ -34,6 +28,12 @@ const readVariable = name => {
 }
 
 module.exports = () => {
+  expect.variables([
+    'GOOGLE_CLIENT_ID',
+    'GOOGLE_PRIVATE_KEY',
+    'TEST_ACCOUNT_CREDENTIAL'
+  ])
+
   return {
     test: {
       credential: readVariable('TEST_ACCOUNT_CREDENTIAL')
