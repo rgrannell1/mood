@@ -1,6 +1,8 @@
 
-import vegaEmbed from 'vega-lite'
-
+/**
+ *
+ * @param {string} mood
+ */
 const pointColour = mood => {
   const cssVar = val => {
     return window.getComputedStyle(document.documentElement).getPropertyValue(`--${val}`)
@@ -10,6 +12,17 @@ const pointColour = mood => {
   return cssVar(`graph-colour-${label}`)
 }
 
+const moods = [
+  'Stellar',
+  'Fine',
+  'Decent',
+  'Neutral',
+  'Bad',
+  'Ennui',
+  'In pain',
+  'Atrocious'
+]
+
 const moodGraphs = {}
 
 /**
@@ -18,20 +31,6 @@ const moodGraphs = {}
  * @param {Object}
  */
 moodGraphs.scatterplot = async data => {
-  const $elem = document.querySelector('#mood-over-time')
-  const { width, height } = $elem
-
-  const moods = [
-    'Stellar',
-    'Fine',
-    'Decent',
-    'Neutral',
-    'Bad',
-    'Ennui',
-    'In pain',
-    'Atrocious'
-  ]
-
   const schema = {
     $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
     description: 'Mood over time.',
@@ -55,6 +54,7 @@ moodGraphs.scatterplot = async data => {
       color: {
         field: 'mood',
         type: 'ordinal',
+        sort: moods,
         scale: {
           range: moods.map(pointColour)
         }
@@ -66,6 +66,16 @@ moodGraphs.scatterplot = async data => {
   }
 
   await vegaEmbed('#mood-over-time', schema)
+
+  /*
+  const view = new vega.View(vega.parse(schema), {
+    renderer: 'canvas',
+    container: '#mood-over-time',
+    hover: false
+  })
+
+  view.run()
+   */
 }
 
 export default moodGraphs

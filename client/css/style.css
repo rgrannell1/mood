@@ -16,15 +16,14 @@
   --header-colour: white;
 
   /* graph colours */
-  --graph-colour-stellar: red;
-  --graph-colour-stellar: red;
-  --graph-colour-fine: red;
-  --graph-colour-decent: red;
-  --graph-colour-neutral: red;
-  --graph-colour-bad: red;
-  --graph-colour-ennui: red;
-  --graph-colour-in-pain: red;
-  --graph-colour-atrocious: red;
+  --graph-colour-stellar: #fac813;
+  --graph-colour-fine: #edca49;
+  --graph-colour-decent: #ddcb6a;
+  --graph-colour-neutral: #cccd88;
+  --graph-colour-bad: #b6cea4;
+  --graph-colour-ennui: #9ad0c0;
+  --graph-colour-in-pain: #72d1db;
+  --graph-colour-atrocious: #05d3f7;
 
   font-size: 62.5%;
 }

@@ -80,8 +80,8 @@ self.addEventListener('fetch', async event => {
   }
 
   if (cachedRes) {
-    event.waitUntil(fetchUncachedResponse(event))
     event.respondWith(cachedRes)
+    event.waitUntil(fetchUncachedResponse(event))
   } else {
     event.respondWith(fetchUncachedResponse(event))
   }
