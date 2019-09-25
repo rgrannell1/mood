@@ -9,6 +9,7 @@
   --bg-colour-0: #fc76af;
   --bg-colour-1: #ffaf8c;
   --emoji-hover: #db8787;
+  --emoji-background: #f1d4e0;
   --emoji-click: #744646;
   --font-colour: #e10564;
   --brand-colour: #e10564;
@@ -136,6 +137,9 @@ main {
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
+  background: var(--emoji-background);
+  border-radius: 5px;
+  margin: 10px;
 }
 
 .mood-emotion:hover {
