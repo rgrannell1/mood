@@ -37,19 +37,23 @@ components.moodGraph = () => {
 }
 
 components.mood = ({ title, emoji }, idx) => {
-  return html`<div id="mood-${idx}" class="mood-emotion" title="${title}">${emoji}</div>`
+  const filename = title.toLowerCase().replace(' ', '-')
+
+  return html`<div id="mood-${idx}" class="mood-emotion" title="${title}">
+    <img src="svg/${filename}.svg"></img>
+  </div>`
 }
 
 components.moodPanel = () => {
   const data = [
-    { title: 'Atrocious', emoji: '💀' },
-    { title: 'In pain', emoji: '😩' },
-    { title: 'Ennui', emoji: '😔' },
-    { title: 'Bad', emoji: '😑' },
-    { title: 'Neutral', emoji: '😐' },
-    { title: 'Decent', emoji: '🙂' },
-    { title: 'Fine', emoji: '😊' },
-    { title: 'Stellar', emoji: '😇' }
+    { title: 'Atrocious' },
+    { title: 'In pain' },
+    { title: 'Ennui' },
+    { title: 'Bad' },
+    { title: 'Neutral' },
+    { title: 'Decent' },
+    { title: 'Fine' },
+    { title: 'Stellar' }
   ]
 
   return html`
