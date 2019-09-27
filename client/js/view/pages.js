@@ -71,12 +71,11 @@ components.privacyPolicy = () => {
     <section id="mood-box" class="mood-panel">
     ${components.sectionHeader('Privacy Policy')}
     <div>
-      <p>TLDR: this site will not use your data in a malicious manner</p>
 
       <p>The site may track:</p>
       <ul>
         <li>a hash of the users ip-address</li>
-        <li>the user-agent</li>
+        <li>the user-agent provided</li>
       </ul>
 
       <p>the user-agent is only used to spot poorly-crafted bots.</p>

@@ -53,6 +53,7 @@ command.task = async args => {
     fse.copy('client/css', 'public/css'),
     fse.copy('client/fonts', 'public/fonts'),
     fse.copy('client/icons', 'public/icons'),
+    fse.copy('client/svg', 'public/svg'),
     fse.copy('client/favicon.ico', 'public/favicon.ico'),
     fse.copy('client/index.html', 'public/index.html'),
     fse.copy('client/manifest.webmanifest', 'public/manifest.webmanifest'),
