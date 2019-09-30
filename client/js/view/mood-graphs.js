@@ -69,7 +69,9 @@ moodGraphs.heatplot = async data => {
     }
   }
 
-  vegaEmbed('#mood-over-time', spec)
+  vegaEmbed('#mood-over-time', spec, {
+    renderer: 'svg'
+  })
 }
 
 export default moodGraphs
