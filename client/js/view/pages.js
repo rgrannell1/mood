@@ -31,7 +31,7 @@ components.sectionHeader = title => {
 components.moodGraph = () => {
   return html`
     <section id="mood-graph" class="mood-panel">
-      ${components.sectionHeader('Mood over time')}
+      ${components.sectionHeader('Timeline')}
       <div id="mood-over-time"></div>
     </section>`
 }

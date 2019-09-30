@@ -6,6 +6,7 @@
   "dependencies": {
     "@google-cloud/firestore": "^2.2.9",
     "@rgrannell/errors": "8.2.0",
+    "apexcharts": "^3.8.6",
     "chai": "4.2.0",
     "dotenv": "^8.1.0",
     "firebase-admin": "^8.5.0",

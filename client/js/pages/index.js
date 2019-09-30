@@ -15,7 +15,7 @@ import {
 
 const refreshMoodGraphs = async () => {
   const moodData = await api.moods.get()
-  await moodGraphs.scatterplot(await moodData.json())
+  await moodGraphs.heatplot(await moodData.json())
 }
 
 /**

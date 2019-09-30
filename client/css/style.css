@@ -139,7 +139,7 @@ main {
   background: var(--emoji-background);
   border-radius: 5px;
   margin: 10px;
-  width: 28px;
+  width: 50px;
 }
 
 .mood-emotion:hover {

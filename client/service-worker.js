@@ -27,7 +27,15 @@ const cached = [
   '/fonts/open-sans.woff2',
   '/favicon.ico',
   '/manifest.webmanifest',
-  '/icons/icon-144x144.png'
+  '/icons/icon-144x144.png',
+  '/svg/atrocious.svg',
+  '/svg/bad.svg',
+  '/svg/decent.svg',
+  '/svg/ennui.svg',
+  '/svg/fine.svg',
+  '/svg/in-pain.svg',
+  '/svg/neutral.svg',
+  '/svg/stellar.svg'
 ]
 
 const install = async () => {
