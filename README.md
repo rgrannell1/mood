@@ -18,36 +18,6 @@ License | MIT
 - Displays a graph and analytics of mood over time
 
 ## Build System
----
-### Building
-```
-build           compile client-side code into 'public' folder using webpack
-```
-
-### Deployment
-```
-deploy          deploy the website and associated apis to Zeit
-```
-
-### Running
-```
-run:api         run the site's apis locally directly
-run:client      run the site's static-serve locally directly
-dev             run the site using docker-compose
-```
-
-
-## Running Locally
-
-Unfortunately `now dev` doesn't run properly, so to run locally you'll need to run:
-
-```bash
-docker-compose up
-```
-
-This will set up working APIs and a static-file server.
-
-### `.env` file
 
 Environment secrets are stored in a `.env` file with the following fields:
 
@@ -63,4 +33,21 @@ GOOGLE_PRIVATE_KEY=xxx
 
 # -- limited-access basic-auth credentials for synthetic monitoring
 TEST_ACCOUNT_CREDENTIAL=xxx
+```
+
+### Building
+```
+build           compile client-side code into 'public' folder using webpack
+```
+
+### Deployment
+```
+deploy          deploy the website and associated apis to Zeit
+```
+
+### Running
+```
+run:api         run the site's apis locally directly
+run:client      run the site's static-serve locally directly
+dev             run the site using docker-compose
 ```
