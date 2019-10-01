@@ -1,7 +1,5 @@
 
-require('dotenv').config()
-
-const admin = require('firebase-admin')
+import * as admin from 'firebase-admin'
 
 const command = {
   name: 'firebase',
@@ -33,4 +31,4 @@ command.task = async args => {
   console.log(JSON.stringify(doc.data(), null, 2))
 }
 
-module.exports = command
+export default command

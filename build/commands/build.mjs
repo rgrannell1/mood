@@ -1,7 +1,8 @@
 
-const fs = require('fs').promises
-const fse = require('fs-extra')
-const webpack = require('webpack')
+import * as fs from 'fs'
+
+import fse from 'fs-extra'
+import webpack from 'webpack'
 
 const command = {
   name: 'build',
@@ -18,9 +19,12 @@ Description:
 const build = {}
 
 build.webpack = async ({ production }) => {
-  const webpackConfig = production
-    ? require('../../webpack.prod')
-    : require('../../webpack.dev')
+
+  const source = await (production
+    ? import('../../webpack.prod')
+    : import('../../webpack.dev'))
+
+  const webpackConfig = source.default
 
   await new Promise((resolve, reject) => {
     webpack(webpackConfig, (err, stats) => {
@@ -39,7 +43,11 @@ build.webpack = async ({ production }) => {
 
 command.task = async args => {
   try {
-    await fs.mkdir('public')
+    await new Promise((resolve, reject) => {
+      fs.mkdir('public', err => {
+        err ? reject(err) : resolve()
+      })
+    })
   } catch (err) {
     if (err.code !== 'EEXIST') {
       throw err
@@ -62,4 +70,4 @@ command.task = async args => {
   ])
 }
 
-module.exports = command
+export default command

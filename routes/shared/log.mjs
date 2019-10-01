@@ -1,5 +1,5 @@
 
-const signale = require('signale')
+import * as signale from 'signale'
 
 const attachContext = (ctx, message) => {
   return message
@@ -13,4 +13,4 @@ for (const level of ['success', 'debug', 'error', 'warn']) {
   }
 }
 
-module.exports = log
+export default log

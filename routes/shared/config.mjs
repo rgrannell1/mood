@@ -27,7 +27,7 @@ const readVariable = name => {
   return process.env[name] || process.env[name.toLowerCase()]
 }
 
-module.exports = () => {
+export default () => {
   expect.variables([
     'GOOGLE_CLIENT_ID',
     'GOOGLE_PRIVATE_KEY',

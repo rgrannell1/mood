@@ -1,18 +1,18 @@
 
-const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+import * as path from 'path'
+import clean from 'clean-webpack-plugin'
 
-module.exports = {
+export default {
   entry: {
     index: './client/js/pages/index.js',
     privacy: './client/js/pages/privacy.js'
   },
   output: {
     filename: '[name].js',
-    path: path.join(__dirname, '/public/js/pages')
+    path: path.resolve('../public/js/pages')
   },
   plugins: [
-    new CleanWebpackPlugin({
+    new clean.CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         path.resolve('public/**/*')
       ]

@@ -1,7 +1,6 @@
 
-const errors = require('@rgrannell/errors')
-
-const constants = require('./constants')
+import * as errors from '@rgrannell/errors'
+import constants from './constants.mjs'
 
 const validate = {}
 
@@ -40,4 +39,4 @@ validate.body = (userId, content) => {
   return content
 }
 
-module.exports = validate
+export default validate

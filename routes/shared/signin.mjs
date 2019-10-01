@@ -1,16 +1,20 @@
 
-const log = require('./log')
-const errors = require('@rgrannell/errors')
-const config = require('./config')()
+import log from './log.mjs'
+
+import * as errors from '@rgrannell/errors'
+
+import config from './config.mjs'
+const envConfig = config()
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
 
 // use sub as user primary key
 
-const { OAuth2Client } = require('google-auth-library')
+import google from 'google-auth-library'
+const { OAuth2Client } = google
 
-const client = new OAuth2Client(config.google.clientId)
+const client = new OAuth2Client(envConfig.google.clientId)
 
 const allowSchemes = (schemes, req) => {
   if (!Object.prototype.hasOwnProperty.call(req.headers, 'authorization')) {
@@ -46,7 +50,7 @@ verify.testCredential = async (password, req) => {
     throw errors.unauthorized('no credential provided for basic-authentication', 401)
   }
 
-  if (password !== config.test.credential) {
+  if (password !== envConfig.test.credential) {
     log.warn(req.state, 'unauthenticated basic-auth attempt to access test-account')
     throw errors.unauthorized('invalid basic-auth credential provided', 401)
   }
@@ -71,7 +75,7 @@ verify.token = async (token, req) => {
   try {
     var ticket = await client.verifyIdToken({
       idToken: token,
-      audience: config.google.clientId
+      audience: envConfig.google.clientId
     })
   } catch (err) {
     if (err.message.includes('Token used too late')) {
@@ -83,7 +87,7 @@ verify.token = async (token, req) => {
 
   const { sub, aud } = ticket.getPayload()
 
-  if (aud !== config.google.audience) {
+  if (aud !== envConfig.google.audience) {
     throw errors.unauthorized('invalid token audience', 500)
   }
 
@@ -103,7 +107,7 @@ verify.token = async (token, req) => {
  *
  * @returns {Promise<*>}
  */
-const ensureLoggedIn = async (req, res) => {
+export default async (req, res) => {
   try {
     const auth = allowSchemes(['basic', 'bearer'], req)
 
@@ -120,5 +124,3 @@ const ensureLoggedIn = async (req, res) => {
     throw err
   }
 }
-
-module.exports = ensureLoggedIn

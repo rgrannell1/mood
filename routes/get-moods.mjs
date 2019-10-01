@@ -1,6 +1,6 @@
 
-const firebase = require('./shared/db')
-const ensureLoggedIn = require('./shared/signin')
+import firebase from './shared/db.mjs'
+import ensureLoggedIn from './shared/signin.mjs'
 
 const getMoods = async (req, res) => {
   const { userId } = await ensureLoggedIn(req, res)

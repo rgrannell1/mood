@@ -2,7 +2,7 @@
 import {
   trackingId,
   hash
-} from './utils.js'
+} from './utils.mjs'
 import signale from 'signale'
 import * as errors from '@rgrannell/errors'
 import { fdatasync } from 'fs'

@@ -1,11 +1,13 @@
 
-const admin = require('firebase-admin')
-const config = require('./config')()
-const log = require('./log')
+import  admin from 'firebase-admin'
+import log from './log.mjs'
+
+import config from './config.mjs'
+const envConfig = config()
 
 admin.initializeApp({
-  credential: admin.credential.cert(config.google.privateKey),
-  databaseURL: config.google.db
+  credential: admin.credential.cert(envConfig.google.privateKey),
+  databaseURL: envConfig.google.db
 })
 
 const db = admin.firestore()
@@ -101,4 +103,4 @@ firebase.getMoods = async (userId, ctx, opts) => {
   }
 }
 
-module.exports = firebase
+export default firebase

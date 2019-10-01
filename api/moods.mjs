@@ -1,5 +1,5 @@
 
-import { routeMethod } from '../routes/shared/routes.js'
+import { routeMethod } from '../routes/shared/routes.mjs'
 
 import getMoods from '../routes/get-moods'
 import patchMoods from '../routes/patch-moods'

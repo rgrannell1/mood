@@ -1,6 +1,8 @@
-const pulp = require('@rgrannell/pulp')
-const commands = require('./build/commands')
-const tools = require('./tools')
+
+import pulp from '@rgrannell/pulp'
+
+import commands from './build/commands'
+import tools from './tools'
 
 const tasks = pulp.tasks()
 
