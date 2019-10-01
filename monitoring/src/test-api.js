@@ -89,7 +89,7 @@ tests.moods.patch = async () => {
   }
 }
 
-const apiTests = async () => {
+const apiTests = async config => {
   await Promise.all([
     tests.metadata.get(),
     tests.moods.patch(),

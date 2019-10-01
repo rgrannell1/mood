@@ -1,5 +1,5 @@
 
-const captureConsoleErrors = async browser => {
+const captureConsoleErrors = async (config, browser) => {
   const page = await browser.newPage()
   await page.goto('https://mood.rgrannell2.now.sh')
 

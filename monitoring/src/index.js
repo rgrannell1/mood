@@ -1,6 +1,7 @@
 
 const puppeteer = require('puppeteer')
 const signale = require('signale')
+const config = require('./config')()
 
 const {
   captureViewportScreenshots,
@@ -14,9 +15,9 @@ async function main () {
   const browser = await puppeteer.launch()
 
   // await captureViewportScreenshots(browser, viewports)
-  await apiTests()
+  await apiTests(config)
 
-  await captureConsoleErrors(browser)
+  await captureConsoleErrors(config, browser)
   // -- play with service worker
 
   await browser.close()

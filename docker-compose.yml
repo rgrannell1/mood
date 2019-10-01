@@ -1,21 +1,21 @@
 version: "3"
 services:
-  # -- serve public-files
   client:
+    environment:
+      - NODE_ENV=local
     ports:
       - "3000:3000"
     build:
       context: .
       dockerfile: client.dockerfile
-  # -- serve backend code
-  api:
-    ports:
-      - "3001:3001"
-    build:
-      context: .
-      dockerfile: api.dockerfile
-    healthcheck:
-      test: "curl --fail http://localhost:3000/api/metadata"
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
+#  api:
+#    ports:
+#      - "3001:3001"
+#    build:
+#      context: .
+#      dockerfile: api.dockerfile
+#    healthcheck:
+#      test: "curl --fail http://localhost:3000/api/metadata"
+#      interval: 1m30s
+#      timeout: 10s
+#      retries: 3

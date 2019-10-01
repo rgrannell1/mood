@@ -9,7 +9,7 @@ export default {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve('../public/js/pages')
+    path: path.resolve('public/js/pages')
   },
   plugins: [
     new clean.CleanWebpackPlugin({
