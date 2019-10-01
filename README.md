@@ -15,10 +15,30 @@
 
 ## Running Locally
 
-Unfortunately `now dev` doesn't run properly, so to run locally you'll need to run
+Unfortunately `now dev` doesn't run properly, so to run locally you'll need to run:
 
 ```bash
 docker-compose up
+```
+
+This will set up working APIs and a static-file server.
+
+### `.env` file
+
+Environment secrets are stored in a `.env` file with the following fields:
+
+```
+# -- google signin client id
+GOOGLE_CLIENT_ID=xxx
+
+# -- encryption key for application data
+ENCRYPTION_KEY=xxx
+
+# -- private key for google signin
+GOOGLE_PRIVATE_KEY=xxx
+
+# -- limited-access basic-auth credentials for synthetic monitoring
+TEST_ACCOUNT_CREDENTIAL=xxx
 ```
 
 ## License
