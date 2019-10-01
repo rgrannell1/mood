@@ -18,7 +18,7 @@ const client = new OAuth2Client(envConfig.google.clientId)
 
 const allowSchemes = (schemes, req) => {
   if (!Object.prototype.hasOwnProperty.call(req.headers, 'authorization')) {
-    throw errors.unauthorized('"authorization" absent from request requiring authentication', 401)
+    throw errors.unauthorized('"authorization" header absent from request requiring authentication', 401)
   }
 
   const header = req.headers.authorization
