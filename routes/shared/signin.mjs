@@ -1,7 +1,7 @@
 
 import log from './log.mjs'
 
-import * as errors from '@rgrannell/errors'
+import errors from '@rgrannell/errors'
 
 import config from './config.mjs'
 const envConfig = config()
