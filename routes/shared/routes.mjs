@@ -21,9 +21,15 @@ const is = val => {
 const handleErrors = async (err, req, res) => {
   const ctx = req.state
 
-  res
-    .status(500)
-    .end('error handling not implemented')
+  if (err.code && err.code !== 500) {
+    res
+      .status(err.code)
+      .end(`${err.name}: ${err.message}`)
+  } else {
+    res
+      .status(500)
+      .end('error handling not implemented')
+  }
 }
 
 /**
