@@ -1,8 +1,8 @@
 
 import pulp from '@rgrannell/pulp'
 
-import commands from './build/commands'
-import tools from './tools'
+import commands from './build/commands/index.mjs'
+import tools from './tools/index.mjs'
 
 const tasks = pulp.tasks()
 

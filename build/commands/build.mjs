@@ -21,8 +21,8 @@ const build = {}
 build.webpack = async ({ production }) => {
 
   const source = await (production
-    ? import('../../webpack.prod')
-    : import('../../webpack.dev'))
+    ? import('../../webpack.prod.mjs')
+    : import('../../webpack.dev.mjs'))
 
   const webpackConfig = source.default
 

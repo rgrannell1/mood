@@ -1,10 +1,14 @@
 version: "3"
 services:
   client:
+    ports:
+      - "3000:3000"
     build:
       context: .
       dockerfile: client.dockerfile
-#  api:
-#    build:
-#      context: .
-#      dockerfile: api.dockerfile
+  api:
+    ports:
+      - "3001:3001"
+    build:
+      context: .
+      dockerfile: api.dockerfile

@@ -1,5 +1,5 @@
 
-import * as errors from '@rgrannell/errors'
+import errors from '@rgrannell/errors'
 import constants from './constants.mjs'
 
 const validate = {}

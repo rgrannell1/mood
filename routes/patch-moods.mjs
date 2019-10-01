@@ -2,6 +2,7 @@
 import firebase from './shared/db.mjs'
 import ensureLoggedIn from './shared/signin.mjs'
 import validate from './shared/validate-input.mjs'
+import errors from '@rgrannell/errors'
 
 const patchMoods = async (req, res) => {
   const { userId } = await ensureLoggedIn(req, res)

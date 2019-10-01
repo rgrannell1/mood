@@ -4,7 +4,7 @@ import metadata from '../../api/metadata.mjs'
 import moods from '../../api/moods.mjs'
 
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use('/api/metadata', (req, res) => {
   metadata(req, res)
