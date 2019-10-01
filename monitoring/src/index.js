@@ -3,6 +3,11 @@ const puppeteer = require('puppeteer')
 const signale = require('signale')
 const config = require('./config')()
 
+process.on('unhandledRejection', err => {
+  signale.error(`${err.message}\n\n${err.stack}`)
+  process.exit(1)
+})
+
 const {
   captureViewportScreenshots,
   viewports
@@ -14,7 +19,7 @@ const apiTests = require('./test-api')
 async function main () {
   const browser = await puppeteer.launch()
 
-  // await captureViewportScreenshots(browser, viewports)
+  // await captureViewportScreenshots(config, browser, viewports)
   await apiTests(config)
 
   await captureConsoleErrors(config, browser)

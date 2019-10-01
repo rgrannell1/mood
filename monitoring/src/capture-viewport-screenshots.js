@@ -37,7 +37,7 @@ const viewports = [
 const createPage = async (browser, viewport) => {
   const page = await browser.newPage()
 
-  await page.goto('https://mood.rgrannell2.now.sh')
+  await page.goto(url)
 
   page.setViewport({
     width: viewport.width,
@@ -47,13 +47,13 @@ const createPage = async (browser, viewport) => {
   return { page }
 }
 
-const captureViewportScreenshots = async (browser, viewports) => {
+const captureViewportScreenshots = async (config, browser, viewports) => {
   const dir = path.join(__dirname, '../../data/')
 
   for (const viewport of viewports) {
     signale.debug(`capturing ${viewport.device} screenshots`)
 
-    const { page } = await createPage(browser, viewport)
+    const { page } = await createPage(config.staticHost, browser, viewport)
     const filenames = {
       full: `${viewport.device}-${(new Date()).toISOString()}.png`,
       latest: `${viewport.device}-latest.png`,

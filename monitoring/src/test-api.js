@@ -2,7 +2,6 @@
 const fetch = require('node-fetch')
 const signale = require('signale')
 const dotenv = require('dotenv').config()
-const constants = require('./constants')
 
 const tests = {
   metadata: {},
@@ -18,8 +17,8 @@ const asBody = value => {
   return JSON.stringify(value, null, 2)
 }
 
-tests.metadata.get = async () => {
-  const result = await fetch(`${constants.urls.mood}/api/metadata`, {
+tests.metadata.get = async host => {
+  const result = await fetch(`${host}/api/metadata`, {
     method: 'GET',
     headers: {
       Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`
@@ -42,8 +41,8 @@ tests.metadata.get = async () => {
   }
 }
 
-tests.moods.get = async () => {
-  const result = await fetch(`${constants.urls.mood}/api/moods`, {
+tests.moods.get = async host => {
+  const result = await fetch(`${host}/api/moods`, {
     method: 'GET',
     headers: {
       Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`
@@ -57,7 +56,7 @@ tests.moods.get = async () => {
   }
 }
 
-tests.moods.patch = async () => {
+tests.moods.patch = async host => {
   const events = [
     {
       type: 'send-mood',
@@ -71,7 +70,7 @@ tests.moods.patch = async () => {
     }
   ]
 
-  const result = await fetch(`${constants.urls.mood}/api/moods`, {
+  const result = await fetch(`${host}/api/moods`, {
     method: 'PATCH',
     headers: {
       Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`
@@ -91,9 +90,9 @@ tests.moods.patch = async () => {
 
 const apiTests = async config => {
   await Promise.all([
-    tests.metadata.get(),
-    tests.moods.patch(),
-    tests.moods.get()
+    tests.metadata.get(config.apiHost),
+    tests.moods.patch(config.apiHost),
+    tests.moods.get(config.apiHost)
   ])
 }
 
