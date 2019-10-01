@@ -1,11 +1,13 @@
 version: "3"
 services:
+  # -- serve public-files
   client:
     ports:
       - "3000:3000"
     build:
       context: .
       dockerfile: client.dockerfile
+  # -- serve backend code
   api:
     ports:
       - "3001:3001"

@@ -5,7 +5,7 @@ const app = express()
 const port = 3000
 
 const command = {
-  name: 'serve-api',
+  name: 'serve-public',
   dependencies: []
 }
 
