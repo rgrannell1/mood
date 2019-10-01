@@ -4,7 +4,6 @@ import log from './log.mjs'
 import errors from '@rgrannell/errors'
 
 import config from './config.mjs'
-const envConfig = config()
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
@@ -12,6 +11,7 @@ const envConfig = config()
 // use sub as user primary key
 
 import google from 'google-auth-library'
+const envConfig = config()
 const { OAuth2Client } = google
 
 const client = new OAuth2Client(envConfig.google.clientId)

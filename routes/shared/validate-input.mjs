@@ -16,7 +16,6 @@ validate.mood = (event, ith) => {
   if (event.type !== 'send-mood') {
     throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
   }
-
 }
 
 validate.body = (userId, content) => {

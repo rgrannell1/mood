@@ -13,7 +13,7 @@ const apiTests = require('./test-api')
 async function main () {
   const browser = await puppeteer.launch()
 
-  await captureViewportScreenshots(browser, viewports)
+  // await captureViewportScreenshots(browser, viewports)
   await apiTests()
 
   await captureConsoleErrors(browser)

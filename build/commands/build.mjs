@@ -19,7 +19,6 @@ Description:
 const build = {}
 
 build.webpack = async ({ production }) => {
-
   const source = await (production
     ? import('../../webpack.prod.mjs')
     : import('../../webpack.dev.mjs'))

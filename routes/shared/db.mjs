@@ -1,5 +1,5 @@
 
-import  admin from 'firebase-admin'
+import admin from 'firebase-admin'
 import log from './log.mjs'
 
 import config from './config.mjs'
@@ -69,7 +69,7 @@ firebase.saveMoods = async (userId, ctx, moods) => {
   }
 
   const existing = doc.data()
-  const updated = {...existing}
+  const updated = { ...existing }
 
   updated.moods = updated.moods
     ? updated.moods.concat(moods)
