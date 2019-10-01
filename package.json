@@ -39,10 +39,10 @@
   },
   "scripts": {
     "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build",
-    "serve:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
-    "serve:public": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
+    "run:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
+    "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
+    "dev": "docker-compose up",
     "deploy": "time node_modules/.bin/now",
-    "start": "find public | entr -s 'npx now dev'",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
   "repository": {

@@ -13,6 +13,26 @@
 - Stores mood over time in an offline-first fashion
 - Displays a graph and analytics of mood over time
 
+## Build System
+---
+### Building
+```
+build           compile client-side code into 'public' folder using webpack
+```
+
+### Deployment
+```
+deploy          deploy the website and associated apis to Zeit
+```
+
+### Running
+```
+run:api         run the site's apis locally directly
+run:client      run the site's static-serve locally directly
+dev             run the site using docker-compose
+```
+
+
 ## Running Locally
 
 Unfortunately `now dev` doesn't run properly, so to run locally you'll need to run:
