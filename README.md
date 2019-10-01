@@ -13,6 +13,13 @@
 - Stores mood over time in an offline-first fashion
 - Displays a graph and analytics of mood over time
 
+## Running Locally
+
+Unfortunately `now dev` doesn't run properly, so to run locally you'll need to run
+
+```bash
+docker-compose up
+```
 
 ## License
 
