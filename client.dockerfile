@@ -16,4 +16,4 @@ RUN npm install
 RUN npm run build
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD npm run serve:public
+CMD npm run run:client

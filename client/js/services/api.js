@@ -42,7 +42,7 @@ api.moods.post = async () => {
   const events = cache.retrieveEvents()
 
   const response = withToken(token => {
-    return fetch('api/moods', {
+    return fetch(`${constants.apiHost}/api/moods`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${token}`
@@ -64,7 +64,7 @@ api.moods.post = async () => {
  */
 api.moods.get = async () => {
   return withToken(token => {
-    return fetch('api/moods', {
+    return fetch(`${constants.apiHost}/api/moods`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
