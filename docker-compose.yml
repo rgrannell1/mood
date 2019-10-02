@@ -8,12 +8,23 @@ services:
     build:
       context: .
       dockerfile: client.dockerfile
+    volumes:
+    - "./client:/usr/src/web/client"
+    - "./routes:/usr/src/web/routes"
+    - "./tools:/usr/src/web/tools"
+    - "./build:/usr/src/web/build"
+    - "./api:/usr/src/web/api"
   api:
     ports:
       - "3001:3001"
     build:
       context: .
       dockerfile: api.dockerfile
+    volumes:
+    - "./api:/usr/src/api/api"
+    - "./routes:/usr/src/api/routes"
+    - "./tools:/usr/src/api/tools"
+    - "./build:/usr/src/api/build"
     healthcheck:
       test: "curl --fail http://localhost:3000/api/metadata"
       interval: 30s

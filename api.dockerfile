@@ -4,10 +4,6 @@ EXPOSE 3001
 
 WORKDIR /usr/src/api
 
-COPY api ./api
-COPY routes ./routes
-COPY tools ./tools
-COPY build ./build
 COPY .env package.json package-lock.json pulpfile.mjs webpack.common.mjs webpack.dev.mjs webpack.prod.mjs ./
 
 RUN apt-get update && apt install dumb-init --assume-yes

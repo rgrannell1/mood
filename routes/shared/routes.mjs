@@ -4,7 +4,8 @@ import {
   hash
 } from './utils.mjs'
 import signale from 'signale'
-import * as errors from '@rgrannell/errors'
+import errors from '@rgrannell/errors'
+import log from './log.mjs'
 import { fdatasync } from 'fs'
 
 const is = val => {
@@ -20,6 +21,8 @@ const is = val => {
  */
 const handleErrors = async (err, req, res) => {
   const ctx = req.state
+
+  log.error(ctx, `${err.name}: ${err.message}\n\n${err.stack}`)
 
   if (err.code && err.code !== 500) {
     res
