@@ -7,7 +7,9 @@
     "@google-cloud/firestore": "^2.2.9",
     "@rgrannell/errors": "8.2.0",
     "apexcharts": "^3.8.6",
+    "body-parser": "^1.19.0",
     "chai": "4.2.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "firebase-admin": "^8.5.0",
     "google-auth-library": "5.2.0",
@@ -42,6 +44,7 @@
     "run:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
     "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
     "dev": "docker-compose up",
+    "dev:watch": "find build routes client api monitoring tools | entr sh -c 'docker-compose up'",
     "deploy": "time node_modules/.bin/now",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
