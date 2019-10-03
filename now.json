@@ -3,7 +3,8 @@
   "env": {
     "GOOGLE_CLIENT_ID": "@google_client_id",
     "GOOGLE_PRIVATE_KEY": "@google_private_key",
-    "TEST_ACCOUNT_CREDENTIAL": "@test_account_credential"
+    "TEST_ACCOUNT_CREDENTIAL": "@test_account_credential",
+    "ENCRYPTION_KEY": "@encryption_key"
   },
   "routes": [
     {
