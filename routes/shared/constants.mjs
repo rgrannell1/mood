@@ -10,5 +10,9 @@ export default {
   },
   limits: {
     moodsLength: 50
+  },
+  security: {
+    initVectorSize: 16,
+    encryptAlgorithm: 'aes-256-ctr'
   }
 }

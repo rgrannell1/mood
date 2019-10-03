@@ -1,5 +1,6 @@
 
 import admin from 'firebase-admin'
+import security from './security.mjs'
 import log from './log.mjs'
 
 import config from './config.mjs'
@@ -23,14 +24,14 @@ const firebase = {}
  *
  * @returns {Promise<*>}
  */
-firebase.createUser = async (userId, ctx) => {
+firebase.createUser = async (userId, ctx, opts) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
   if (!doc.exists) {
     log.debug(ctx, `storing information for new user ${userId}`)
 
-    await ref.set({
+    const saved = {
       userId,
       ips: [
         ctx.ip || 'unknown'
@@ -39,7 +40,9 @@ firebase.createUser = async (userId, ctx) => {
         ctx.forwardedFor || 'unknown'
       ],
       trackingIdCount: 1
-    })
+    }
+
+    await ref.set(security.user.encrypt(saved, opts.key))
   } else {
     log.debug(ctx, `user ${userId} already exists`)
 
@@ -50,16 +53,18 @@ firebase.createUser = async (userId, ctx) => {
       updatedTrackingIdCount = existing.trackingIdCount + 1
     }
 
-    await ref.update({
+    const saved = {
       userId,
       ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
       forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
       trackingIdCount: updatedTrackingIdCount
-    })
+    }
+
+    await ref.update(security.user.encrypt(saved, opts.key))
   }
 }
 
-firebase.saveMoods = async (userId, ctx, moods) => {
+firebase.saveMoods = async (userId, ctx, moods, opts) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
@@ -68,7 +73,7 @@ firebase.saveMoods = async (userId, ctx, moods) => {
     process.exit(1)
   }
 
-  const existing = doc.data()
+  const existing = security.user.decrypt(doc.data(), opts.key)
   const updated = { ...existing }
 
   updated.moods = updated.moods
@@ -77,7 +82,9 @@ firebase.saveMoods = async (userId, ctx, moods) => {
 
   log.debug(ctx, `adding moods for user ${userId}`)
 
-  await db.collection('users').doc(userId).update(updated)
+  const encrypted = security.users.encrypt(updated, opts.key)
+
+  await db.collection('users').doc(userId).update(encrypted)
 
   log.success(ctx, `moods successfully added for user ${userId}`)
 }
@@ -90,17 +97,20 @@ firebase.getMoods = async (userId, ctx, opts) => {
     return []
   }
 
-  const userData = doc.data()
+  // -- sort moods by date
+  const userData = security.users.decrypt(doc.data(), opts.key)
 
   userData.moods.sort((datum0, datum1) => datum0.timestamp - datum1.timestamp)
 
-  return {
+  const retrieved = {
     moods: userData.moods,
     stats: {
       to: userData.moods[userData.moods.length - 1].timestamp,
       from: userData.moods[0].timestamp
     }
   }
+
+  return retrieved
 }
 
 export default firebase

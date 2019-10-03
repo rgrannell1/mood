@@ -29,6 +29,7 @@ const readVariable = name => {
 
 export default () => {
   expect.variables([
+    'ENCRYPTION_KEY',
     'GOOGLE_CLIENT_ID',
     'GOOGLE_PRIVATE_KEY',
     'TEST_ACCOUNT_CREDENTIAL'
@@ -43,6 +44,9 @@ export default () => {
       clientId: readVariable('GOOGLE_CLIENT_ID'),
       audience: '1053339394516-8m3pa0tvsejqha2usv84rkul7ja804s6.apps.googleusercontent.com',
       privateKey: parseGooglePrivateKey(readVariable('GOOGLE_PRIVATE_KEY'))
+    },
+    encryption: {
+      key: readVariable('ENCRYPTION_KEY')
     }
   }
 }

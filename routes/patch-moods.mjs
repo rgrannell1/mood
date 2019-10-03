@@ -4,6 +4,9 @@ import ensureLoggedIn from './shared/signin.mjs'
 import validate from './shared/validate-input.mjs'
 import errors from '@rgrannell/errors'
 
+import config from './shared/config.mjs'
+const envConfig = config()
+
 const patchMoods = async (req, res) => {
   const { userId } = await ensureLoggedIn(req, res)
 
@@ -15,8 +18,12 @@ const patchMoods = async (req, res) => {
 
   validate.body(userId, parsed)
 
-  await firebase.createUser(userId, req.state)
-  await firebase.saveMoods(userId, req.state, parsed.events)
+  await firebase.createUser(userId, req.state, {
+    key: envConfig.encryption.key
+  })
+  await firebase.saveMoods(userId, req.state, parsed.events, {
+    key: envConfig.encryption.key
+  })
 
   res.status(200)
   res.end('PATCH api/moods')
