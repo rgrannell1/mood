@@ -31,10 +31,6 @@ security.decrypt = (string, key) => {
 
   const result = Buffer.concat([decipher.update(encrypted), decipher.final()])
 
-  console.log('----')
-  console.log(result)
-  console.log('----')
-
   return result
 }
 

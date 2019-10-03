@@ -79,16 +79,20 @@ verify.token = async (token, req) => {
     })
   } catch (err) {
     if (err.message.includes('Token used too late')) {
-      // -- TODO implement refresh mechanism
+      throw errors.internalServerError('token expired & refresh not yet implemented', 500)
     } else {
       throw err
     }
   }
 
+  if (!ticket) {
+    throw errors.unauthorized('failed to verify token', 401)
+  }
+
   const { sub, aud } = ticket.getPayload()
 
   if (aud !== envConfig.google.audience) {
-    throw errors.unauthorized('invalid token audience', 500)
+    throw errors.unauthorized('invalid token audience', 401)
   }
 
   req.state.userId = sub

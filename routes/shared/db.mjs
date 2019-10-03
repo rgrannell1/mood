@@ -21,6 +21,7 @@ const firebase = {}
  *
  * @param {string} userId the user-id
  * @param {object} ctx request metadata
+ * @param {object} opts an object with a key
  *
  * @returns {Promise<*>}
  */
@@ -64,6 +65,16 @@ firebase.createUser = async (userId, ctx, opts) => {
   }
 }
 
+/**
+ * Add mood data to the database
+ *
+ * @param {string} userId the user-id
+ * @param {object} ctx request metadata
+ * @param {array} moods a list of mood objects
+ * @param {object} opts an object with a key
+ *
+ * @returns {Promise<*>}
+ */
 firebase.saveMoods = async (userId, ctx, moods, opts) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
@@ -82,13 +93,23 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
 
   log.debug(ctx, `adding moods for user ${userId}`)
 
-  const encrypted = security.users.encrypt(updated, opts.key)
+  const encrypted = security.user.encrypt(updated, opts.key)
 
   await db.collection('users').doc(userId).update(encrypted)
 
   log.success(ctx, `moods successfully added for user ${userId}`)
 }
 
+/**
+ * Retrieve mood data from the database
+ *
+ * @param {string} userId the user-id
+ * @param {object} ctx request metadata
+ * @param {array} moods a list of mood objects
+ * @param {object} opts an object with a key
+ *
+ * @returns {Promise<*>}
+ */
 firebase.getMoods = async (userId, ctx, opts) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
@@ -98,7 +119,7 @@ firebase.getMoods = async (userId, ctx, opts) => {
   }
 
   // -- sort moods by date
-  const userData = security.users.decrypt(doc.data(), opts.key)
+  const userData = security.user.decrypt(doc.data(), opts.key)
 
   userData.moods.sort((datum0, datum1) => datum0.timestamp - datum1.timestamp)
 
