@@ -11,6 +11,7 @@ License | MIT
 
 - Hosted on Zeit.co
 - Responsive stylesheets built with modern CSS
+- Locally testable with `docker-compose`
 
 ## Features
 
