@@ -7,10 +7,12 @@ const expect = {}
  * @param {Array<string>} names an array of variable names
  */
 expect.variables = names => {
+  const vars = Object.keys(process.env).join('\n')
+
   for (const name of names) {
     const val = process.env[name]
     if (!val) {
-      throw new Error(`environmental variable ${name} was missing.`)
+      throw new Error(`environmental variable ${name} was missing. Available variables are:\n${vars}`)
     }
 
     if (val.startsWith('"') || val.startsWith("'")) {
