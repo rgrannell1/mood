@@ -1,16 +1,18 @@
 {
   "version": 2,
   "env": {
+    "ENCRYPTION_KEY": "@encryption_key",
     "GOOGLE_CLIENT_ID": "@google_client_id",
     "GOOGLE_PRIVATE_KEY": "@google_private_key",
-    "TEST_ACCOUNT_CREDENTIAL": "@test_account_credential",
-    "ENCRYPTION_KEY": "@encryption_key"
+    "TEST_ACCOUNT_CREDENTIAL": "@test_account_credential"
   },
   "build": {
-    "GOOGLE_CLIENT_ID": "@google_client_id",
-    "GOOGLE_PRIVATE_KEY": "@google_private_key",
-    "TEST_ACCOUNT_CREDENTIAL": "@test_account_credential",
-    "ENCRYPTION_KEY": "@encryption_key"
+    "env": {
+      "ENCRYPTION_KEY": "@encryption_key",
+      "GOOGLE_CLIENT_ID": "@google_client_id",
+      "GOOGLE_PRIVATE_KEY": "@google_private_key",
+      "TEST_ACCOUNT_CREDENTIAL": "@test_account_credential"
+    }
   },
   "routes": [
     {
