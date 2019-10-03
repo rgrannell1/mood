@@ -6,7 +6,7 @@ const environments = {}
 environments.local = () => {
   return {
     staticHost: 'http://localhost:3000',
-    apiHost: 'http://localhost:3000'
+    apiHost: 'http://localhost:3001'
   }
 }
 

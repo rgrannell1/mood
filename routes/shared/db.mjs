@@ -45,11 +45,16 @@ firebase.createUser = async (userId, ctx) => {
 
     const existing = doc.data()
 
+    let updatedTrackingIdCount = 1
+    if (existing.trackingIdCount && !isNaN(existing.trackingIdCount)) {
+      updatedTrackingIdCount = existing.trackingIdCount + 1
+    }
+
     await ref.update({
       userId,
       ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
       forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
-      trackingIdCount: existing.trackingIdCount + 1
+      trackingIdCount: updatedTrackingIdCount
     })
   }
 }

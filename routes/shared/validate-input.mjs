@@ -7,14 +7,18 @@ const validate = {}
 const hasOwnProperty = (tgt, prop) => Object.prototype.hasOwnProperty.call
 
 validate.mood = (event, ith) => {
+  if (event.type !== 'send-mood') {
+    throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
+  }
+
   for (const prop of ['type', 'mood', 'timestamp']) {
     if (!hasOwnProperty(event, prop)) {
       throw errors.unprocessableEntity(`${ith}th event was missing property "${prop}"`, 422)
     }
-  }
 
-  if (event.type !== 'send-mood') {
-    throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
+    if (!event[prop]) {
+      throw errors.unprocessableEntity(`${ith}th event had empty or falsy property "${prop}"`, 422)
+    }
   }
 }
 
