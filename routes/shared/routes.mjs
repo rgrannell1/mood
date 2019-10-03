@@ -40,13 +40,14 @@ const handleErrors = async (err, req, res) => {
  *
  * @param {Request} req a request object
  */
-const attachMetadata = req => {
+const attachMetadata = (req, metadata) => {
   const state = {}
 
   state.trackingId = trackingId()
   state.ip = hash(req.headers['x-real-ip'] || '')
   state.forwardedFor = hash(req.headers['x-forwarded-for'] || '')
   state.userAgent = req.headers['user-agent'] || 'unknown'
+  state.url = metadata.url
 
   return state
 }
@@ -56,14 +57,14 @@ const attachMetadata = req => {
  *
  * @param {Map<string, function>} methods the available methods for this request.
  */
-export const routeMethod = methods => async (req, res) => {
-  req.state = attachMetadata(req)
+export const routeMethod = (methods, metadata) => async (req, res) => {
+  req.state = attachMetadata(req, metadata)
 
   if (is(methods) !== 'map') {
     throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)
   }
 
-  signale.debug(`received request ${req.method} ${req.url}`)
+  signale.debug(`received request ${req.method} ${req.state.url}`)
 
   try {
     if (!methods.has(req.method)) {

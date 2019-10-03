@@ -9,6 +9,8 @@ const methods = new Map()
 methods.set('GET', getMoods)
 methods.set('PATCH', patchMoods)
 
-const moods = routeMethod(methods)
+const moods = routeMethod(methods, {
+  url: '/api/moods'
+})
 
 export default moods

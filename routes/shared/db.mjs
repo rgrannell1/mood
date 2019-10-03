@@ -38,9 +38,7 @@ firebase.createUser = async (userId, ctx) => {
       forwardedFor: [
         ctx.forwardedFor || 'unknown'
       ],
-      trackingId: [
-        ctx.trackingId
-      ]
+      trackingIdCount: 1
     })
   } else {
     log.debug(ctx, `user ${userId} already exists`)
@@ -51,10 +49,7 @@ firebase.createUser = async (userId, ctx) => {
       userId,
       ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
       forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
-      trackingId: [
-        ...existing.trackingId,
-        ctx.trackingId
-      ]
+      trackingIdCount: existing.trackingIdCount + 1
     })
   }
 }
