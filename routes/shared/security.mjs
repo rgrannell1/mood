@@ -31,7 +31,7 @@ security.decrypt = (string, key) => {
 
   const result = Buffer.concat([decipher.update(encrypted), decipher.final()])
 
-  return result
+  return JSON.parse(result.toString())
 }
 
 security.user.encrypt = (obj, key) => {
@@ -50,7 +50,7 @@ security.user.decrypt = (obj, key) => {
     ips: security.decrypt(obj.ips, key),
     forwardedFor: security.decrypt(obj.forwardedFor, key),
     trackingIdCount: security.decrypt(obj.trackingIdCount, key),
-    moods: security.encrypt(obj.moods || [], key)
+    moods: security.decrypt(obj.moods || [], key)
   }
 }
 

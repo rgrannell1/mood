@@ -40,9 +40,3 @@ services:
     - "${PWD}/webpack.prod.mjs:/usr/src/api/webpack.prod.mjs"
     - "${PWD}/package.json:/usr/src/api/package.json"
     - "${PWD}/package-lock.json:/usr/src/api/package-lock.json"
-
-    healthcheck:
-      test: "curl --fail http://localhost:3000/api/metadata"
-      interval: 30s
-      timeout: 5s
-      retries: 3

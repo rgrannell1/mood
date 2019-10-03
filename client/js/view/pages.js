@@ -40,7 +40,7 @@ components.mood = ({ title, emoji }, idx) => {
   const filename = title.toLowerCase().replace(' ', '-')
 
   return html`<div id="mood-${idx}" class="mood-emotion" title="${title}">
-    <img src="svg/${filename}.svg"></img>
+    <img src="svg/${filename}.svg" title="${title}"></img>
   </div>`
 }
 
