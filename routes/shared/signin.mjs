@@ -4,6 +4,7 @@ import log from './log.mjs'
 import errors from '@rgrannell/errors'
 
 import config from './config.mjs'
+import { asKoremutake } from './utils.mjs'
 
 // check aud is my client id, and iss is accounts.google.com or https version
 // if id is verified, dont need to verify
@@ -96,6 +97,8 @@ verify.token = async (token, req) => {
   }
 
   req.state.userId = sub
+  req.state.userNickname = asKoremutake(sub)
+
   log.debug(req.state, 'verified user id_token')
 
   return {
