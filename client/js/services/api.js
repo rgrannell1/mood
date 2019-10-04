@@ -21,13 +21,13 @@ const asBody = value => {
  *
  * @param {Function} fn call a function with a fetched token
  */
-const withToken = fn => {
+const callWithToken = fn => {
   const token = local.get(constants.keys.googleToken)
 
   if (token) {
     return fn(token)
   } else {
-    throw new Error('token was absent, so could not log in')
+    throw new Error('google token was absent, so could not log in')
   }
 }
 
@@ -37,11 +37,11 @@ const withToken = fn => {
  * @returns {Promise<Response>} a fetch response
  */
 api.moods.post = async () => {
-  console.log('⛏ syncing events to server')
-
   const events = cache.retrieveEvents()
 
-  const response = withToken(token => {
+  console.log(`syncing ${events.length} events to server`)
+
+  const response = await callWithToken(token => {
     return fetch(`${constants.apiHost}/api/moods`, {
       method: 'PATCH',
       headers: {
@@ -53,8 +53,9 @@ api.moods.post = async () => {
     })
   })
 
-  // -- if successful, wipe results from cache.
-  cache.removeEvents(events)
+  if (response.status === 200) {
+    cache.removeEvents(events)
+  }
 }
 
 /**
@@ -63,7 +64,7 @@ api.moods.post = async () => {
  * @returns {Promise<Response>} a fetch response
  */
 api.moods.get = async () => {
-  return withToken(token => {
+  return callWithToken(token => {
     return fetch(`${constants.apiHost}/api/moods`, {
       method: 'GET',
       headers: {

@@ -98,6 +98,10 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
   await db.collection('users').doc(userId).update(encrypted)
 
   log.success(ctx, `moods successfully added for user ${ctx.userNickname}`)
+
+  return {
+    saved: updated.moods.length
+  }
 }
 
 /**

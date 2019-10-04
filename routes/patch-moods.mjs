@@ -21,12 +21,18 @@ const patchMoods = async (req, res) => {
   await firebase.createUser(userId, req.state, {
     key: envConfig.encryption.key
   })
-  await firebase.saveMoods(userId, req.state, parsed.events, {
+  const saveMoodStats = await firebase.saveMoods(userId, req.state, parsed.events, {
     key: envConfig.encryption.key
   })
 
+  const response = {
+    stats: {
+      saved: saveMoodStats.saved
+    }
+  }
+
   res.status(200)
-  res.end('PATCH api/moods')
+  res.end(JSON.stringify(response, null, 2))
 }
 
 export default patchMoods

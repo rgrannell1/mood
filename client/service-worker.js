@@ -9,7 +9,8 @@ const api = {}
 // -- todo use an import here instead?
 api.sendEvents = () => {
   const events = JSON.parse(localStorage.getItem('cached-events'))
-  console.log(`⛏ syncing ${events.length} events to server`)
+
+  console.log(`sending ${events.length} events to server`)
 
   const body = JSON.stringify({ events }, null, 2)
 
@@ -75,24 +76,34 @@ self.addEventListener('install', event => {
   event.waitUntil(install())
 })
 
+/*
+// -- workaround for Chromium bug
+if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') {
+  return
+}
+*/
+
 /**
  * Respond with a cached response if possible, but update to a
  * recent version of the resource.
  */
 self.addEventListener('fetch', async event => {
-  const cachedRes = await caches.match(event.request)
-
-  // -- workaround for Chromium bug
-  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') {
+  // -- fallback to network
+  if (event.request.method !== 'GET') {
     return
   }
 
-  if (cachedRes) {
-    event.respondWith(cachedRes)
-    event.waitUntil(fetchUncachedResponse(event))
-  } else {
-    event.respondWith(fetchUncachedResponse(event))
-  }
+  event.respondWith(async function () {
+    const cachedRes = await caches.match(event.request)
+
+    if (cachedRes) {
+      event.waitUntil(fetchUncachedResponse(event))
+
+      return cachedRes
+    }
+
+    return fetchUncachedResponse(event)
+  }())
 })
 
 // -- remove old caches, when needed
@@ -103,5 +114,7 @@ self.addEventListener('activate', () => {
 self.addEventListener('sync', event => {
   if (event.tag === 'sync') {
     event.waitUntil(api.sendEvents())
+  } else {
+    console.error('unknown event-request sent')
   }
 })
