@@ -100,7 +100,7 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
   log.success(ctx, `moods successfully added for user ${ctx.userNickname}`)
 
   return {
-    saved: updated.moods.length
+    moodsSaved: updated.moods.length
   }
 }
 

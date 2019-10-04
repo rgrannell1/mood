@@ -35,6 +35,8 @@ security.decrypt = (string, key) => {
 }
 
 security.user.encrypt = (obj, key) => {
+  return obj
+
   return {
     userId: security.encrypt(obj.userId, key),
     ips: security.encrypt(obj.ips, key),
@@ -45,6 +47,8 @@ security.user.encrypt = (obj, key) => {
 }
 
 security.user.decrypt = (obj, key) => {
+  return obj
+
   return {
     userId: security.decrypt(obj.userId, key),
     ips: security.decrypt(obj.ips, key),
