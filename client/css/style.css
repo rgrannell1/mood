@@ -16,34 +16,21 @@
   --divider-colour: #bfbfbf;
   --header-colour: white;
 
-  /* graph colours */
-  --graph-colour-stellar: #fac813;
-  --graph-colour-fine: #edca49;
-  --graph-colour-decent: #ddcb6a;
-  --graph-colour-neutral: #cccd88;
-  --graph-colour-bad: #b6cea4;
-  --graph-colour-ennui: #9ad0c0;
-  --graph-colour-in-pain: #72d1db;
-  --graph-colour-atrocious: #05d3f7;
-
   font-size: 62.5%;
 }
 
-/*
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-colour-0: #fc76af;
-    --bg-colour-1: #ffaf8c;
-    --emoji-hover: #db8787;
-    --emoji-click: #744646;
-    --font-colour: #e10564;
-    --brand-colour: #e10564;
-    --divider-colour: #bfbfbf;
-    --header-colour: white;
-  }
+[data-theme="dark"] {
+  --bg-colour-0: #121212;
+  --bg-colour-1: #262626;
+  --emoji-hover: #4d4d4d;
+  --emoji-background: #434343;
+  --emoji-click: #744646;
+  --font-colour: #f43b7f;
+  --brand-colour: #f43b7f;
+  --divider-colour: #bfbfbf;
+  --header-colour: #2b2b2b;
 }
-*/
+
 
 * {
   padding: 0;
@@ -69,6 +56,12 @@ body {
   color: var(--brand-colour);
   grid-column-start: 1;
   grid-column-end: 2;
+}
+
+#dark-mode-toggle {
+  margin-left: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 header {
