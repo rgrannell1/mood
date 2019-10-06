@@ -12,6 +12,7 @@
   --emoji-background: #f1d4e0;
   --emoji-click: #744646;
   --font-colour: #e10564;
+  --dark-mode-font-colour: black;
   --brand-colour: #e10564;
   --divider-colour: #bfbfbf;
   --header-colour: white;
@@ -26,9 +27,15 @@
   --emoji-background: #434343;
   --emoji-click: #744646;
   --font-colour: #3bf4b0;
+  --dark-mode-font-colour: white;
   --brand-colour: #3bf4b0;
   --divider-colour: #bfbfbf;
   --header-colour: #2b2b2b;
+
+  /* graph */
+  --graph-light: #fff;
+  --graph-medium: #888;
+  --graph-background: #2b2b2b;
 }
 
 * {
@@ -63,6 +70,10 @@ body {
   margin-bottom: 15px;
   grid-column-start: 3;
   grid-column-end: 4;
+  font-size: 1.4em;
+  color: var(--dark-mode-font-colour);
+  cursor: pointer;
+  user-select: none;
 }
 
 header {

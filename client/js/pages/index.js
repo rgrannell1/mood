@@ -50,17 +50,17 @@ async function main () {
 
   $darkModeToggle.forEach(elem => {
     elem.onclick = async event => {
+      const [$html] = document.getElementsByTagName('html')
 
-      const [html] = document.getElementsByTagName('html')
-
-      const currentTheme = html.getAttribute('data-theme')
+      const currentTheme = $html.getAttribute('data-theme')
       const themeAttr = document.createAttribute('data-theme')
 
       themeAttr.value = currentTheme === 'light'
         ? 'dark'
         : 'light'
 
-      html.setAttributeNode(themeAttr)
+      $html.setAttributeNode(themeAttr)
+      await refreshMoodGraphs()
     }
   })
 
