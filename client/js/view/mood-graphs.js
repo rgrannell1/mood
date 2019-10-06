@@ -67,7 +67,7 @@ moodGraphs.heatplot = async data => {
         ]
       },
       x: {
-        timeUnit: 'day',
+        timeUnit: 'monthdate',
         field: 'timestamp',
         type: 'temporal'
       },

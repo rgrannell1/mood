@@ -45,7 +45,7 @@
     "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
     "dev": "docker-compose up",
     "dev:watch": "find build routes client api monitoring tools | entr sh -c 'docker-compose up'",
-    "deploy": "time node_modules/.bin/now",
+    "deploy": "export NODE_ENV=production; time node_modules/.bin/now",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
   "repository": {

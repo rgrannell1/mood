@@ -23,6 +23,26 @@ const refreshMoodGraphs = async () => {
   }
 }
 
+const setTheme = {}
+
+setTheme.html = theme => {
+  const [$html] = document.getElementsByTagName('html')
+
+  const themeAttr = document.createAttribute('data-theme')
+  themeAttr.value = theme
+
+  $html.setAttributeNode(themeAttr)
+}
+
+setTheme.signin = theme => {
+  const $signin = document.querySelector('#google-signin')
+
+  const themeAttr = document.createAttribute('data-theme')
+  themeAttr.value = theme
+
+  $signin.setAttributeNode(themeAttr)
+}
+
 /**
  * Run the client-side code
  */
@@ -51,15 +71,15 @@ async function main () {
   $darkModeToggle.forEach(elem => {
     elem.onclick = async event => {
       const [$html] = document.getElementsByTagName('html')
-
       const currentTheme = $html.getAttribute('data-theme')
-      const themeAttr = document.createAttribute('data-theme')
 
-      themeAttr.value = currentTheme === 'light'
+      const newTheme = currentTheme === 'light'
         ? 'dark'
         : 'light'
 
-      $html.setAttributeNode(themeAttr)
+      setTheme.html(newTheme)
+      setTheme.signin(newTheme)
+
       await refreshMoodGraphs()
     }
   })

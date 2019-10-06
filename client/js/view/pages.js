@@ -20,7 +20,7 @@ components.header = () => {
       <nav id="mood-header">
         <a href="/"><h1 id="brand">mood.</h1></a>
         <div id="dark-mode-toggle" class="dark-mode-toggle">🌙</div>
-        <div id="google-signin" class="g-signin2"></div>
+        <div id="google-signin" class="g-signin2" data-theme="light"></div>
         </nav>
     </header>`
 }
