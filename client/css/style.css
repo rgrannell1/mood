@@ -17,6 +17,10 @@
   --divider-colour: #bfbfbf;
   --header-colour: white;
 
+    /* graph */
+  --graph-heatmap-to: #fc76af;
+  --graph-heatmap-from: #fef1f7;
+
   font-size: 62.5%;
 }
 
@@ -34,8 +38,10 @@
 
   /* graph */
   --graph-light: #fff;
-  --graph-medium: #888;
+  --graph-medium: #363636;
   --graph-background: #2b2b2b;
+  --graph-heatmap-to: #3bf4b0;
+  --graph-heatmap-from: #ebfdf7;
 }
 
 * {

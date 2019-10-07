@@ -74,6 +74,12 @@ moodGraphs.heatplot = async data => {
       color: {
         aggregate: 'count',
         field: 'mood',
+        scale: {
+          range: [
+            getCssVariable('graph-heatmap-from'),
+            getCssVariable('graph-heatmap-to')
+          ]
+        },
         type: 'quantitative'
       }
     }

@@ -10,4 +10,4 @@ RUN apt-get update && apt install dumb-init entr --assume-yes
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-CMD find . | entr -r sh -c "npm install && npm run build && npm run run:api"
+CMD find /usr/src/api | entr -r sh -c "npm install && npm run build && npm run run:api"
