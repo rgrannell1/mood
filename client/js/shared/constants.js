@@ -1,6 +1,9 @@
 
 const constants = {
   // eslint-disable-next-line no-undef
+  version: __DEPLOYMENT_VERSION__,
+
+  // eslint-disable-next-line no-undef
   staticHost: __STATIC_HOST__,
   // eslint-disable-next-line no-undef
   apiHost: __API_HOST__,

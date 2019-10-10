@@ -38,12 +38,23 @@ const getHeatplotConfig = theme => {
   return config
 }
 
+const moodOrdering = [
+  'Stellar',
+  'Fine',
+  'Decent',
+  'Neutral',
+  'Bad',
+  'Ennui',
+  'In pain',
+  'Atrocious'
+]
+
 moodGraphs.heatplot = async data => {
   const [$html] = document.getElementsByTagName('html')
   const theme = $html.getAttribute('data-theme')
 
   const spec = {
-    $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+    $schema: 'https://vega.github.io/schema/vega-lite/v4.0.0-beta.9.json',
     data: {
       values: data.moods
     },
@@ -55,18 +66,10 @@ moodGraphs.heatplot = async data => {
       y: {
         field: 'mood',
         type: 'nominal',
-        sort: [
-          'Stellar',
-          'Fine',
-          'Decent',
-          'Neutral',
-          'Bad',
-          'Ennui',
-          'In pain',
-          'Atrocious'
-        ]
+        sort: moodOrdering
       },
       x: {
+        bin: true,
         timeUnit: 'monthdate',
         field: 'timestamp',
         type: 'temporal'

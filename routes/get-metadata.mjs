@@ -1,4 +1,6 @@
 
+import nanoid from 'nanoid'
+
 /**
  * Get application metadata
  *
@@ -8,7 +10,7 @@
 const getMetadata = async (req, res) => {
   const body = {
     description: 'mood\'s api',
-    version: 'alpha'
+    version: `v${nanoid()}`
   }
 
   res.status(200)
