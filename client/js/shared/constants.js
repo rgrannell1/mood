@@ -12,6 +12,7 @@ const constants = {
   },
   keys: {
     googleToken: 'GOOGLE_ID_TOKEN',
+    refreshToken: 'GOOGLE_REFRESH_TOKEN',
     cachedEvents: 'cached-events'
   }
 }

@@ -29,6 +29,10 @@ firebase.createUser = async (userId, ctx, opts) => {
   const ref = db.collection('users').doc(userId)
   const doc = await ref.get()
 
+  const roles = {
+    [userId]: 'reader'
+  }
+
   if (!doc.exists) {
     log.debug(ctx, `storing information for new user ${ctx.userNickname}`)
 
@@ -40,7 +44,8 @@ firebase.createUser = async (userId, ctx, opts) => {
       forwardedFor: [
         ctx.forwardedFor || 'unknown'
       ],
-      trackingIdCount: 1
+      trackingIdCount: 1,
+      ...roles
     }
 
     await ref.set(security.user.encrypt(saved, opts.key))
@@ -58,7 +63,8 @@ firebase.createUser = async (userId, ctx, opts) => {
       userId,
       ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
       forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
-      trackingIdCount: updatedTrackingIdCount
+      trackingIdCount: updatedTrackingIdCount,
+      ...roles
     }
 
     await ref.update(security.user.encrypt(saved, opts.key))
@@ -85,7 +91,12 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
   }
 
   const existing = security.user.decrypt(doc.data(), opts.key)
-  const updated = { ...existing }
+  const updated = {
+    ...existing,
+    roles: {
+      [userId]: 'reader'
+    }
+  }
 
   updated.moods = updated.moods
     ? updated.moods.concat(moods)

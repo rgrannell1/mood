@@ -78,6 +78,7 @@ verify.token = async (token, req) => {
       idToken: token,
       audience: envConfig.google.clientId
     })
+
   } catch (err) {
     if (err.message.includes('Token used too late')) {
       throw errors.internalServerError('token expired & refresh not yet implemented', 500)

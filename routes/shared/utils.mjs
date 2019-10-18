@@ -46,7 +46,7 @@ export const asKoremutake = num => {
   const plen = phonemes.length
 
   while (num > 0) {
-    let digit = num % plen
+    const digit = num % plen
     num = Math.floor(num / plen)
 
     digits = [phonemes[digit]].concat(digits)

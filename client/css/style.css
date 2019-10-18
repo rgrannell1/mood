@@ -135,6 +135,7 @@ main {
 
 .emoji-container {
   text-align: center;
+  justify-items: center;
 }
 
 /* MOOD QUESTION PANEL */

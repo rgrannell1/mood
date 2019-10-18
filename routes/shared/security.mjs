@@ -13,7 +13,7 @@ security.encrypt = (datum, key) => {
   const buffer = Buffer.from(JSON.stringify(datum))
 
   const initVector = crypto.randomBytes(constants.security.initVectorSize)
-  const cipher = crypto.createCipheriv(constants.security.encryptAlgorithm, key, initVector);
+  const cipher = crypto.createCipheriv(constants.security.encryptAlgorithm, key, initVector)
 
   const result = Buffer.concat([initVector, cipher.update(buffer), cipher.final()])
 

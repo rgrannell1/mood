@@ -1,7 +1,6 @@
 
 const moodGraphs = {}
 
-
 const getCssVariable = variable => {
   return window.getComputedStyle(document.body).getPropertyValue(`--${variable}`)
 }
@@ -69,7 +68,6 @@ moodGraphs.heatplot = async data => {
         sort: moodOrdering
       },
       x: {
-        bin: true,
         timeUnit: 'monthdate',
         field: 'timestamp',
         type: 'temporal'
@@ -90,7 +88,9 @@ moodGraphs.heatplot = async data => {
 
   // eslint-disable-next-line no-undef
   vegaEmbed('#mood-over-time', spec, {
-    renderer: 'svg'
+    renderer: 'svg',
+    width: 400,
+    height: 200
   })
 }
 
