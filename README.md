@@ -50,6 +50,5 @@ deploy          deploy the website and associated apis to Zeit
 ```
 run:api         run the site's apis locally directly
 run:client      run the site's static-serve locally directly
-dev             run the site using docker-compose
-dev:watch       run the site using docker-compose & entr to watch for file-changes
+dev             run the site using docker-compose & watch for file-changes
 ```
