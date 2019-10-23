@@ -1,14 +1,15 @@
 
 import firebase from './shared/db.mjs'
-import ensureLoggedIn from './shared/signin.mjs'
 import validate from './shared/validate-input.mjs'
 import errors from '@rgrannell/errors'
 
 import config from './shared/config.mjs'
+import basicAuth from './shared/auth.mjs'
+
 const envConfig = config()
 
 const patchMoods = async (req, res) => {
-  const { userId } = await ensureLoggedIn(req, res)
+  const userId = await basicAuth(req, res)
 
   try {
     var parsed = JSON.parse(req.body)

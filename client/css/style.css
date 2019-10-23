@@ -9,7 +9,6 @@
   --bg-colour-0: #fc76af;
   --bg-colour-1: #ffaf8c;
   --emoji-hover: #db8787;
-  --emoji-background: #f1d4e0;
   --emoji-click: #744646;
   --font-colour: #e10564;
   --dark-mode-font-colour: black;
@@ -28,7 +27,6 @@
   --bg-colour-0: #121212;
   --bg-colour-1: #262626;
   --emoji-hover: #4d4d4d;
-  --emoji-background: #434343;
   --emoji-click: #744646;
   --font-colour: #3bf4b0;
   --dark-mode-font-colour: white;
@@ -57,6 +55,26 @@ body {
   background: linear-gradient(to left, var(--bg-colour-0), var(--bg-colour-1));
   font-size: 1.4rem;
   font-weight: 100;
+}
+
+#mood-input-form {
+  display: grid;
+}
+
+#mood-email,
+#mood-password {
+  padding: 1em;
+  border: 1px solid #ddd;
+}
+
+#mood-signin-submit {
+  margin-top: 20px;
+  padding: 1em;
+  max-width: 400px;
+}
+
+label[for="mood-password"] {
+  margin-top: 20px;
 }
 
 /* HEADER CSS */
@@ -150,7 +168,6 @@ main {
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
-  background: var(--emoji-background);
   border-radius: 5px;
   margin: 5px;
   padding: 20px;

@@ -37,6 +37,25 @@ components.moodGraph = () => {
     </section>`
 }
 
+components.signinPanel = () => {
+  return html`
+    <section id="mood-signin" class="mood-panel">
+      ${components.sectionHeader('Sign In')}
+
+      <form id="mood-input-form" method="post" action="login">
+        <label for="mood-email">Username:</label>
+        <input id="mood-email" type="text" spellcheck="false" aria-label="Username"></input>
+
+        <label for="mood-password">Password (min 14 characters):</label>
+        <input id="mood-password"type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
+
+        <input id="mood-signin-submit" type="submit" value="Sign In">
+      </form>
+
+    </section>
+  `
+}
+
 components.mood = ({ title, emoji }, idx) => {
   const filename = title.toLowerCase().replace(' ', '-')
 
@@ -112,6 +131,14 @@ pages.privacy = () => {
     ${components.privacyPolicy()}
   `
   return components.page(privacyMain)
+}
+
+pages.signin = () => {
+  const signinMain = html`
+    ${components.signinPanel()}
+  `
+
+  return components.page(signinMain)
 }
 
 export default pages

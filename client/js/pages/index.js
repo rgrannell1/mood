@@ -4,7 +4,6 @@ import { render } from 'lit-html'
 import moodGraphs from '../view/mood-graphs.js'
 import { api } from '../services/api.js'
 import cache from '../services/cache.js'
-import { addLogin } from '../services/login.js'
 
 import pages from '../view/pages.js'
 
@@ -46,7 +45,7 @@ setTheme.signin = theme => {
 /**
  * Run the client-side code
  */
-async function main () {
+async function initPage () {
   await registerServiceWorker()
 
   const $moods = document.querySelectorAll('.mood-emotion')
@@ -87,7 +86,14 @@ async function main () {
   await refreshMoodGraphs()
 }
 
-addLogin()
-main()
+initPage()
 
-render(pages.index(), document.body)
+const isAuthenticated = () => {
+  return false
+}
+
+if (isAuthenticated()) {
+  render(pages.index(), document.body)
+} else {
+  render(pages.signin(), document.body)
+}
