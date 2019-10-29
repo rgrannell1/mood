@@ -2,6 +2,7 @@
 import express from 'express'
 import metadata from '../../api/metadata.mjs'
 import moods from '../../api/moods.mjs'
+import login from '../../api/login.mjs'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
@@ -20,6 +21,10 @@ app.use('/api/metadata', (req, res) => {
 
 app.use('/api/moods', (req, res) => {
   moods(req, res)
+})
+
+app.use('/api/login', (req, res) => {
+  login(req, res)
 })
 
 const command = {

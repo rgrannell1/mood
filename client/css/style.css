@@ -71,6 +71,9 @@ body {
   margin-top: 20px;
   padding: 1em;
   max-width: 400px;
+  background: var(--brand-colour);
+  color: white;
+  border: none;
 }
 
 label[for="mood-password"] {

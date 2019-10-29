@@ -6,6 +6,7 @@ import { api } from '../services/api.js'
 import cache from '../services/cache.js'
 
 import pages from '../view/pages.js'
+import constants from '../shared/constants'
 
 import {
   registerServiceWorker,
@@ -42,12 +43,9 @@ setTheme.signin = theme => {
   $signin.setAttributeNode(themeAttr)
 }
 
-/**
- * Run the client-side code
- */
-async function initPage () {
-  await registerServiceWorker()
+const attach = {}
 
+attach.emotionPost = () => {
   const $moods = document.querySelectorAll('.mood-emotion')
 
   $moods.forEach(elem => {
@@ -64,7 +62,9 @@ async function initPage () {
       await refreshMoodGraphs()
     }
   })
+}
 
+attach.darkModeToggle = () => {
   const $darkModeToggle = document.querySelectorAll('.dark-mode-toggle')
 
   $darkModeToggle.forEach(elem => {
@@ -82,6 +82,36 @@ async function initPage () {
       await refreshMoodGraphs()
     }
   })
+}
+
+attach.formListener = () => {
+  const $formSubmit = document.querySelector('#mood-signin-submit')
+
+  $formSubmit.onclick = async event => {
+    const $user = document.querySelector('#mood-username')
+    const $password = document.querySelector('#mood-password')
+
+    const body = {
+      user: $user.value,
+      pasword: $password.value
+    }
+
+    await fetch(`${constants.apiHost}/api/login`, {
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+  }
+}
+
+/**
+ * Run the client-side code
+ */
+async function initPage () {
+  await registerServiceWorker()
+
+  attach.emotionPost()
+  attach.darkModeToggle()
+  attach.formListener()
 
   await refreshMoodGraphs()
 }
