@@ -15,6 +15,8 @@ const db = admin.firestore()
 
 const firebase = {}
 
+firebase.database = () => db
+
 /**
  * Save information about a user to the database, including
  * anonymised tracking information for security reasons.
@@ -25,19 +27,19 @@ const firebase = {}
  *
  * @returns {Promise<*>}
  */
-firebase.createUser = async (userId, ctx, opts) => {
-  const ref = db.collection('users').doc(userId)
+firebase.createUser = async (username, ctx, opts) => {
+  const ref = db.collection('users').doc(username)
   const doc = await ref.get()
 
   const roles = {
-    [userId]: 'reader'
+    [username]: 'reader'
   }
 
   if (!doc.exists) {
     log.debug(ctx, `storing information for new user ${ctx.userNickname}`)
 
     const saved = {
-      userId,
+      username,
       ips: [
         ctx.ip || 'unknown'
       ],
@@ -60,7 +62,7 @@ firebase.createUser = async (userId, ctx, opts) => {
     }
 
     const saved = {
-      userId,
+      username,
       ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
       forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
       trackingIdCount: updatedTrackingIdCount,

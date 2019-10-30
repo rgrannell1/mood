@@ -1,10 +1,13 @@
 
-import queryString from 'querystring'
-
+import log from './shared/log.mjs'
 import firebase from './shared/db.mjs'
+import config from './shared/config.mjs'
+import createUser from './services/create-user.mjs'
 import errors from '@rgrannell/errors'
 
-const createUserSession = async (req, res) => {
+const envConfig = config()
+
+const validateLoginCredentials = async (req, res) => {
   try {
     var body = JSON.parse(req.body)
   } catch (err) {
@@ -21,14 +24,20 @@ const createUserSession = async (req, res) => {
     throw errors.unprocessableEntity('Insuffienctly long password provided', 422)
   }
 
-  // -- create user, create a session
+  return {
+    userName: body.user,
+    password: body.password
+  }
 }
 
 const postLogin = async (req, res) => {
-  await createUserSession(req, res)
+  const credentials = await validateLoginCredentials(req, res)
+
+  await createUser(credentials, req.state, {
+    key: envConfig.encryption.key
+  })
 
 
-  // -- set cookie?
 }
 
 export default postLogin

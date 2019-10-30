@@ -13,15 +13,6 @@ export const trackingId = () => {
   return nanoid(constants.sizes.trackingId)
 }
 
-/**
- *  Hash a value
- *
- * @param {string} string an arbitrary string
- */
-export const hash = string => {
-  return crypto.createHash('sha512').update(string).digest('base64')
-}
-
 const phonemes = [
   'ba', 'be', 'bi', 'bo', 'bu', 'by', 'da', 'de', 'di', 'do', 'du', 'dy', 'fa',
   'fe', 'fi', 'fo', 'fu', 'fy', 'ga', 'ge', 'gi', 'go', 'gu', 'gy', 'ha', 'he',
@@ -34,6 +25,26 @@ const phonemes = [
   'fra', 'fre', 'fri', 'fro', 'fru', 'fry', 'gra', 'gre', 'gri', 'gro', 'gru',
   'gry', 'pra', 'pre', 'pri', 'pro', 'pru', 'pry', 'sta', 'ste', 'sti', 'sto',
   'stu', 'sty', 'tra', 'tre']
+
+export const userId = () => {
+  const chars = []
+
+  for (let ith = 0; ith < 8; ++ith) {
+    var phoneme = phonemes[Math.floor(Math.random() * phonemes.length)]
+    chars.push(phoneme)
+  }
+
+  return chars.join('')
+}
+
+/**
+ *  Hash a value
+ *
+ * @param {string} string an arbitrary string
+ */
+export const hash = string => {
+  return crypto.createHash('sha512').update(string).digest('base64')
+}
 
 export const asKoremutake = num => {
   if (num < 0) {

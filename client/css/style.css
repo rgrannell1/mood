@@ -61,7 +61,7 @@ body {
   display: grid;
 }
 
-#mood-email,
+#mood-username,
 #mood-password {
   padding: 1em;
   border: 1px solid #ddd;

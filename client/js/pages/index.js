@@ -93,7 +93,7 @@ attach.formListener = () => {
 
     const body = {
       user: $user.value,
-      pasword: $password.value
+      password: $password.value
     }
 
     await fetch(`${constants.apiHost}/api/login`, {
