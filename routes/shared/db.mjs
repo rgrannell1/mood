@@ -3,6 +3,8 @@ import admin from 'firebase-admin'
 import security from './security.mjs'
 import log from './log.mjs'
 
+import { sessionId } from './utils.mjs'
+
 import config from './config.mjs'
 const envConfig = config()
 
@@ -16,6 +18,26 @@ const db = admin.firestore()
 const firebase = {}
 
 firebase.database = () => db
+
+firebase.createSession = async (username, ctx, opts) => {
+  const ref = db.collection('sessions').doc(username)
+  const doc = await ref.get()
+
+  if (!doc.exists) {
+    log.debug(ctx, `storing session information for ${ctx.userId}`)
+
+    await ref.set({
+      username,
+      sessionId: sessionId()
+    })
+
+    return (await ref.get()).data()
+  } else {
+    log.debug(ctx, `session already exists for ${ctx.userId}`)
+  }
+
+  return doc.data()
+}
 
 /**
  * Save information about a user to the database, including

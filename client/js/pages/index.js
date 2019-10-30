@@ -88,6 +88,8 @@ attach.formListener = () => {
   const $formSubmit = document.querySelector('#mood-signin-submit')
 
   $formSubmit.onclick = async event => {
+    event.stopPropagation()
+
     const $user = document.querySelector('#mood-username')
     const $password = document.querySelector('#mood-password')
 

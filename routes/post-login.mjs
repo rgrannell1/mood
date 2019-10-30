@@ -1,6 +1,5 @@
 
 import log from './shared/log.mjs'
-import firebase from './shared/db.mjs'
 import config from './shared/config.mjs'
 import createUser from './services/create-user.mjs'
 import errors from '@rgrannell/errors'
@@ -33,11 +32,17 @@ const validateLoginCredentials = async (req, res) => {
 const postLogin = async (req, res) => {
   const credentials = await validateLoginCredentials(req, res)
 
-  await createUser(credentials, req.state, {
+  const { sessionId } = await createUser(credentials, req.state, {
     key: envConfig.encryption.key
   })
 
+  res.writeHead(200, {
+    'Set-Cookie': `session=${encodeURIComponent(sessionId)}`
+  })
 
+  log.success(req.ctx, `login session created for user ${req.state.userId}`)
+
+  res.end()
 }
 
 export default postLogin

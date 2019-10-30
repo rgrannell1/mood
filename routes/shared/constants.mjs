@@ -6,7 +6,8 @@ export default {
     root: path.resolve('../..')
   },
   sizes: {
-    trackingId: 16
+    trackingId: 16,
+    sessionId: 16
   },
   limits: {
     moodsLength: 50

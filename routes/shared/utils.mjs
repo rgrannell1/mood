@@ -26,6 +26,10 @@ const phonemes = [
   'gry', 'pra', 'pre', 'pri', 'pro', 'pru', 'pry', 'sta', 'ste', 'sti', 'sto',
   'stu', 'sty', 'tra', 'tre']
 
+export const sessionId = () => {
+  return nanoid(constants.sizes.sessionId)
+}
+
 export const userId = () => {
   const chars = []
 
