@@ -41,6 +41,9 @@ export default () => {
     test: {
       credential: readVariable('TEST_ACCOUNT_CREDENTIAL')
     },
+    cookies: {
+      keys: [readVariable('COOKIE_KEY')]
+    },
     google: {
       db: 'https://mood-251413.firebaseio.com',
       clientId: readVariable('GOOGLE_CLIENT_ID'),

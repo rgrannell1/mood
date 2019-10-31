@@ -23,6 +23,8 @@ const refreshMoodGraphs = async () => {
   }
 }
 
+const state = {}
+
 const setTheme = {}
 
 setTheme.html = theme => {
@@ -98,10 +100,13 @@ attach.formListener = () => {
       password: $password.value
     }
 
-    await fetch(`${constants.apiHost}/api/login`, {
+    const res = await fetch(`${constants.apiHost}/api/login`, {
       method: 'post',
       body: JSON.stringify(body)
     })
+
+    state.authenticated = true
+    render(pages.index(), document.body)
   }
 }
 
@@ -121,7 +126,7 @@ async function initPage () {
 initPage()
 
 const isAuthenticated = () => {
-  return false
+  return state.authenticated === true
 }
 
 if (isAuthenticated()) {

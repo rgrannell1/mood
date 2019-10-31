@@ -2,20 +2,23 @@
 import firebase from './shared/db.mjs'
 import validate from './shared/validate-input.mjs'
 import errors from '@rgrannell/errors'
+import checkLogin from './services/check-login.mjs'
+
 
 import config from './shared/config.mjs'
-import basicAuth from './shared/auth.mjs'
 
 const envConfig = config()
 
 const patchMoods = async (req, res) => {
-  const userId = await basicAuth(req, res)
-
   try {
     var parsed = JSON.parse(req.body)
   } catch (err) {
     throw errors.unprocessableEntity('could not parse request body as json', 422)
   }
+
+  const userId = await checkLogin(req, {
+    key: envConfig.encryption.key
+  })
 
   validate.body(userId, parsed)
 

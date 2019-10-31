@@ -3,6 +3,7 @@ import log from './shared/log.mjs'
 import config from './shared/config.mjs'
 import createUser from './services/create-user.mjs'
 import errors from '@rgrannell/errors'
+import Cookies from 'cookies'
 
 const envConfig = config()
 
@@ -36,12 +37,19 @@ const postLogin = async (req, res) => {
     key: envConfig.encryption.key
   })
 
-  res.writeHead(200, {
-    'Set-Cookie': `session=${encodeURIComponent(sessionId)}`
+  const cookies = new Cookies(req, res, {
+    keys: envConfig.cookies.keys
+  })
+
+  // Set the cookie to a value
+  cookies.set('session', sessionId, {
+    signed: true,
+    sameSite: 'strict'
   })
 
   log.success(req.ctx, `login session created for user ${req.state.userId}`)
 
+  res.writeHead(200)
   res.end()
 }
 

@@ -24,11 +24,7 @@ const asBody = value => {
 const callWithToken = fn => {
   const token = local.get(constants.keys.googleToken)
 
-  if (token) {
-    return fn(token)
-  } else {
-    throw new Error('google token was absent, so could not log in')
-  }
+  return fn(token)
 }
 
 /**
@@ -44,9 +40,6 @@ api.moods.post = async () => {
   const response = await callWithToken(token => {
     return fetch(`${constants.apiHost}/api/moods`, {
       method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
       body: asBody({
         events
       })
@@ -66,10 +59,7 @@ api.moods.post = async () => {
 api.moods.get = async () => {
   return callWithToken(token => {
     return fetch(`${constants.apiHost}/api/moods`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      method: 'GET'
     })
   })
 }
