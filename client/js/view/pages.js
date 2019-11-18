@@ -41,14 +41,15 @@ components.signinPanel = () => {
   return html`
     <section id="mood-signin" class="mood-panel">
       ${components.sectionHeader('Sign In')}
-        <label for="mood-username">Username:</label>
-        <input id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
+        <div id="mood-input-form">
+          <label for="mood-username">Username:</label>
+          <input id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
 
-        <label for="mood-password">Password (min 14 characters):</label>
-        <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
+          <label for="mood-password">Password (min 14 characters):</label>
+          <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
-        <input id="mood-signin-submit" type="submit" value="Sign In">
-
+          <input id="mood-signin-submit" type="submit" value="Sign In">
+        </div>
     </section>
   `
 }

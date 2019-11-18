@@ -1,6 +1,7 @@
 
 import Cookies from 'cookies'
 import config from '../shared/config.mjs'
+import constants from '../shared/constants.mjs'
 import errors from '@rgrannell/errors'
 
 const envConfig = config()
@@ -11,7 +12,7 @@ const checkLogin = async (req, res, opts) => {
   })
 
   // Set the cookie to a value
-  const session = cookies.get('session', {
+  const session = cookies.get(constants.cookies.session, {
     signed: true
   })
 

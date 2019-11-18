@@ -45,12 +45,14 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build",
+    "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build --production",
+    "build:watch": "find client routes | entr -s 'npm run build'",
+    "live-reload": "live-reload --build 'npm run build:watch' --site index.html --public_folder public",
     "run:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
     "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
     "dev": "docker-compose up",
     "dev:watch": "find build routes client api monitoring tools | entr sh -c 'docker-compose up'",
-    "deploy": "export NODE_ENV=production; time node_modules/.bin/now",
+    "deploy": "export NODE_ENV=production; npm run build; time node_modules/.bin/now",
     "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
   },
   "repository": {

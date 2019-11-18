@@ -16,6 +16,7 @@ api.sendEvents = () => {
 
   return fetch('api/save-mood', {
     method: 'POST',
+    credentials: 'include',
     body
   })
 }
@@ -52,7 +53,9 @@ const install = async () => {
  * @param {Event} event
  */
 const fetchUncachedResponse = async event => {
-  const res = await fetch(event.request.clone())
+  const res = await fetch(event.request.clone(), {
+    credentials: 'include'
+  })
 
   const isCacheable = res &&
     res.status === 200 &&

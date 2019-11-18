@@ -14,7 +14,6 @@ const getMoods = async (req, res) => {
     key: envConfig.encryption.key
   })
 
-
   res.status(200)
   res.end(JSON.stringify(moods))
 }

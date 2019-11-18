@@ -9,8 +9,8 @@ export default merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       __DEPLOYMENT_VERSION__: `"${nanoid(32)}"`,
-      __STATIC_HOST__: '"http://mood.rgrannell2.now.sh"',
-      __API_HOST__: '"http://mood.rgrannell2.now.sh"'
+      __STATIC_HOST__: '"https://mood.rgrannell2.now.sh"',
+      __API_HOST__: '"https://mood.rgrannell2.now.sh"'
     })
   ]
 })

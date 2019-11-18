@@ -1,6 +1,7 @@
 
 import log from './shared/log.mjs'
 import config from './shared/config.mjs'
+import constants from './shared/constants.mjs'
 import createUser from './services/create-user.mjs'
 import errors from '@rgrannell/errors'
 import Cookies from 'cookies'
@@ -42,9 +43,10 @@ const postLogin = async (req, res) => {
   })
 
   // Set the cookie to a value
-  cookies.set('session', sessionId, {
+  cookies.set(constants.cookies.session, sessionId, {
     signed: true,
-    sameSite: 'strict'
+    sameSite: 'strict',
+    httpOnly: false
   })
 
   log.success(req.ctx, `login session created for user ${req.state.userId}`)

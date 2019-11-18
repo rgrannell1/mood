@@ -110,6 +110,10 @@ attach.formListener = () => {
   }
 }
 
+const isAuthenticated = () => {
+  return state.authenticated === true
+}
+
 /**
  * Run the client-side code
  */
@@ -119,18 +123,13 @@ async function initPage () {
   attach.emotionPost()
   attach.darkModeToggle()
   attach.formListener()
-
-  await refreshMoodGraphs()
 }
 
 initPage()
 
-const isAuthenticated = () => {
-  return state.authenticated === true
-}
-
 if (isAuthenticated()) {
   render(pages.index(), document.body)
+  refreshMoodGraphs()
 } else {
   render(pages.signin(), document.body)
 }

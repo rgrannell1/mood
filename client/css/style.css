@@ -15,6 +15,9 @@
   --brand-colour: #e10564;
   --divider-colour: #bfbfbf;
   --header-colour: white;
+  --input-background: white;
+  --input-colour: black;
+  --button-colour: white;
 
     /* graph */
   --graph-heatmap-to: #fc76af;
@@ -31,8 +34,11 @@
   --font-colour: #3bf4b0;
   --dark-mode-font-colour: white;
   --brand-colour: #3bf4b0;
-  --divider-colour: #bfbfbf;
+  --divider-colour: #333333;
   --header-colour: #2b2b2b;
+  --input-background: #404040;
+  --input-colour: white;
+  --button-colour: black;
 
   /* graph */
   --graph-light: #fff;
@@ -65,6 +71,9 @@ body {
 #mood-password {
   padding: 1em;
   border: 1px solid #ddd;
+  background: var(--input-background);
+  color: var(--input-colour);
+  border-color: var(--divider-colour);
 }
 
 #mood-signin-submit {
@@ -72,8 +81,13 @@ body {
   padding: 1em;
   max-width: 400px;
   background: var(--brand-colour);
-  color: white;
+  color: var(--button-colour);
   border: none;
+}
+
+label[for="mood-username"],
+label[for="mood-password"] {
+  color: var(--input-colour);
 }
 
 label[for="mood-password"] {

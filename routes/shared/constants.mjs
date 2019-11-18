@@ -15,5 +15,8 @@ export default {
   security: {
     initVectorSize: 16,
     encryptAlgorithm: 'aes-256-ctr'
+  },
+  cookies: {
+    session: 'mood-session'
   }
 }

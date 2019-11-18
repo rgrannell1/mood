@@ -17,17 +17,6 @@ const asBody = value => {
 }
 
 /**
- * Retrieve a token and call an underlying REST method
- *
- * @param {Function} fn call a function with a fetched token
- */
-const callWithToken = fn => {
-  const token = local.get(constants.keys.googleToken)
-
-  return fn(token)
-}
-
-/**
  * Post cached events to the server.
  *
  * @returns {Promise<Response>} a fetch response
@@ -37,12 +26,11 @@ api.moods.post = async () => {
 
   console.log(`syncing ${events.length} events to server`)
 
-  const response = await callWithToken(token => {
-    return fetch(`${constants.apiHost}/api/moods`, {
-      method: 'PATCH',
-      body: asBody({
-        events
-      })
+  const response = fetch(`${constants.apiHost}/api/moods`, {
+    method: 'PATCH',
+    credentials: 'include',
+    body: asBody({
+      events
     })
   })
 
@@ -57,10 +45,9 @@ api.moods.post = async () => {
  * @returns {Promise<Response>} a fetch response
  */
 api.moods.get = async () => {
-  return callWithToken(token => {
-    return fetch(`${constants.apiHost}/api/moods`, {
-      method: 'GET'
-    })
+  return fetch(`${constants.apiHost}/api/moods`, {
+    method: 'GET',
+    credentials: 'include'
   })
 }
 
