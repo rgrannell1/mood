@@ -9,7 +9,6 @@ const nanoid = require('nanoid')
  */
 const getMetadata = async (req, res) => {
   const body = {
-    description: 'mood\'s api',
     version: `v${nanoid()}`
   }
 

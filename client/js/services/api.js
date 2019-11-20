@@ -26,12 +26,10 @@ api.moods.post = async () => {
 
   console.log(`syncing ${events.length} events to server`)
 
-  const response = fetch(`${constants.apiHost}/api/moods`, {
+  const response = await fetch(`${constants.apiHost}/api/moods`, {
     method: 'PATCH',
     credentials: 'include',
-    body: asBody({
-      events
-    })
+    body: asBody({ events })
   })
 
   if (response.status === 200) {

@@ -73,7 +73,7 @@ firebase.createUser = async (username, ctx, opts) => {
   }
 
   if (!doc.exists) {
-    log.debug(ctx, `storing information for new user ${ctx.userNickname}`)
+    log.debug(ctx, 'storing information for new user')
 
     const saved = {
       username,
@@ -89,7 +89,7 @@ firebase.createUser = async (username, ctx, opts) => {
 
     await ref.set(security.user.encrypt(saved, opts.key))
   } else {
-    log.debug(ctx, `user ${ctx.userNickname} already exists`)
+    log.debug(ctx, 'user already exists')
 
     const existing = doc.data()
 
@@ -125,7 +125,7 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
   const doc = await ref.get()
 
   if (!doc.exists) {
-    log.error(ctx, `profile missing for user ${ctx.userNickname}`)
+    log.error(ctx, 'profile missing for user')
     process.exit(1)
   }
 
@@ -141,14 +141,13 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
     ? updated.moods.concat(moods)
     : moods
 
-  // TODO fix usernickname
-  log.debug(ctx, `adding moods for user ${ctx.userNickname}`)
+  log.debug(ctx, 'adding moods for user')
 
   const encrypted = security.user.encrypt(updated, opts.key)
 
   await db.collection('userdata').doc(userId).update(encrypted)
 
-  log.success(ctx, `moods successfully added for user ${ctx.userNickname}`)
+  log.success(ctx, 'moods successfully added for user')
 
   return {
     moodsSaved: updated.moods.length
