@@ -67,8 +67,10 @@ body {
   display: grid;
 }
 
+/* todo refactor */
 #mood-username,
-#mood-password {
+#mood-password,
+#mood-password-repeat {
   padding: 1em;
   border: 1px solid #ddd;
   background: var(--input-background);
@@ -76,7 +78,9 @@ body {
   border-color: var(--divider-colour);
 }
 
-#mood-signin-submit {
+/* todo refactor */
+#mood-signin-submit,
+#mood-signup-submit {
   margin-top: 20px;
   padding: 1em;
   background: var(--brand-colour);

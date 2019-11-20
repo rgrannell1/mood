@@ -1,5 +1,5 @@
 
-import { html } from 'lit-html'
+import { render, html } from 'lit-html'
 import { model } from '../shared/utils.js'
 import cache from '../services/cache.js'
 import { api } from '../services/api.js'
@@ -49,8 +49,12 @@ components.moodGraph = () => {
     </section>`
 }
 
-const onCreateAccountLinkClick = async event => {
-  '#mood-create-account'
+const onCreateAccountLinkClick = state => async event => {
+  render(pages.register(state), document.body)
+}
+
+const onSigninSubmitClick = state => async event => {
+
 }
 
 components.signinPanel = ({ state }) => {
@@ -70,12 +74,43 @@ components.signinPanel = ({ state }) => {
           <label for="mood-password">Password (min 14 characters):</label>
           <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
-          <input id="mood-signin-submit" class="${state}" type="submit" value="${submitText}">
+          <input id="mood-signin-submit" @click=${onSigninSubmitClick} class="${state}" type="submit" value="${submitText}">
 
-          <p id="mood-create-account" @click=${onCreateAccountLinkClick}>Create Account</p>
+          <p id="mood-create-account" @click=${onCreateAccountLinkClick(state)}>Create Account</p>
           </div>
     </section>
   `
+}
+
+const onSigninAccountLinkClick = state => async event => {
+  render(pages.signin(state), document.body)
+}
+
+components.registerPanel = state => {
+  let submitText = 'Sign Up'
+
+  if (state === 'submit-invalid-password') {
+    submitText = 'Incorrect Password'
+  }
+
+  return html`
+    <section id="mood-signup" class="mood-panel">
+      ${components.sectionHeader('Sign Up')}
+        <div id="mood-input-form">
+          <label for="mood-username">Username:</label>
+          <input id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
+
+          <label for="mood-password">Password (min 14 characters):</label>
+          <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
+
+          <label for="mood-password">Re-enter Password:</label>
+          <input id="mood-password-repeat" type="password" spellcheck="false" minlength="14" aria-label="Re-enter your password"></input>
+
+          <input id="mood-signup-submit" @click=${onSigninSubmitClick} class="${state}" type="submit" value="${submitText}">
+
+          <p id="mood-create-account" @click=${onSigninAccountLinkClick(state)}>Already Registered? Sign In</p>
+          </div>
+    </section>`
 }
 
 const onMoodClick = async event => {
@@ -188,6 +223,18 @@ pages.signin = state => {
     ${components.signinPanel({
       state: signinState
     })}
+  `
+
+  return components.page(signinMain, state)
+}
+
+pages.register = state => {
+  if (!state) {
+    throw new Error('state not supplied to page')
+  }
+
+  const signinMain = html`
+    ${components.registerPanel(state)}
   `
 
   return components.page(signinMain, state)
