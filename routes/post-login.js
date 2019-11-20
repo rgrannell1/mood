@@ -42,13 +42,18 @@ const postLogin = async (req, res) => {
     keys: envConfig.cookies.keys
   })
 
-  // Set the cookie to a value
-  cookies.set(constants.cookies.session, sessionId, {
-    sameSite: 'strict',
-    httpOnly: false
-  })
+  try {
+    cookies.set(constants.cookies.session, sessionId, {
+      sameSite: 'strict',
+      httpOnly: false,
+      signed: true
+    })
 
-  log.success(req.ctx, `login session created for user ${req.state.userId}`)
+    log.success(req.ctx, `login session created for user ${req.state.userId}`)
+  } catch (err) {
+    console.error(err)
+    throw errors.internalServerError('failed to create cookie session', 500)
+  }
 
   res.writeHead(200)
   res.end()

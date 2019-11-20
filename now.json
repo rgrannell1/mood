@@ -1,6 +1,7 @@
 {
   "version": 2,
   "env": {
+    "COOKIE_KEY": "@cookie_key",
     "ENCRYPTION_KEY": "@encryption_key",
     "GOOGLE_CLIENT_ID": "@google_client_id",
     "GOOGLE_PRIVATE_KEY": "@google_private_key",
@@ -8,6 +9,7 @@
   },
   "build": {
     "env": {
+      "COOKIE_KEY": "@cookie_key",
       "ENCRYPTION_KEY": "@encryption_key",
       "GOOGLE_CLIENT_ID": "@google_client_id",
       "GOOGLE_PRIVATE_KEY": "@google_private_key",

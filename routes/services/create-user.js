@@ -43,7 +43,7 @@ const checkPassword = async ({ hash, password, userId }, ctx) => {
   if (isSame) {
     ctx.userId = userId
   } else {
-    throw errors.unauthorized('invalid password provided')
+    throw errors.unauthorized('invalid password provided', 401)
   }
 }
 
