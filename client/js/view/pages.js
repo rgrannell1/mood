@@ -37,7 +37,13 @@ components.moodGraph = () => {
     </section>`
 }
 
-components.signinPanel = () => {
+components.signinPanel = ({ state }) => {
+  let submitText = 'Sign In'
+
+  if (state === 'submit-invalid-password') {
+    submitText = 'Incorrect Password'
+  }
+
   return html`
     <section id="mood-signin" class="mood-panel">
       ${components.sectionHeader('Sign In')}
@@ -48,7 +54,7 @@ components.signinPanel = () => {
           <label for="mood-password">Password (min 14 characters):</label>
           <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
-          <input id="mood-signin-submit" type="submit" value="Sign In">
+          <input id="mood-signin-submit" class="${state}" type="submit" value="${submitText}">
         </div>
     </section>
   `
@@ -131,9 +137,17 @@ pages.privacy = () => {
   return components.page(privacyMain)
 }
 
-pages.signin = () => {
+pages.signin = state => {
+  let signinState = 'submit-normal'
+
+  if (state.passwordIncorrect) {
+    signinState = 'submit-invalid-password'
+  }
+
   const signinMain = html`
-    ${components.signinPanel()}
+    ${components.signinPanel({
+      state: signinState
+    })}
   `
 
   return components.page(signinMain)

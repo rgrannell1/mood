@@ -105,8 +105,14 @@ attach.formListener = () => {
       body: JSON.stringify(body)
     })
 
-    state.authenticated = true
-    render(pages.index(), document.body)
+    if (res.status === 200) {
+      state.authenticated = true
+      render(pages.index(), document.body)
+    } else if (res.status === 401) {
+      state.authenticated = false
+      state.passwordIncorrect = true
+      render(pages.signin(state), document.body)
+    }
   }
 }
 
@@ -131,5 +137,5 @@ if (isAuthenticated()) {
   render(pages.index(), document.body)
   refreshMoodGraphs()
 } else {
-  render(pages.signin(), document.body)
+  render(pages.signin(state), document.body)
 }

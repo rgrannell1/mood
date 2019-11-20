@@ -85,6 +85,10 @@ body {
   border: none;
 }
 
+#mood-signin-submit:hover {
+  cursor: pointer;
+}
+
 label[for="mood-username"],
 label[for="mood-password"] {
   color: var(--input-colour);
