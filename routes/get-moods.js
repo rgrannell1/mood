@@ -1,7 +1,7 @@
 
-import firebase from './shared/db.mjs'
-import config from './shared/config.mjs'
-import checkLogin from './services/check-login.mjs'
+const firebase = require('./shared/db')
+const config = require('./shared/config')
+const checkLogin = require('./services/check-login')
 
 const envConfig = config()
 
@@ -18,4 +18,4 @@ const getMoods = async (req, res) => {
   res.end(JSON.stringify(moods))
 }
 
-export default getMoods
+module.exports = getMoods

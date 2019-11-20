@@ -1,10 +1,10 @@
 
-import log from './shared/log.mjs'
-import config from './shared/config.mjs'
-import constants from './shared/constants.mjs'
-import createUser from './services/create-user.mjs'
-import errors from '@rgrannell/errors'
-import Cookies from 'cookies'
+const log = require('./shared/log')
+const config = require('./shared/config')
+const constants = require('./shared/constants')
+const createUser = require('./services/create-user')
+const errors = require('@rgrannell/errors')
+const Cookies = require('cookies')
 
 const envConfig = config()
 
@@ -44,7 +44,6 @@ const postLogin = async (req, res) => {
 
   // Set the cookie to a value
   cookies.set(constants.cookies.session, sessionId, {
-    signed: true,
     sameSite: 'strict',
     httpOnly: false
   })
@@ -55,4 +54,4 @@ const postLogin = async (req, res) => {
   res.end()
 }
 
-export default postLogin
+module.exports = postLogin

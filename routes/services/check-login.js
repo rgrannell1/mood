@@ -1,8 +1,8 @@
 
-import Cookies from 'cookies'
-import config from '../shared/config.mjs'
-import constants from '../shared/constants.mjs'
-import errors from '@rgrannell/errors'
+const Cookies = require('cookies')
+const config = require('../shared/config')
+const constants = require('../shared/constants')
+const errors = require('@rgrannell/errors')
 
 const envConfig = config()
 
@@ -21,4 +21,4 @@ const checkLogin = async (req, res, opts) => {
   }
 }
 
-export default checkLogin
+module.exports = checkLogin

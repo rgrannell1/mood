@@ -1,8 +1,8 @@
 
-import db from './db.mjs'
-import errors from '@rgrannell/errors'
+const db = require('./db')
+const errors = require('@rgrannell/errors')
 
-export default (req, res) => {
+module.exports = (req, res) => {
   if (!req.headers.Authorization) {
     throw errors.unauthorized('Authorization header missing', 401)
   }

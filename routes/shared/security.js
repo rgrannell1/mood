@@ -1,8 +1,8 @@
 
-import constants from './constants.mjs'
+const constants = require('./constants')
 
-import * as crypto from 'crypto'
-import errors from '@rgrannell/errors'
+const crypto = require('crypto')
+const errors = require('@rgrannell/errors')
 
 const security = {
   user: {},
@@ -58,4 +58,4 @@ security.user.decrypt = (obj, key) => {
   }
 }
 
-export default security
+module.exports = security

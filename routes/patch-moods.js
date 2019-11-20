@@ -1,11 +1,10 @@
 
-import firebase from './shared/db.mjs'
-import validate from './shared/validate-input.mjs'
-import errors from '@rgrannell/errors'
-import checkLogin from './services/check-login.mjs'
+const firebase = require('./shared/db')
+const validate = require('./shared/validate-input')
+const errors = require('@rgrannell/errors')
+const checkLogin = require('./services/check-login')
 
-
-import config from './shared/config.mjs'
+const config = require('./shared/config')
 
 const envConfig = config()
 
@@ -39,4 +38,4 @@ const patchMoods = async (req, res) => {
   res.end(JSON.stringify(response, null, 2))
 }
 
-export default patchMoods
+module.exports = patchMoods

@@ -1,5 +1,5 @@
 
-import nanoid from 'nanoid'
+const nanoid = require('nanoid')
 
 /**
  * Get application metadata
@@ -18,4 +18,4 @@ const getMetadata = async (req, res) => {
   res.end(JSON.stringify(body, null, 2))
 }
 
-export default getMetadata
+module.exports = getMetadata

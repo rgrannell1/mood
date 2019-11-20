@@ -1,15 +1,15 @@
 
-import nanoid from 'nanoid'
-import crypto from 'crypto'
+const nanoid = require('nanoid')
+const crypto = require('crypto')
 
-import constants from './constants.mjs'
+const constants = require('./constants')
 
 /**
  * Create a request-tracking id, to uniquely identify a function
  *
  * @returns {string} an id
  */
-export const trackingId = () => {
+module.exports.trackingId = () => {
   return nanoid(constants.sizes.trackingId)
 }
 
@@ -26,11 +26,11 @@ const phonemes = [
   'gry', 'pra', 'pre', 'pri', 'pro', 'pru', 'pry', 'sta', 'ste', 'sti', 'sto',
   'stu', 'sty', 'tra', 'tre']
 
-export const sessionId = () => {
+module.exports.sessionId = () => {
   return nanoid(constants.sizes.sessionId)
 }
 
-export const userId = () => {
+module.exports.userId = () => {
   const chars = []
 
   for (let ith = 0; ith < 8; ++ith) {
@@ -46,11 +46,11 @@ export const userId = () => {
  *
  * @param {string} string an arbitrary string
  */
-export const hash = string => {
+module.exports.hash = string => {
   return crypto.createHash('sha512').update(string).digest('base64')
 }
 
-export const asKoremutake = num => {
+module.exports.asKoremutake = num => {
   if (num < 0) {
     throw new Error('require a positive number')
   } else if (num === 0) {

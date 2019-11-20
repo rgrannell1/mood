@@ -1,11 +1,11 @@
 
-import admin from 'firebase-admin'
-import security from './security.mjs'
-import log from './log.mjs'
+const admin = require('firebase-admin')
+const security = require('./security')
+const log = require('./log')
 
-import { sessionId } from './utils.mjs'
+const { sessionId } = require('./utils')
 
-import config from './config.mjs'
+const config = require('./config')
 const envConfig = config()
 
 admin.initializeApp({
@@ -173,4 +173,4 @@ firebase.getMoods = async (userId, ctx, opts) => {
   return retrieved
 }
 
-export default firebase
+module.exports = firebase

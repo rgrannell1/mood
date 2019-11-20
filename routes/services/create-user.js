@@ -1,13 +1,13 @@
 
-import bcrypt from 'bcrypt'
-import errors from '@rgrannell/errors'
+const bcrypt = require('bcrypt')
+const errors = require('@rgrannell/errors')
 
-import log from '../shared/log.mjs'
-import firebase from '../shared/db.mjs'
-import security from '../shared/security.mjs'
-import {
+const log = require('../shared/log')
+const firebase = require('../shared/db')
+const security = require('../shared/security')
+const {
   userId
-} from '../shared/utils.mjs'
+} = require('../shared/utils')
 
 const saltRounds = 12
 
@@ -73,4 +73,4 @@ const createUser = async ({ userName, password }, ctx, opts) => {
   return firebase.createSession(userName, ctx, {})
 }
 
-export default createUser
+module.exports = createUser

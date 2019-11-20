@@ -1,11 +1,11 @@
 
-import {
+const {
   trackingId,
   hash
-} from './utils.mjs'
-import signale from 'signale'
-import errors from '@rgrannell/errors'
-import log from './log.mjs'
+} = require('./utils')
+const signale = require('signale')
+const errors = require('@rgrannell/errors')
+const log = require('./log')
 
 const is = val => {
   return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
@@ -56,7 +56,7 @@ const attachMetadata = (req, metadata) => {
  *
  * @param {Map<string, function>} methods the available methods for this request.
  */
-export const routeMethod = (methods, metadata) => async (req, res) => {
+module.exports.routeMethod = (methods, metadata) => async (req, res) => {
   req.state = attachMetadata(req, metadata)
 
   if (is(methods) !== 'map') {
