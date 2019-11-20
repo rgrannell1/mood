@@ -49,6 +49,10 @@ components.moodGraph = () => {
     </section>`
 }
 
+const onCreateAccountLinkClick = async event => {
+  '#mood-create-account'
+}
+
 components.signinPanel = ({ state }) => {
   let submitText = 'Sign In'
 
@@ -67,7 +71,9 @@ components.signinPanel = ({ state }) => {
           <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
           <input id="mood-signin-submit" class="${state}" type="submit" value="${submitText}">
-        </div>
+
+          <p id="mood-create-account" @click=${onCreateAccountLinkClick}>Create Account</p>
+          </div>
     </section>
   `
 }

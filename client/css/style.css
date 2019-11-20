@@ -79,10 +79,16 @@ body {
 #mood-signin-submit {
   margin-top: 20px;
   padding: 1em;
-  max-width: 400px;
   background: var(--brand-colour);
   color: var(--button-colour);
   border: none;
+  cursor: pointer;
+}
+
+#mood-create-account {
+  margin-top: 20px;
+  font-weight: bolder;
+  color: var(--font-colour);
   cursor: pointer;
 }
 
