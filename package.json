@@ -55,7 +55,7 @@
     "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
     "dev": "docker-compose up",
     "dev:watch": "find build routes client api monitoring tools | entr sh -c 'docker-compose up'",
-    "deploy": "export NODE_ENV=production; npm run build; time node_modules/.bin/now"
+    "deploy": "export NODE_ENV=production; npm run build & time node_modules/.bin/now"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@ const log = require('./shared/log')
 const config = require('./shared/config')
 const constants = require('./shared/constants')
 const validate = require('./shared/validate-input')
-const createUser = require('./services/create-user')
+const signinUser = require('./services/signin-user')
 const errors = require('@rgrannell/errors')
 const Cookies = require('cookies')
 
@@ -12,9 +12,7 @@ const envConfig = config()
 const postLogin = async (req, res) => {
   const credentials = await validate.signinCredentials(req, res)
 
-  const { sessionId } = await createUser(credentials, req.state, {
-    key: envConfig.encryption.key
-  })
+  const { sessionId } = await signinUser(credentials, req.state)
 
   const cookies = new Cookies(req, res, {
     keys: envConfig.cookies.keys

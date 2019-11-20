@@ -1,5 +1,7 @@
 
 const admin = require('firebase-admin')
+const errors = require('@rgrannell/errors')
+
 const security = require('./security')
 const log = require('./log')
 
@@ -37,6 +39,19 @@ firebase.createSession = async (username, ctx, opts) => {
   }
 
   return doc.data()
+}
+
+firebase.getSession = async (sessionId, ctx, opts) => {
+  const ref = db.collection('sessions').where('sessionId', '==', sessionId)
+  const doc = await ref.get()
+
+  if (!doc.docs) {
+    throw errors.unauthorized('no sessions found', 401)
+  }
+
+  const [session] = doc.docs
+
+  return session.data()
 }
 
 /**
@@ -106,11 +121,11 @@ firebase.createUser = async (username, ctx, opts) => {
  * @returns {Promise<*>}
  */
 firebase.saveMoods = async (userId, ctx, moods, opts) => {
-  const ref = db.collection('users').doc(userId)
+  const ref = db.collection('userdata').doc(userId)
   const doc = await ref.get()
 
   if (!doc.exists) {
-    log.fatal(ctx, `profile missing for user ${ctx.userNickname}`)
+    log.error(ctx, `profile missing for user ${ctx.userNickname}`)
     process.exit(1)
   }
 
@@ -126,11 +141,12 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
     ? updated.moods.concat(moods)
     : moods
 
+  // TODO fix usernickname
   log.debug(ctx, `adding moods for user ${ctx.userNickname}`)
 
   const encrypted = security.user.encrypt(updated, opts.key)
 
-  await db.collection('users').doc(userId).update(encrypted)
+  await db.collection('userdata').doc(userId).update(encrypted)
 
   log.success(ctx, `moods successfully added for user ${ctx.userNickname}`)
 

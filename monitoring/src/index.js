@@ -8,10 +8,6 @@ process.on('unhandledRejection', err => {
   process.exit(1)
 })
 
-const {
-  captureViewportScreenshots,
-  viewports
-} = require('./capture-viewport-screenshots')
 const captureConsoleErrors = require('./capture-console-errors')
 
 const apiTests = require('./test-api')
@@ -19,7 +15,6 @@ const apiTests = require('./test-api')
 async function main () {
   const browser = await puppeteer.launch()
 
-  // await captureViewportScreenshots(config, browser, viewports)
   await apiTests(config)
 
   await captureConsoleErrors(config, browser)

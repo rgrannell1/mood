@@ -4,8 +4,9 @@ const config = require('./shared/config')
 const constants = require('./shared/constants')
 const createUser = require('./services/create-user')
 const errors = require('@rgrannell/errors')
-const Cookies = require('cookies')
 const validate = require('./shared/validate-input')
+
+const Cookies = require('cookies')
 
 const envConfig = config()
 

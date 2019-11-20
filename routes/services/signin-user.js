@@ -7,7 +7,7 @@ const {
   userId
 } = require('../shared/utils')
 
-const signinUser = async ({ userName, password }, ctx, opts) => {
+const signinUser = async ({ userName, password }, ctx) => {
   const db = firebase.database()
 
   const ref = db.collection('userdata').doc(userName)
@@ -20,10 +20,10 @@ const signinUser = async ({ userName, password }, ctx, opts) => {
     throw errors.unauthorized('user does not exist', 401)
   }
 
-  const isSame = await security.checkPassword(password, data.password)
+  const isSame = await security.checkPassword(data.password, password)
 
   if (isSame) {
-    ctx.userId = userId
+    ctx.userId = userId()
   } else {
     throw errors.unauthorized('invalid password provided', 401)
   }

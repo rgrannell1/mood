@@ -1,6 +1,7 @@
 
 import { render, html } from 'lit-html'
 import { model } from '../shared/utils.js'
+import constants from '../shared/constants'
 import cache from '../services/cache.js'
 import { api } from '../services/api.js'
 
@@ -24,11 +25,9 @@ const toggleTheme = state => () => {
     ? 'dark'
     : 'light'
 
-  state.theme = newTheme
-
   $html.setAttribute('data-theme', newTheme)
 
-  if (state.theme === 'dark') {
+  if (newTheme === 'dark') {
     document.querySelector('#dark-mode-toggle').textContent = '☀️'
   } else {
     document.querySelector('#dark-mode-toggle').textContent = '🌙'
@@ -62,10 +61,69 @@ const onCreateAccountLinkClick = state => async event => {
 }
 
 const onSigninSubmitClick = state => async event => {
+  event.stopPropagation()
 
+  const $user = document.querySelector('#mood-username')
+  const $password = document.querySelector('#mood-password')
+
+  const body = {
+    user: $user.value,
+    password: $password.value
+  }
+
+  const res = await fetch(`${constants.apiHost}/api/login`, {
+    method: 'post',
+    body: JSON.stringify(body)
+  })
+
+  if (res.status === 200) {
+    state.authenticated = true
+    render(pages.index(state), document.body)
+  } else if (res.status === 401) {
+    state.authenticated = false
+    state.passwordIncorrect = true
+    render(pages.signin(state), document.body)
+  }
 }
 
-components.signinPanel = ({ state }) => {
+const onRegisterSubmitClick = state => async event => {
+  event.stopPropagation()
+
+  const $user = document.querySelector('#mood-username')
+  const $password = document.querySelector('#mood-password')
+  const $passwordRepeat = document.querySelector('#mood-password-repeat')
+
+  const passwordsEqual = $password.value === $passwordRepeat.value
+
+  if (passwordsEqual) {
+    state.register.passwordMismatch = false
+    render(pages.register(state), document.body)
+  } else {
+    state.register.passwordMismatch = true
+    render(pages.register(state), document.body)
+  }
+
+  const body = {
+    user: $user.value,
+    password: $password.value
+  }
+
+  const res = await fetch(`${constants.apiHost}/api/register`, {
+    method: 'post',
+    body: JSON.stringify(body)
+  })
+
+  if (res.status === 200) {
+    state.authenticated = true
+    render(pages.index(state), document.body)
+  } else if (res.status === 401) {
+    state.authenticated = false
+    state.passwordIncorrect = true
+    render(pages.register(state), document.body)
+  }
+}
+
+components.signinPanel = state => {
   let submitText = 'Sign In'
 
   if (state === 'submit-invalid-password') {
@@ -82,7 +140,7 @@ components.signinPanel = ({ state }) => {
           <label for="mood-password">Password (min 14 characters):</label>
           <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
-          <input id="mood-signin-submit" @click=${onSigninSubmitClick} class="${state}" type="submit" value="${submitText}">
+          <input id="mood-signin-submit" @click=${onSigninSubmitClick(state)} class="${state}" type="submit" value="${submitText}">
 
           <p id="mood-create-account" @click=${onCreateAccountLinkClick(state)}>Create Account</p>
           </div>
@@ -97,8 +155,8 @@ const onSigninAccountLinkClick = state => async event => {
 components.registerPanel = state => {
   let submitText = 'Sign Up'
 
-  if (state === 'submit-invalid-password') {
-    submitText = 'Incorrect Password'
+  if (state.register.passwordMismatch) {
+    submitText = 'Passwords Do Not Match'
   }
 
   return html`
@@ -111,10 +169,10 @@ components.registerPanel = state => {
           <label for="mood-password">Password (min 14 characters):</label>
           <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
-          <label for="mood-password">Re-enter Password:</label>
+          <label for="mood-password-repeat">Re-enter Password:</label>
           <input id="mood-password-repeat" type="password" spellcheck="false" minlength="14" aria-label="Re-enter your password"></input>
 
-          <input id="mood-signup-submit" @click=${onSigninSubmitClick} class="${state}" type="submit" value="${submitText}">
+          <input id="mood-signup-submit" @click=${onRegisterSubmitClick(state)} class="${state}" type="submit" value="${submitText}">
 
           <p id="mood-create-account" @click=${onSigninAccountLinkClick(state)}>Already Registered? Sign In</p>
           </div>
@@ -221,16 +279,8 @@ pages.signin = state => {
     throw new Error('state not supplied to page')
   }
 
-  let signinState = 'submit-normal'
-
-  if (state.passwordIncorrect) {
-    signinState = 'submit-invalid-password'
-  }
-
   const signinMain = html`
-    ${components.signinPanel({
-      state: signinState
-    })}
+    ${components.signinPanel(state)}
   `
 
   return components.page(signinMain, state)
@@ -241,11 +291,11 @@ pages.register = state => {
     throw new Error('state not supplied to page')
   }
 
-  const signinMain = html`
+  const registerMain = html`
     ${components.registerPanel(state)}
   `
 
-  return components.page(signinMain, state)
+  return components.page(registerMain, state)
 }
 
 export default pages

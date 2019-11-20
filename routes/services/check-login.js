@@ -2,6 +2,7 @@
 const Cookies = require('cookies')
 const config = require('../shared/config')
 const constants = require('../shared/constants')
+const firebase = require('../shared/db')
 const errors = require('@rgrannell/errors')
 
 const envConfig = config()
@@ -12,13 +13,15 @@ const checkLogin = async (req, res, opts) => {
   })
 
   // Set the cookie to a value
-  const session = cookies.get(constants.cookies.session, {
+  const sessionId = cookies.get(constants.cookies.session, {
     signed: true
   })
 
-  if (!session) {
+  if (!sessionId) {
     throw errors.authorization('no session-cookie provided', 401)
   }
+
+  return firebase.getSession(sessionId, req.state, opts)
 }
 
 module.exports = checkLogin

@@ -6,11 +6,11 @@ const checkLogin = require('./services/check-login')
 const envConfig = config()
 
 const getMoods = async (req, res) => {
-  const userId = await checkLogin(req, {
+  const { username } = await checkLogin(req, {
     key: envConfig.encryption.key
   })
 
-  const moods = await firebase.getMoods(userId, req.state, {
+  const moods = await firebase.getMoods(username, req.state, {
     key: envConfig.encryption.key
   })
 

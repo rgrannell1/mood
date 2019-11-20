@@ -8,30 +8,8 @@ const {
   userId
 } = require('../shared/utils')
 
-const createUserAccount = async ({ userName, hash }, ref, ctx, opts) => {
-  const id = userId()
-  log.debug(ctx, `storing information for new user ${id}`)
-
-  ctx.userId = id
-
-  const saved = {
-    userName,
-    password: hash,
-    userId: id,
-    ips: [
-      ctx.ip || 'unknown'
-    ],
-    forwardedFor: [
-      ctx.forwardedFor || 'unknown'
-    ],
-    trackingIdCount: 1
-  }
-
-  await ref.set(security.user.encrypt(saved, opts.key))
-}
-
 const createUser = async ({ userName, password }, ctx, opts) => {
-  const hash = security.hashPassword(password)
+  const hash = await security.hashPassword(password)
 
   const db = firebase.database()
 
@@ -44,7 +22,25 @@ const createUser = async ({ userName, password }, ctx, opts) => {
     throw errors.unauthorized('user already exists', 401)
   }
 
-  await createUserAccount({ userName, hash }, ref, ctx, opts)
+  const id = userId()
+  log.debug(ctx, `storing information for new user ${id}`)
+
+  ctx.userId = id
+
+  const userFields = {
+    userName,
+    password: hash,
+    userId: id,
+    ips: [
+      ctx.ip || 'unknown'
+    ],
+    forwardedFor: [
+      ctx.forwardedFor || 'unknown'
+    ],
+    trackingIdCount: 1
+  }
+
+  await ref.set(security.user.encrypt(userFields, opts.key))
 
   return firebase.createSession(userName, ctx, {})
 }

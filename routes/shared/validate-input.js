@@ -22,7 +22,13 @@ validate.mood = (event, ith) => {
   }
 }
 
-validate.body = (userId, content) => {
+validate.body = body => {
+  try {
+    var content = JSON.parse(body)
+  } catch (err) {
+    throw errors.unprocessableEntity('could not parse request body as json', 422)
+  }
+
   if (!hasOwnProperty(content, 'events')) {
     throw errors.unprocessableEntity('request body was missing field "events"', 422)
   }

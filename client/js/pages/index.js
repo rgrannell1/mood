@@ -21,7 +21,14 @@ const refreshMoodGraphs = async () => {
   }
 }
 
-const state = {}
+const state = {
+  signin: {
+
+  },
+  register: {
+
+  }
+}
 
 const setTheme = {}
 
@@ -34,38 +41,6 @@ setTheme.html = theme => {
   $html.setAttributeNode(themeAttr)
 }
 
-const attach = {}
-
-attach.formListener = () => {
-  const $formSubmit = document.querySelector('#mood-signin-submit')
-
-  $formSubmit.onclick = async event => {
-    event.stopPropagation()
-
-    const $user = document.querySelector('#mood-username')
-    const $password = document.querySelector('#mood-password')
-
-    const body = {
-      user: $user.value,
-      password: $password.value
-    }
-
-    const res = await fetch(`${constants.apiHost}/api/login`, {
-      method: 'post',
-      body: JSON.stringify(body)
-    })
-
-    if (res.status === 200) {
-      state.authenticated = true
-      render(pages.index(state), document.body)
-    } else if (res.status === 401) {
-      state.authenticated = false
-      state.passwordIncorrect = true
-      render(pages.signin(state), document.body)
-    }
-  }
-}
-
 const isAuthenticated = () => {
   return state.authenticated === true
 }
@@ -75,8 +50,6 @@ const isAuthenticated = () => {
  */
 async function initPage () {
   await registerServiceWorker()
-
-  attach.formListener()
 }
 
 initPage()
