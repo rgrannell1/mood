@@ -13,6 +13,7 @@ module.exports = {
     moodsLength: 50
   },
   security: {
+    saltRounds: 12,
     initVectorSize: 16,
     encryptAlgorithm: 'aes-256-ctr'
   },

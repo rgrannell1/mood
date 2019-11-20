@@ -3,10 +3,33 @@ const constants = require('./constants')
 
 const crypto = require('crypto')
 const errors = require('@rgrannell/errors')
+const bcrypt = require('bcrypt')
 
 const security = {
   user: {},
   moods: {}
+}
+
+security.checkPassword = async (hash, password) => {
+  const isSame = await new Promise((resolve, reject) => {
+    bcrypt.compare(password, hash, (err, result) => {
+      err ? reject(err) : resolve(result)
+    })
+  })
+
+  return isSame
+}
+
+security.hashPassword = async password => {
+  try {
+    return await new Promise((resolve, reject) => {
+      bcrypt.hash(password, constants.security.saltRounds, (err, hash) => {
+        err ? reject(err) : resolve(hash)
+      })
+    })
+  } catch (err) {
+    throw errors.internalServerError('failed to hash password', 500)
+  }
 }
 
 security.encrypt = (datum, key) => {

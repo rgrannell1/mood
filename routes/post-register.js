@@ -2,15 +2,15 @@
 const log = require('./shared/log')
 const config = require('./shared/config')
 const constants = require('./shared/constants')
-const validate = require('./shared/validate-input')
 const createUser = require('./services/create-user')
 const errors = require('@rgrannell/errors')
 const Cookies = require('cookies')
+const validate = require('./shared/validate-input')
 
 const envConfig = config()
 
-const postLogin = async (req, res) => {
-  const credentials = await validate.signinCredentials(req, res)
+const postRegister = async (req, res) => {
+  const credentials = await validate.registerCredentials(req, res)
 
   const { sessionId } = await createUser(credentials, req.state, {
     key: envConfig.encryption.key
@@ -37,4 +37,4 @@ const postLogin = async (req, res) => {
   res.end()
 }
 
-module.exports = postLogin
+module.exports = postRegister

@@ -18,13 +18,21 @@ components.page = (main, state) => {
 }
 
 const toggleTheme = state => () => {
-  const $toggle = document.querySelector('html')
-  const theme = $toggle.getAttribute('data-theme') || 'light'
+  const $html = document.querySelector('html')
+  const theme = $html.getAttribute('data-theme') || 'light'
   const newTheme = theme === 'light'
     ? 'dark'
     : 'light'
 
-  $toggle.setAttribute('data-theme', newTheme )
+  state.theme = newTheme
+
+  $html.setAttribute('data-theme', newTheme)
+
+  if (state.theme === 'dark') {
+    document.querySelector('#dark-mode-toggle').textContent = '☀️'
+  } else {
+    document.querySelector('#dark-mode-toggle').textContent = '🌙'
+  }
 }
 
 components.header = state => {

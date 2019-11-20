@@ -42,4 +42,50 @@ validate.body = (userId, content) => {
   return content
 }
 
+validate.signinCredentials = async (req, res) => {
+  try {
+    var body = JSON.parse(req.body)
+  } catch (err) {
+    throw errors.badRequest('Invalid JSON login request body provided', 400)
+  }
+
+  if (!body.user) {
+    throw errors.unprocessableEntity('Empty user value provided', 422)
+  }
+  if (!body.password) {
+    throw errors.unprocessableEntity('Empty password value provided', 422)
+  }
+  if (body.password.length < 14) {
+    throw errors.unprocessableEntity('Insuffienctly long password provided', 422)
+  }
+
+  return {
+    userName: body.user,
+    password: body.password
+  }
+}
+
+validate.registerCredentials = async (req, res) => {
+  try {
+    var body = JSON.parse(req.body)
+  } catch (err) {
+    throw errors.badRequest('Invalid JSON login request body provided', 400)
+  }
+
+  if (!body.user) {
+    throw errors.unprocessableEntity('Empty user value provided', 422)
+  }
+  if (!body.password) {
+    throw errors.unprocessableEntity('Empty password value provided', 422)
+  }
+  if (body.password.length < 14) {
+    throw errors.unprocessableEntity('Insuffienctly long password provided', 422)
+  }
+
+  return {
+    userName: body.user,
+    password: body.password
+  }
+}
+
 module.exports = validate
