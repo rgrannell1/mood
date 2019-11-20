@@ -54,6 +54,10 @@ async function initPage () {
 
 initPage()
 
+setInterval(async () => {
+  await refreshMoodGraphs()
+}, 1000)
+
 if (isAuthenticated()) {
   render(pages.index(state), document.body)
   refreshMoodGraphs()

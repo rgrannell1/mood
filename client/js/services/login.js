@@ -11,7 +11,7 @@ handlers.onSuccess = user => {
   console.log('setting google id token')
 
   const authResponse = user.getAuthResponse()
-console.log(authResponse)
+  console.log(authResponse)
 
   // -- should be refactored.
   local.set(constants.keys.googleToken, authResponse.id_token)
