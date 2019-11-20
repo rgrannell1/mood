@@ -5,7 +5,7 @@ import webpack from 'webpack'
 import nanoid from 'nanoid'
 
 export default merge(common, {
-  mode: 'production',
+  mode: 'development',
   plugins: [
     new webpack.DefinePlugin({
       __DEPLOYMENT_VERSION__: `"${nanoid(32)}"`,

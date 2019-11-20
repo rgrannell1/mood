@@ -1,13 +1,15 @@
 
 import { html } from 'lit-html'
-import constants from '../shared/constants'
+import { model } from '../shared/utils.js'
+import cache from '../services/cache.js'
+import { api } from '../services/api.js'
 
 const components = {}
 
-components.page = main => {
+components.page = (main, state) => {
   return html`
     <div class="grid-container">
-      ${components.header()}
+      ${components.header(state)}
       <main>
       ${main}
       </main>
@@ -15,12 +17,22 @@ components.page = main => {
   `
 }
 
-components.header = () => {
+const toggleTheme = state => () => {
+  const $toggle = document.querySelector('html')
+  const theme = $toggle.getAttribute('data-theme') || 'light'
+  const newTheme = theme === 'light'
+    ? 'dark'
+    : 'light'
+
+  $toggle.setAttribute('data-theme', newTheme )
+}
+
+components.header = state => {
   return html`
     <header>
       <nav id="mood-header">
         <a href="/"><h1 id="brand">mood.</h1></a>
-        <div id="dark-mode-toggle" class="dark-mode-toggle">🌙</div>
+        <div id="dark-mode-toggle" class="dark-mode-toggle" @click=${toggleTheme(state)}>🌙</div>
         </nav>
     </header>`
 }
@@ -60,10 +72,21 @@ components.signinPanel = ({ state }) => {
   `
 }
 
+const onMoodClick = async event => {
+  const data = model.event(event.target)
+  cache.addEvent(data)
+
+  try {
+    await api.moods.post()
+  } catch (err) {
+    console.error(`failed to send events: ${err.message}`)
+  }
+}
+
 components.mood = ({ title, emoji }, idx) => {
   const filename = title.toLowerCase().replace(' ', '-')
 
-  return html`<div id="mood-${idx}" class="mood-emotion" title="${title}">
+  return html`<div id="mood-${idx}" class="mood-emotion" @click=${onMoodClick} title="${title}">
     <img src="svg/${filename}.svg" title="${title}"></img>
   </div>`
 }
@@ -117,12 +140,15 @@ const pages = {}
  *
  * @returns {HTML} index-page
  */
-pages.index = () => {
+pages.index = state => {
+  if (!state) {
+    throw new Error('state not supplied to page')
+  }
   const indexMain = html`
     ${components.moodPanel()}
     ${components.moodGraph()}
   `
-  return components.page(indexMain)
+  return components.page(indexMain, state)
 }
 
 /**
@@ -130,14 +156,22 @@ pages.index = () => {
  *
  * @returns {HTML} index-page
  */
-pages.privacy = () => {
+pages.privacy = state => {
+  if (!state) {
+    throw new Error('state not supplied to page')
+  }
+
   const privacyMain = html`
     ${components.privacyPolicy()}
   `
-  return components.page(privacyMain)
+  return components.page(privacyMain, state)
 }
 
 pages.signin = state => {
+  if (!state) {
+    throw new Error('state not supplied to page')
+  }
+
   let signinState = 'submit-normal'
 
   if (state.passwordIncorrect) {
@@ -150,7 +184,7 @@ pages.signin = state => {
     })}
   `
 
-  return components.page(signinMain)
+  return components.page(signinMain, state)
 }
 
 export default pages

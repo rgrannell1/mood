@@ -12,5 +12,6 @@ async function main () {
 }
 
 main()
+const state = {}
 
-render(pages.privacy(), document.body)
+render(pages.privacy(state), document.body)

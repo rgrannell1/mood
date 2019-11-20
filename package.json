@@ -38,6 +38,7 @@
     "fs-extra": "^8.1.0",
     "now": "16.1.3",
     "puppeteer-firefox": "^0.5.0",
+    "rimraf": "^3.0.0",
     "standard": "^14.1.0",
     "stylelint": "10.1.0",
     "stylelint-config-standard": "18.3.0",
@@ -47,14 +48,14 @@
   },
   "scripts": {
     "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build --production",
+    "clean": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs clean",
     "build:watch": "find client routes | entr -s 'npm run build'",
     "live-reload": "live-reload --build 'npm run build:watch' --site index.html --public_folder public",
     "run:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
     "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
     "dev": "docker-compose up",
     "dev:watch": "find build routes client api monitoring tools | entr sh -c 'docker-compose up'",
-    "deploy": "export NODE_ENV=production; npm run build; time node_modules/.bin/now",
-    "clean": "find public -name '*.js' -delete; find public -name '*.js.map' -delete"
+    "deploy": "export NODE_ENV=production; npm run build; time node_modules/.bin/now"
   },
   "repository": {
     "type": "git",
@@ -67,8 +68,7 @@
   },
   "homepage": "https://github.com/rgrannell1/mood#readme",
   "husky": {
-    "hooks": {
-      "pre-commit": "npm run build"
+    "hooks": {      "pre-commit": "npm run build"
     }
   }
 }

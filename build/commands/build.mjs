@@ -6,7 +6,7 @@ import webpack from 'webpack'
 
 const command = {
   name: 'build',
-  dependencies: []
+  dependencies: ['clean']
 }
 
 command.cli = `

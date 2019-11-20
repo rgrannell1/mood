@@ -83,9 +83,6 @@ body {
   background: var(--brand-colour);
   color: var(--button-colour);
   border: none;
-}
-
-#mood-signin-submit:hover {
   cursor: pointer;
 }
 
