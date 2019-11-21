@@ -65,7 +65,7 @@ firebase.getSession = async (sessionId, ctx, opts) => {
  * @returns {Promise<*>}
  */
 firebase.createUser = async (username, ctx, opts) => {
-  const ref = db.collection('users').doc(username)
+  const ref = db.collection('userdata').doc(username)
   const doc = await ref.get()
 
   const roles = {
@@ -165,27 +165,31 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
  * @returns {Promise<*>}
  */
 firebase.getMoods = async (userId, ctx, opts) => {
-  const ref = db.collection('users').doc(userId)
+  const ref = db.collection('userdata').doc(userId)
   const doc = await ref.get()
 
   if (!doc.exists) {
-    return []
+    return {
+      moods: [],
+      stats: {
+        count: 0
+      }
+    }
   }
 
-  // -- sort moods by date
   const userData = security.user.decrypt(doc.data(), opts.key)
 
+  // -- sort moods by date
   userData.moods.sort((datum0, datum1) => datum0.timestamp - datum1.timestamp)
 
-  const retrieved = {
+  return {
     moods: userData.moods,
     stats: {
+      count: userData.moods.length,
       to: userData.moods[userData.moods.length - 1].timestamp,
       from: userData.moods[0].timestamp
     }
   }
-
-  return retrieved
 }
 
 module.exports = firebase

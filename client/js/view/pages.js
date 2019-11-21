@@ -5,6 +5,8 @@ import constants from '../shared/constants'
 import cache from '../services/cache.js'
 import { api } from '../services/api.js'
 
+import moodGraphs from '../view/mood-graphs.js'
+
 const components = {}
 
 components.page = (main, state) => {
@@ -26,6 +28,8 @@ const toggleTheme = state => () => {
     : 'light'
 
   $html.setAttribute('data-theme', newTheme)
+
+  moodGraphs.refreshMoodGraphs()
 
   if (newTheme === 'dark') {
     document.querySelector('#dark-mode-toggle').textContent = '☀️'
@@ -79,10 +83,14 @@ const onSigninSubmitClick = state => async event => {
   if (res.status === 200) {
     state.authenticated = true
     render(pages.index(state), document.body)
+
+    moodGraphs.refreshMoodGraphs()
   } else if (res.status === 401) {
     state.authenticated = false
     state.passwordIncorrect = true
+
     render(pages.signin(state), document.body)
+    moodGraphs.refreshMoodGraphs()
   }
 }
 

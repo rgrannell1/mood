@@ -1,4 +1,7 @@
 
+import vegaEmbed from 'vega-embed'
+import { api } from '../services/api.js'
+
 const moodGraphs = {}
 
 const getCssVariable = variable => {
@@ -49,8 +52,12 @@ const moodOrdering = [
 ]
 
 moodGraphs.heatplot = async data => {
+  if (!data.hasOwnProperty('moods')) {
+    throw new Error('data did not have moods property')
+  }
+
   const [$html] = document.getElementsByTagName('html')
-  const theme = $html.getAttribute('data-theme')
+  const theme = $html.getAttribute('data-theme') || 'light'
 
   const spec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v4.0.0-beta.9.json',
@@ -92,6 +99,17 @@ moodGraphs.heatplot = async data => {
     width: 400,
     height: 200
   })
+}
+
+moodGraphs.refreshMoodGraphs = async () => {
+  try {
+    const moods = await api.moods.get()
+    const moodData = await moods.json()
+    await moodGraphs.heatplot(moodData)
+  } catch (err) {
+    console.error('failed to render graph.')
+    throw err
+  }
 }
 
 export default moodGraphs
