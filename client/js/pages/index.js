@@ -1,8 +1,6 @@
 
 import { render } from 'lit-html'
 
-import moodGraphs from '../view/mood-graphs.js'
-
 import pages from '../view/pages.js'
 
 import {
@@ -10,12 +8,8 @@ import {
 } from '../shared/utils.js'
 
 const state = {
-  signin: {
-
-  },
-  register: {
-
-  }
+  signin: { },
+  register: { }
 }
 
 const isAuthenticated = () => {

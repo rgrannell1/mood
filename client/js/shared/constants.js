@@ -14,7 +14,17 @@ const constants = {
     googleToken: 'GOOGLE_ID_TOKEN',
     refreshToken: 'GOOGLE_REFRESH_TOKEN',
     cachedEvents: 'cached-events'
-  }
+  },
+  moodOrdering: [
+    'Stellar',
+    'Fine',
+    'Decent',
+    'Neutral',
+    'Bad',
+    'Ennui',
+    'In pain',
+    'Atrocious'
+  ]
 }
 
 export default constants

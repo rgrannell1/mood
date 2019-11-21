@@ -1,13 +1,29 @@
 
 import vegaEmbed from 'vega-embed'
-import { api } from '../services/api.js'
+import { api } from '../services/api'
+import constants from '../shared/constants'
 
 const moodGraphs = {}
 
+/**
+ *
+ * get the value of a css property.
+ *
+ * @param {string} variable the css variable name
+ *
+ * @returns {any} the css property value
+ */
 const getCssVariable = variable => {
   return window.getComputedStyle(document.body).getPropertyValue(`--${variable}`)
 }
 
+/**
+ * get the heatplot configuration for a theme
+ *
+ * @param {string} theme the theme to use
+ *
+ * @returns {object} Vega configuration
+ */
 const getHeatplotConfig = theme => {
   const config = {}
 
@@ -32,25 +48,17 @@ const getHeatplotConfig = theme => {
       }
     })
   } else {
-    Object.assign(config, {
-
-    })
+    Object.assign(config, { })
   }
 
   return config
 }
 
-const moodOrdering = [
-  'Stellar',
-  'Fine',
-  'Decent',
-  'Neutral',
-  'Bad',
-  'Ennui',
-  'In pain',
-  'Atrocious'
-]
-
+/**
+ * Plot a heatplot of moods over time
+ *
+ * @param {Object} data the user's mood data
+ */
 moodGraphs.heatplot = async data => {
   if (!data.hasOwnProperty('moods')) {
     throw new Error('data did not have moods property')
@@ -72,7 +80,7 @@ moodGraphs.heatplot = async data => {
       y: {
         field: 'mood',
         type: 'nominal',
-        sort: moodOrdering
+        sort: constants.moodOrdering
       },
       x: {
         timeUnit: 'monthdate',
@@ -101,6 +109,9 @@ moodGraphs.heatplot = async data => {
   })
 }
 
+/**
+ * Draw a mood heatplot to the page
+ */
 moodGraphs.refreshMoodGraphs = async () => {
   try {
     const moods = await api.moods.get()
