@@ -9,6 +9,12 @@ const Cookies = require('cookies')
 
 const envConfig = config()
 
+/**
+ * Log in a user
+ *
+ * @param {Request} req a request object
+ * @param {Response} res a response object
+ */
 const postLogin = async (req, res) => {
   const credentials = await validate.signinCredentials(req, res)
 

@@ -10,6 +10,12 @@ const Cookies = require('cookies')
 
 const envConfig = config()
 
+/**
+ * Register a new user
+ *
+ * @param {Request} req a request object
+ * @param {Response} res a response object
+ */
 const postRegister = async (req, res) => {
   const credentials = await validate.registerCredentials(req, res)
 
