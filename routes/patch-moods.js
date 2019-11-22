@@ -7,6 +7,13 @@ const config = require('./shared/config')
 
 const envConfig = config()
 
+/**
+ * Update a user's mood data
+ *
+ * @param {Request} req a Request object
+ * @param {Response} res a Response object
+ *
+ */
 const patchMoods = async (req, res) => {
   const body = validate.body(req.body)
 

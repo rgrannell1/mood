@@ -6,6 +6,13 @@ const checkLogin = require('./services/check-login')
 
 const envConfig = config()
 
+/**
+ * Get mood data for a user
+ *
+ * @param {Request} req a Request object
+ * @param {Response} res a Response object
+ *
+ */
 const getMoods = async (req, res) => {
   const { username } = await checkLogin(req, {
     key: envConfig.encryption.key

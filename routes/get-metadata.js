@@ -6,6 +6,7 @@ const nanoid = require('nanoid')
  *
  * @param {Request} req a request object
  * @param {Response} res a response object
+ *
  */
 const getMetadata = async (req, res) => {
   const body = {
