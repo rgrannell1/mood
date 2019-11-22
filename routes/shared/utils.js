@@ -30,6 +30,11 @@ module.exports.sessionId = () => {
   return nanoid(constants.sizes.sessionId)
 }
 
+/**
+ * Generate a user ID
+ *
+ * @returns {string} a random-id
+ */
 module.exports.userId = () => {
   const chars = []
 
@@ -45,11 +50,20 @@ module.exports.userId = () => {
  *  Hash a value
  *
  * @param {string} string an arbitrary string
+ *
+ * @returns {string} a hashed string
  */
 module.exports.hash = string => {
   return crypto.createHash('sha512').update(string).digest('base64')
 }
 
+/**
+ * Create a koremutake random string
+ *
+ * @param {number} num a non-negative integer, the number of phonemes to use
+ *
+ * @returns {string} a random koremutake string
+ */
 module.exports.asKoremutake = num => {
   if (num < 0) {
     throw new Error('require a positive number')

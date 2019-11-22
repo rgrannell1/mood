@@ -41,6 +41,15 @@ firebase.createSession = async (username, ctx, opts) => {
   return doc.data()
 }
 
+/**
+ * Get session information for a user, given a sessionId
+ *
+ * @param {string} sessionId
+ * @param {Object} ctx
+ * @param {Object} opts
+ *
+ * @returns {Object} session information
+ */
 firebase.getSession = async (sessionId, ctx, opts) => {
   const ref = db.collection('sessions').where('sessionId', '==', sessionId)
   const doc = await ref.get()

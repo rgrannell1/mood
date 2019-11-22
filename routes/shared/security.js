@@ -10,6 +10,14 @@ const security = {
   moods: {}
 }
 
+/**
+ * Check whether a user supplied a valid password
+ *
+ * @param {string} hash the hashed user password
+ * @param {string} password the user's plaintext password
+ *
+ * @returns {Promise<boolean>} are the passwords the same?
+ */
 security.checkPassword = async (hash, password) => {
   const isSame = await new Promise((resolve, reject) => {
     bcrypt.compare(password, hash, (err, result) => {
@@ -20,6 +28,13 @@ security.checkPassword = async (hash, password) => {
   return isSame
 }
 
+/**
+ * Hash a user password
+ *
+ * @param {string} password a user password
+ *
+ * @returns {Promise<string>} the hashed password
+ */
 security.hashPassword = async password => {
   try {
     return await new Promise((resolve, reject) => {
@@ -32,6 +47,9 @@ security.hashPassword = async password => {
   }
 }
 
+/**
+ * Encrypt a value
+ */
 security.encrypt = (datum, key) => {
   const buffer = Buffer.from(JSON.stringify(datum))
 

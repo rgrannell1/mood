@@ -7,6 +7,7 @@ const attachContext = (ctx, message) => {
 
 const log = { }
 
+// -- create each logger
 for (const level of ['success', 'debug', 'error', 'warn']) {
   log[level] = (ctx, message) => signale[level](attachContext(ctx, message))
 }

@@ -7,6 +7,11 @@ const signale = require('signale')
 const errors = require('@rgrannell/errors')
 const log = require('./log')
 
+/**
+ * What internal type is a value
+ *
+ * @param {any} val
+ */
 const is = val => {
   return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
 }
