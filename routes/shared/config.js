@@ -21,19 +21,31 @@ expect.variables = names => {
   }
 }
 
+/**
+ * Read and parse a Google private key
+ *
+ * @param {Buffer} content
+ */
 const parseGooglePrivateKey = content => {
   return JSON.parse(Buffer.from(content, 'base64'))
 }
 
+/**
+ * Read an environmental variable
+ *
+ * @param {string} name the name of the environmental variable
+ */
 const readVariable = name => {
   return process.env[name] || process.env[name.toLowerCase()]
 }
 
+/**
+ * Application configuration
+ */
 module.exports = () => {
   expect.variables([
     'COOKIE_KEY',
     'ENCRYPTION_KEY',
-    //    'GOOGLE_CLIENT_ID',
     'GOOGLE_PRIVATE_KEY',
     'TEST_ACCOUNT_CREDENTIAL'
   ])

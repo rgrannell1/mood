@@ -7,6 +7,12 @@ const {
   userId
 } = require('../shared/utils')
 
+/**
+ * Sign-in a registered user
+ *
+ * @param {Object} credentials
+ * @param {*} ctx
+ */
 const signinUser = async ({ userName, password }, ctx) => {
   const db = firebase.database()
 

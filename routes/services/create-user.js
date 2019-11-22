@@ -8,6 +8,15 @@ const {
   userId
 } = require('../shared/utils')
 
+/**
+ * Create a user-object in the database
+ *
+ * @param {Object} credentials user-credentials
+ * @param {Object} ctx request context
+ * @param {Object} opts firebase options
+ *
+ * @returns {Object} a firebase session
+ */
 const createUser = async ({ userName, password }, ctx, opts) => {
   const hash = await security.hashPassword(password)
 

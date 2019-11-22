@@ -8,6 +8,14 @@ const errors = require('@rgrannell/errors')
 
 const envConfig = config()
 
+/**
+ * Return session information for a user, or throw an error if they weren't
+ * authenticated correctly.
+ *
+ * @param {Request} req a request
+ * @param {Response} res a response
+ * @param {Object} opts firebase config
+ */
 const checkLogin = async (req, res, opts) => {
   const cookies = new Cookies(req, res, {
     keys: envConfig.cookies.keys
