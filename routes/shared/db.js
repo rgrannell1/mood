@@ -10,10 +10,8 @@ const { sessionId } = require('./utils')
 const config = require('./config')
 const envConfig = config()
 
-const key = JSON.parse(Buffer.from(envConfig.google.privateKey, 'base64'))
-
 admin.initializeApp({
-  credential: admin.credential.cert(key),
+  credential: admin.credential.cert(envConfig.google.privateKey),
   databaseURL: envConfig.google.db
 })
 
