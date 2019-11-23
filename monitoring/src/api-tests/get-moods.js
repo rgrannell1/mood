@@ -85,18 +85,14 @@ tests.getTwoEntries = async ({ host, cookies, db, userId }) => {
  * @param {string} host the host to test against
  */
 const getMoods = async (cookies, host, db) => {
-  await tests.getZeroEntries({
+  const args = {
     host,
     cookies,
     db,
     userId: TEST_ACCOUNT_USER
-  })
-  await tests.getTwoEntries({
-    host,
-    cookies,
-    db,
-    userId: TEST_ACCOUNT_USER
-  })
+  }
+  await tests.getZeroEntries(args)
+  await tests.getTwoEntries(args)
 
   signale.success('GET api/moods worked as expected')
 }
