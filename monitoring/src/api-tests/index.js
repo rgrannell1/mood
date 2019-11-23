@@ -73,14 +73,12 @@ const retrieveCookie = async (browser, host) => {
  *
  * @returns {Promise<>} a result promise
  */
-const apiTests = async (browser, config) => {
+const apiTests = async (browser, config, db) => {
   const cookies = await retrieveCookie(browser, config.staticHost)
 
-  return Promise.all([
-    tests.getMetadata(config.apiHost),
-    tests.patchMoods(cookies, config.apiHost),
-    tests.getMoods(cookies, config.apiHost)
-  ])
+  await tests.getMetadata(config.apiHost)
+  await tests.getMoods(cookies, config.apiHost, db)
+  await tests.patchMoods(cookies, config.apiHost, db)
 }
 
 module.exports = apiTests

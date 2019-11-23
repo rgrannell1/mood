@@ -1,8 +1,11 @@
 
+const admin = require('firebase-admin')
+
 const fetch = require('node-fetch')
 const puppeteer = require('puppeteer')
 const signale = require('signale')
 const config = require('./shared/config')()
+const dotenv = require('dotenv').config()
 
 process.on('unhandledRejection', err => {
   signale.error(`${err.message}\n\n${err.stack}`)
@@ -10,6 +13,15 @@ process.on('unhandledRejection', err => {
 })
 
 const apiTests = require('./api-tests')
+
+const key = JSON.parse(Buffer.from(dotenv.parsed.GOOGLE_PRIVATE_KEY, 'base64'))
+
+admin.initializeApp({
+  credential: admin.credential.cert(key),
+  databaseURL: config.dbHost
+})
+
+const db = admin.firestore()
 
 /**
  * Run synthetic monitoring
@@ -19,7 +31,7 @@ async function syntheticMonitoring () {
     headless: true
   })
 
-  await apiTests(browser, config)
+  await apiTests(browser, config, db)
 
   await browser.close()
 

@@ -9,7 +9,7 @@ const dotenv = require('dotenv').config()
  *
  * @param {string} host the host to test against
  */
-const patchMoods = async (cookies, host) => {
+const patchMoods = async (cookies, host, db) => {
   const body = {
     events: [
       {

@@ -6,14 +6,16 @@ const environments = {}
 environments.local = () => {
   return {
     staticHost: 'http://localhost:3000',
-    apiHost: 'http://localhost:3001'
+    apiHost: 'http://localhost:3001',
+    dbHost: 'https://mood-251413.firebaseio.com'
   }
 }
 
 environments.production = () => {
   return {
     staticHost: 'http://mood.rgrannell2.now.sh',
-    apiHost: 'http://mood.rgrannell2.now.sh'
+    apiHost: 'http://mood.rgrannell2.now.sh',
+    dbHost: 'https://mood-251413.firebaseio.com'
   }
 }
 
