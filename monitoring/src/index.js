@@ -8,16 +8,16 @@ process.on('unhandledRejection', err => {
   process.exit(1)
 })
 
-const captureConsoleErrors = require('./capture-console-errors')
+//const captureConsoleErrors = require('./capture-console-errors')
 
-const apiTests = require('./test-api')
+const apiTests = require('./api-tests')
 
-async function main () {
+async function syntheticMonitoring () {
   const browser = await puppeteer.launch()
 
   await apiTests(config)
 
-  await captureConsoleErrors(config, browser)
+//  await captureConsoleErrors(config, browser)
   // -- play with service worker
 
   await browser.close()
@@ -26,4 +26,4 @@ async function main () {
   signale.success(`all deployment ${version} tests passed!`)
 }
 
-main()
+syntheticMonitoring()
