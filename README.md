@@ -23,32 +23,32 @@ License | MIT
 Environment secrets are stored in a `.env` file with the following fields:
 
 ```
-# -- google signin client id
-GOOGLE_CLIENT_ID=xxx
-
-# -- encryption key for application data
-ENCRYPTION_KEY=xxx
-
-# -- private key for google signin
-GOOGLE_PRIVATE_KEY=xxx
-
-# -- limited-access basic-auth credentials for synthetic monitoring
-TEST_ACCOUNT_CREDENTIAL=xxx
+AUTH0_CLIENT_ID
+AUTH0_CLIENT_SECRET
+AUTH0_DOMAIN
+COOKIE_KEY
+ENCRYPTION_KEY
+GOOGLE_CLIENT_ID
+GOOGLE_PRIVATE_KEY
+TEST_ACCOUNT_CREDENTIAL
 ```
 
 ### Building
 ```
-build           compile client-side code into 'public' folder using webpack
+build          compile client-side code and create a `public` directory
+build:watch    watch for changes in `client` code and run `build` on change
+clean          delete the `public` directory
+```
+
+### Running
+```
+live-reload    use live-reload to run live-reloading static-code locally
+run:api         run the site's apis locally directly
+run:client      run the site's static-serve locally directly
+dev             run the site using docker-compose & watch for file-changes
 ```
 
 ### Deployment
 ```
 deploy          deploy the website and associated apis to Zeit
-```
-
-### Running
-```
-run:api         run the site's apis locally directly
-run:client      run the site's static-serve locally directly
-dev             run the site using docker-compose & watch for file-changes
 ```
