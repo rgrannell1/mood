@@ -7,16 +7,13 @@ License | MIT
 
 ![example screenshot](screenshot.png "Example Screenshot")
 
-"mood." is a simple progressive webapp I'm building to learn a few aspects of web development.
-
-- Hosted on Zeit.co
-- Responsive stylesheets built with modern CSS
-- Locally testable with `docker-compose`
+"mood." is a progressive webapp I'm building to learn a few aspects of web development. It's a simple mood-tracking website.
 
 ## Features
 
 - Stores mood over time in an offline-first fashion
 - Displays a graph and analytics of mood over time
+- Night mode!
 
 ## Files
 
