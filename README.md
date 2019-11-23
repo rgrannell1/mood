@@ -20,6 +20,15 @@ License | MIT
 
 ## Files
 
+```
+api/               routes exposed under the path <host>/api/*
+build/commands/    build commands build to `pulpfile.mjs`
+client/            miscelleneous client-side code
+monitoring/        synthetic monitoring used to check the code works as expected
+public/            built client-code
+routes/            code implementing each api route exposed in api/
+```
+
 ## Build System
 
 Environment secrets are stored in a `.env` file with the following fields:
