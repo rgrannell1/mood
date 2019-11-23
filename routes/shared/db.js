@@ -188,16 +188,29 @@ firebase.getMoods = async (userId, ctx, opts) => {
 
   const userData = security.user.decrypt(doc.data(), opts.key)
 
-  // -- sort moods by date
+  if (!userData.moods) {
+    userData.moods = []
+  }
+
   userData.moods.sort((datum0, datum1) => datum0.timestamp - datum1.timestamp)
 
-  return {
-    moods: userData.moods,
-    stats: {
+  let stats
+
+  if (userData.moods.length === 0) {
+    stats = {
+      count: 0
+    }
+  } else {
+    stats = {
       count: userData.moods.length,
       to: userData.moods[userData.moods.length - 1].timestamp,
       from: userData.moods[0].timestamp
     }
+  }
+
+  return {
+    moods: userData.moods,
+    stats
   }
 }
 

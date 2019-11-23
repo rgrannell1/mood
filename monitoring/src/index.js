@@ -13,9 +13,11 @@ process.on('unhandledRejection', err => {
 const apiTests = require('./api-tests')
 
 async function syntheticMonitoring () {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    headless: true
+  })
 
-  await apiTests(config)
+  await apiTests(browser, config)
 
 //  await captureConsoleErrors(config, browser)
   // -- play with service worker

@@ -9,10 +9,11 @@ const dotenv = require('dotenv').config()
  *
  * @param {string} host the host to test against
  */
-const getMoods = async host => {
+const getMoods = async (cookies, host) => {
   const result = await fetch(`${host}/api/moods`, {
     headers: {
-      Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`
+      Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`,
+      Cookie: cookies
     }
   })
   const responseBody = await result.text()
@@ -25,7 +26,14 @@ const getMoods = async host => {
   try {
     var parsed = JSON.parse(responseBody)
   } catch (err) {
-    throw errors.invalidResponseBody('GET api/metadata body did not parse as JSON')
+    throw errors.invalidResponseBody('GET api/moods body did not parse as JSON')
+  }
+
+  if (!parsed.moods) {
+    throw errors.invalidResponseBody('GET api/moods body did not have property "moods"')
+  }
+  if (!parsed.stats) {
+    throw errors.invalidResponseBody('GET api/moods body did not have property "stats"')
   }
 
   signale.success('GET api/moods worked as expected')

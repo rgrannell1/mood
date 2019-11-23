@@ -4,7 +4,7 @@
  *
  * @param {string} host the host to test against
  */
-const patchMoods = async host => {
+const patchMoods = async (cookies, host) => {
 
 }
 
