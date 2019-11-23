@@ -65,3 +65,7 @@ dev             run the site using docker-compose & watch for file-changes
 ```
 deploy          deploy the website and associated apis to Zeit
 ```
+
+## Monitoring
+
+Mood's repository includes a suite of synthetic-monitoring to check the site works as expected.

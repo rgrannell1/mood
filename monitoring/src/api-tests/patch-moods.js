@@ -40,6 +40,8 @@ const patchMoods = async (cookies, host) => {
     throw errors.invalidStatusCode(`PATCH api/moods returned unexpected status-code ${result.status}:\n${responseBody}`)
   }
 
+  // todo get moods before, after, and get stats
+
   try {
     var parsed = JSON.parse(responseBody)
   } catch (err) {

@@ -1,4 +1,5 @@
 
+const fetch = require('node-fetch')
 const puppeteer = require('puppeteer')
 const signale = require('signale')
 const config = require('./shared/config')()
@@ -8,10 +9,11 @@ process.on('unhandledRejection', err => {
   process.exit(1)
 })
 
-//const captureConsoleErrors = require('./capture-console-errors')
-
 const apiTests = require('./api-tests')
 
+/**
+ * Run synthetic monitoring
+ */
 async function syntheticMonitoring () {
   const browser = await puppeteer.launch({
     headless: true
@@ -19,13 +21,12 @@ async function syntheticMonitoring () {
 
   await apiTests(browser, config)
 
-//  await captureConsoleErrors(config, browser)
-  // -- play with service worker
-
   await browser.close()
 
-  const version = 'alpha' // -- TODO
-  signale.success(`all deployment ${version} tests passed!`)
+  const result = await fetch(`${config.staticHost}/api/metadata`)
+  const { version } = await result.json()
+
+  signale.success(`all tests for deployment ${version} passed.`)
 }
 
 syntheticMonitoring()

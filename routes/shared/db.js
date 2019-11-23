@@ -21,6 +21,15 @@ const firebase = {}
 
 firebase.database = () => db
 
+/**
+ * Create a session for a user
+ *
+ * @param {string} username
+ * @param {Object} ctx
+ * @param {Object} opts
+ *
+ * @returns {Promise<Object>} session information
+ */
 firebase.createSession = async (username, ctx, opts) => {
   const ref = db.collection('sessions').doc(username)
   const doc = await ref.get()
@@ -159,7 +168,7 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
   log.success(ctx, 'moods successfully added for user')
 
   return {
-    moodsSaved: updated.moods.length
+    saved: updated.moods.length
   }
 }
 
@@ -211,6 +220,47 @@ firebase.getMoods = async (userId, ctx, opts) => {
   return {
     moods: userData.moods,
     stats
+  }
+}
+
+/**
+ * Delete mood-data
+ *
+ * @param {string} userId the user-id
+ * @param {object} ctx request metadata
+ * @param {object} opts an object with a key
+ *
+ * @returns {Promise<*>}
+ *
+ */
+firebase.deleteMoods = async (userId, ctx, opts) => {
+  const ref = db.collection('userdata').doc(userId)
+  const doc = await ref.get()
+
+  if (!doc.exists) {
+    log.error(ctx, 'profile missing for user')
+    process.exit(1)
+  }
+
+  const existing = security.user.decrypt(doc.data(), opts.key)
+  const updated = {
+    ...existing,
+    moods: [],
+    roles: {
+      [userId]: 'reader'
+    }
+  }
+
+  log.debug(ctx, 'removing moods for user')
+
+  const encrypted = security.user.encrypt(updated, opts.key)
+
+  await db.collection('userdata').doc(userId).update(encrypted)
+
+  log.success(ctx, 'moods successfully added for user')
+
+  return {
+    deleted: existing.moods.length
   }
 }
 

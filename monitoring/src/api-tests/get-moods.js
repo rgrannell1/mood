@@ -35,6 +35,8 @@ const getMoods = async (cookies, host) => {
     throw errors.invalidResponseBody('GET api/moods body did not have property "stats"')
   }
 
+  // TODO validate events in database vs response
+
   signale.success('GET api/moods worked as expected')
 }
 
