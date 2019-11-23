@@ -23,10 +23,14 @@ validate.mood = (event, ith) => {
 }
 
 validate.body = body => {
+  if (typeof body === 'undefined') {
+    throw errors.unprocessableEntity('no JSON body provided', 422)
+  }
+
   try {
     var content = JSON.parse(body)
   } catch (err) {
-    throw errors.unprocessableEntity('could not parse request body as json', 422)
+    throw errors.unprocessableEntity('could not parse request body as JSON', 422)
   }
 
   if (!hasOwnProperty(content, 'events')) {

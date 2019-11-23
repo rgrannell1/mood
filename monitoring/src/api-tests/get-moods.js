@@ -12,7 +12,6 @@ const dotenv = require('dotenv').config()
 const getMoods = async (cookies, host) => {
   const result = await fetch(`${host}/api/moods`, {
     headers: {
-      Authorization: `Basic ${dotenv.parsed.TEST_ACCOUNT_CREDENTIAL}`,
       Cookie: cookies
     }
   })

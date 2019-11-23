@@ -7,8 +7,15 @@ const tests = {
   getMoods: require('./get-moods')
 }
 
+/**
+ * Retreive a session-cookie to authenticate with API
+ *
+ * @param {Page} page a page object
+ *
+ * @returns {Promise<string>} a result promise containing a cookie-header
+ */
 const retrieveMoodCookies = page => {
-  return new Promise(resolve => {
+  const retrieveCookies = new Promise(resolve => {
     page.on('response', async request => {
       const url = request.url()
 
@@ -28,6 +35,10 @@ const retrieveMoodCookies = page => {
       resolve(cookieHeader)
     })
   })
+
+  return Promise.race([
+    retrieveCookies
+  ])
 }
 
 /**
@@ -57,6 +68,7 @@ const retrieveCookie = async (browser, host) => {
 /**
  * Run all API tests concurrently
  *
+ * @param {Object} browser the static-site host
  * @param {Object} config configuration for the api tests.
  *
  * @returns {Promise<>} a result promise

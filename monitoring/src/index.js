@@ -1,7 +1,7 @@
 
 const puppeteer = require('puppeteer')
 const signale = require('signale')
-const config = require('./config')()
+const config = require('./shared/config')()
 
 process.on('unhandledRejection', err => {
   signale.error(`${err.message}\n\n${err.stack}`)
