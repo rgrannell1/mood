@@ -18,6 +18,8 @@ License | MIT
 - Stores mood over time in an offline-first fashion
 - Displays a graph and analytics of mood over time
 
+## Files
+
 ## Build System
 
 Environment secrets are stored in a `.env` file with the following fields:
@@ -32,6 +34,8 @@ GOOGLE_CLIENT_ID
 GOOGLE_PRIVATE_KEY
 TEST_ACCOUNT_CREDENTIAL
 ```
+
+The following commands are supported as npm scripts:
 
 ### Building
 ```
