@@ -1,8 +1,23 @@
 
-const fetch = require('node-fetch')
+const api = require('./api')
+const expectations = require('./expectations')
 const signale = require('signale')
-const errors = require('@rgrannell/errors')
 
+const expect = {
+  get: {
+    metadata: {}
+  }
+}
+
+expect.get.metadata.statusCode = result => {
+  return expectations.validStatusCode('GET api/metadata', result, [200])
+}
+
+expect.get.metadata.validFields = result => {
+  return expectations.validResponseFields('GET api/metadata', result, [
+    'version'
+  ])
+}
 /**
  * Run tests for GET /api/metadata
  *
@@ -10,24 +25,11 @@ const errors = require('@rgrannell/errors')
  *
  */
 const getMetadata = async host => {
-  const result = await fetch(`${host}/api/metadata`)
-  const responseBody = await result.text()
+  const moodApi = await api(host)
+  const result = await moodApi.get.metadata()
 
-  // -- check the status works as expected
-  if (result.status !== 200) {
-    throw errors.invalidStatusCode(`GET api/metadata returned unexpected status-code ${result.status}:\n${responseBody}`)
-  }
-
-  try {
-    var parsed = JSON.parse(responseBody)
-  } catch (err) {
-    throw errors.invalidResponseBody('GET api/metadata body did not parse as JSON')
-  }
-
-  // -- check the response body
-  if (!parsed.version) {
-    throw errors.invalidResponseBody('GET api/metadata was missing property version')
-  }
+  await expect.get.metadata.statusCode(result)
+  await expect.get.metadata.validFields(result)
 
   signale.success('GET api/metadata worked as expected')
 }
