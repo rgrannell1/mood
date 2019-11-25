@@ -1,9 +1,7 @@
 
-const api = require('./api')
+const api = require('../shared/api')
 const expectations = require('./expectations')
-const fetch = require('node-fetch')
 const signale = require('signale')
-const errors = require('@rgrannell/errors')
 const dotenv = require('dotenv').config()
 
 const { TEST_ACCOUNT_USER } = dotenv.parsed
@@ -40,6 +38,12 @@ expect.patch.moods.validFields = result => {
 
 const tests = {}
 
+/**
+ * Post two moods and check the response value
+ *
+ * @package {Object} object
+ *
+ */
 tests.patchTwoMoods = async ({ api, db, userId }) => {
   const result = await api.patch.moods(body)
 

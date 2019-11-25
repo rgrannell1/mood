@@ -31,6 +31,7 @@ async function syntheticMonitoring () {
     headless: true
   })
 
+  // run e2e api-tests
   await apiTests(browser, config, db)
 
   await browser.close()

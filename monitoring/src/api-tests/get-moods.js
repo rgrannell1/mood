@@ -1,5 +1,5 @@
 
-const api = require('./api')
+const api = require('../shared/api')
 const expectations = require('./expectations')
 const utils = require('../shared/utils')
 const signale = require('signale')
@@ -27,6 +27,12 @@ expect.get.moods.validFields = result => {
 
 const tests = {}
 
+/**
+ * Post zero moods and check the correct values are returned.
+ *
+ * @package {Object} object
+ *
+ */
 tests.getZeroEntries = async ({ api, db, userId }) => {
   await utils.deleteMoods(db, userId)
 
@@ -41,6 +47,12 @@ tests.getZeroEntries = async ({ api, db, userId }) => {
   }
 }
 
+/**
+ * Post two moods and check the correct values are returned.
+ *
+ * @package {Object} object
+ *
+ */
 tests.getTwoEntries = async ({ api, db, userId }) => {
   await utils.deleteMoods(db, userId)
 

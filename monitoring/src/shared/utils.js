@@ -54,5 +54,4 @@ utils.data = {
   ]
 }
 
-
 module.exports = utils

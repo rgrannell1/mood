@@ -1,5 +1,5 @@
 
-const api = require('./api')
+const api = require('../shared/api')
 const expectations = require('./expectations')
 const signale = require('signale')
 

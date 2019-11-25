@@ -1,9 +1,7 @@
 
-const api = require('./api')
+const api = require('../shared/api')
 const expectations = require('./expectations')
-const fetch = require('node-fetch')
 const signale = require('signale')
-const errors = require('@rgrannell/errors')
 const dotenv = require('dotenv').config()
 
 const { TEST_ACCOUNT_USER } = dotenv.parsed

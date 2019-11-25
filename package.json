@@ -55,6 +55,8 @@
     "dev": "docker-compose up",
     "dev:watch": "find build routes client api monitoring tools | entr sh -c 'docker-compose up'",
     "deploy": "export NODE_ENV=production; npm run build & time node_modules/.bin/now",
+    "standard": "npx standard 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
+    "standard:fix": "npx standard --fix 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
     "monitoring": "node monitoring/src/index.js"
   },
   "repository": {
