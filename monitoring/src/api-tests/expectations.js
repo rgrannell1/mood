@@ -23,9 +23,9 @@ expectations.validResponseFields = async (route, result, fields) => {
 
 expectations.validStatusCode = async (route, result, codes = [200]) => {
   // -- check the status works as expected
-  if (result.status !== 200) {
+  if (!codes.includes(result.status)) {
     const responseBody = await result.text()
-    throw errors.invalidStatusCode(`GET api/moods returned unexpected status-code ${result.status}:\n${responseBody}`)
+    throw errors.invalidStatusCode(`${route} returned unexpected status-code ${result.status}:\n${responseBody}`)
   }
 }
 

@@ -14,6 +14,10 @@ const expect = {
   }
 }
 
+expect.get.moods.unauthorizedStatusCode = result => {
+  return expectations.validStatusCode('GET api/moods', result, [401])
+}
+
 expect.get.moods.statusCode = result => {
   return expectations.validStatusCode('GET api/moods', result, [200])
 }
@@ -26,6 +30,16 @@ expect.get.moods.validFields = result => {
 }
 
 const tests = {}
+
+tests.noCookie = async ({ api, db, userId }) => {
+  const result = await api.get.moods(null)
+  await expect.get.moods.unauthorizedStatusCode(result)
+}
+
+tests.badCookie = async ({ api, db, userId }) => {
+  const result = await api.get.moods('invalid_cookie')
+  await expect.get.moods.unauthorizedStatusCode(result)
+}
 
 /**
  * Post zero moods and check the correct values are returned.
@@ -82,6 +96,9 @@ const getMoods = async (host, db) => {
     db,
     userId: TEST_ACCOUNT_USER
   }
+
+  await tests.noCookie(args)
+  await tests.badCookie(args)
   await tests.getZeroEntries(args)
   await tests.getTwoEntries(args)
 

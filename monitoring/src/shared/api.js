@@ -68,42 +68,59 @@ const retrieveCookie = async (browser, host) => {
 }
 
 /**
+ * create an API client for mood.
  *
  * @param {string} host the API host
  */
 const moodApi = async host => {
   const browser = await puppeteer.launch()
 
-  const cookie = await retrieveCookie(browser, host)
+  const defaultCookie = await retrieveCookie(browser, host)
 
   await browser.close()
 
-  api.get.moods = () => {
+  api.get.moods = cookie => {
+    const cookieValue = typeof cookie === 'undefined'
+      ? defaultCookie
+      : cookie
+
     return fetch(`${host}/api/moods`, {
       headers: {
-        Cookie: cookie
+        Cookie: cookieValue
       }
     })
   }
 
-  api.get.metadata = () => {
+  api.get.metadata = cookie => {
+    const cookieValue = typeof cookie === 'undefined'
+      ? defaultCookie
+      : cookie
+
     return fetch(`${host}/api/metadata`)
   }
 
-  api.delete.moods = () => {
+  api.delete.moods = cookie => {
+    const cookieValue = typeof cookie === 'undefined'
+      ? defaultCookie
+      : cookie
+
     return fetch(`${host}/api/moods`, {
       method: 'DELETE',
       headers: {
-        Cookie: cookie
+        Cookie: cookieValue
       }
     })
   }
 
-  api.patch.moods = body => {
+  api.patch.moods = (body, cookie) => {
+    const cookieValue = typeof cookie === 'undefined'
+      ? defaultCookie
+      : cookie
+
     return fetch(`${host}/api/moods`, {
       method: 'PATCH',
       headers: {
-        Cookie: cookie
+        Cookie: cookieValue
       },
       body: JSON.stringify(body)
     })

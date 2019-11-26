@@ -15,11 +15,11 @@ const envConfig = config()
  *
  */
 const patchMoods = async (req, res) => {
-  const body = validate.body(req.body)
-
   const { username } = await checkLogin(req, {
     key: envConfig.encryption.key
   })
+
+  const body = validate.body(req.body)
 
   const saveMoodStats = await firebase.saveMoods(username, req.state, body.events, {
     key: envConfig.encryption.key

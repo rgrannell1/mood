@@ -26,6 +26,10 @@ const expect = {
   }
 }
 
+expect.patch.moods.unauthorizedStatusCode = result => {
+  return expectations.validStatusCode('PATCH api/moods', result, [401])
+}
+
 expect.patch.moods.statusCode = result => {
   return expectations.validStatusCode('PATCH api/moods', result, [200])
 }
@@ -37,6 +41,16 @@ expect.patch.moods.validFields = result => {
 }
 
 const tests = {}
+
+tests.noCookie = async ({ api, db, userId }) => {
+  const result = await api.patch.moods(null)
+  await expect.patch.moods.unauthorizedStatusCode(result)
+}
+
+tests.badCookie = async ({ api, db, userId }) => {
+  const result = await api.patch.moods('invalid_cookie')
+  await expect.patch.moods.unauthorizedStatusCode(result)
+}
 
 /**
  * Post two moods and check the response value
@@ -65,6 +79,8 @@ const patchMoods = async (host, db) => {
     userId: TEST_ACCOUNT_USER
   }
 
+  await tests.noCookie(args)
+  await tests.badCookie(args)
   await tests.patchTwoMoods(args)
 
   signale.success('PATCH api/moods worked as expected')
