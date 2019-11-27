@@ -43,12 +43,12 @@ expect.patch.moods.validFields = result => {
 const tests = {}
 
 tests.noCookie = async ({ api, db, userId }) => {
-  const result = await api.patch.moods(null)
+  const result = await api.patch.moods(body, null)
   await expect.patch.moods.unauthorizedStatusCode(result)
 }
 
 tests.badCookie = async ({ api, db, userId }) => {
-  const result = await api.patch.moods('invalid_cookie')
+  const result = await api.patch.moods(body, 'invalid_cookie')
   await expect.patch.moods.unauthorizedStatusCode(result)
 }
 

@@ -4,15 +4,13 @@ const constants = require('./constants')
 
 const validate = {}
 
-const hasOwnProperty = (tgt, prop) => Object.prototype.hasOwnProperty.call
-
 validate.mood = (event, ith) => {
   if (event.type !== 'send-mood') {
     throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
   }
 
   for (const prop of ['type', 'mood', 'timestamp']) {
-    if (!hasOwnProperty(event, prop)) {
+    if (!event.hasOwnProperty(prop)) {
       throw errors.unprocessableEntity(`${ith}th event was missing property "${prop}"`, 422)
     }
 
@@ -22,8 +20,14 @@ validate.mood = (event, ith) => {
   }
 }
 
+const is = val => {
+  return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
+}
+
 validate.body = body => {
-  if (typeof body === 'undefined') {
+  const bodyType = is(body)
+
+  if (bodyType === 'undefined' || bodyType === 'null') {
     throw errors.unprocessableEntity('no JSON body provided', 422)
   }
 
@@ -33,7 +37,13 @@ validate.body = body => {
     throw errors.unprocessableEntity('could not parse request body as JSON', 422)
   }
 
-  if (!hasOwnProperty(content, 'events')) {
+  const parsedType = is(content)
+
+  if (parsedType !== 'object') {
+    throw errors.unprocessableEntity(`body parsed as ${parsedType} rather than object`, 422)
+  }
+
+  if (!content.hasOwnProperty('events')) {
     throw errors.unprocessableEntity('request body was missing field "events"', 422)
   }
 

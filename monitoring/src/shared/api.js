@@ -1,70 +1,38 @@
 
+const cookie = require('cookie')
 const fetch = require('node-fetch')
 const dotenv = require('dotenv').config()
-const puppeteer = require('puppeteer')
+
+const errors = require('@rgrannell/errors')
 
 const api = {
   get: {},
   delete: {},
-  patch: {}
+  patch: {},
+  post: {}
 }
 
-/**
- * Retreive a session-cookie to authenticate with API
- *
- * @param {Page} page a page object
- *
- * @returns {Promise<string>} a result promise containing a cookie-header
- */
-const retrieveMoodCookies = page => {
-  const retrieveCookies = new Promise(resolve => {
-    page.on('response', async request => {
-      const url = request.url()
+const retrieveCookie = async credentials => {
+  const result = await api.post.login(credentials)
 
-      if (!url.endsWith('/api/login')) {
-        return
-      }
+  if (result.status !== 200) {
+    throw errors.invalidStatusCode(`expected a 200 response while logging in but received ${result.status}`)
+  }
 
-      const cookies = await page.cookies()
-      const moodCookies = cookies.filter(cookie => {
-        return cookie.name.startsWith('mood-session')
-      })
+  const headers = [...result.headers.entries()]
+  const [_, cookies] = headers.find(pair => pair[0] === 'set-cookie')
 
-      const cookieHeader = moodCookies.map(cookie => {
-        return `${cookie.name}=${cookie.value}`
-      }).join(';')
+  if (!cookies.includes('mood-session.sig')) {
+    throw errors.invalidCookie('missing mood-session.sig')
+  }
+  if (!cookies.includes('mood-session')) {
+    throw errors.invalidCookie('missing mood-session')
+  }
 
-      resolve(cookieHeader)
-    })
-  })
-
-  return Promise.race([
-    retrieveCookies
-  ])
-}
-
-/**
- * Retrieve a cookie by signing into the page, for
- * authentication use elsewhere.
- *
- * @param {Object} browser the static-site host
- * @param {string} host the static-site host
- */
-const retrieveCookie = async (browser, host) => {
-  const page = await browser.newPage()
-  await page.goto(host)
-
-  const { TEST_ACCOUNT_USER, TEST_ACCOUNT_PASSWORD } = dotenv.parsed
-
-  await page.waitForSelector('#mood-username')
-  await page.type('#mood-username', TEST_ACCOUNT_USER)
-
-  await page.waitForSelector('#mood-password')
-  await page.type('#mood-password', TEST_ACCOUNT_PASSWORD)
-
-  await page.click('#mood-signin-submit')
-
-  return retrieveMoodCookies(page)
+  // node-fetch merges the cookies in an odd-way
+  return cookies
+    .replace(', mood-session.sig', '; mood-session.sig')
+    .replace(', mood-session', '; mood-session')
 }
 
 /**
@@ -73,11 +41,19 @@ const retrieveCookie = async (browser, host) => {
  * @param {string} host the API host
  */
 const moodApi = async host => {
-  const browser = await puppeteer.launch()
+  const { TEST_ACCOUNT_USER, TEST_ACCOUNT_PASSWORD } = dotenv.parsed
 
-  const defaultCookie = await retrieveCookie(browser, host)
+  api.post.login = body => {
+    return fetch(`${host}/api/login`, {
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
+  }
 
-  await browser.close()
+  const defaultCookie = await retrieveCookie({
+    user: TEST_ACCOUNT_USER,
+    password: TEST_ACCOUNT_PASSWORD
+  })
 
   api.get.moods = cookie => {
     const cookieValue = typeof cookie === 'undefined'
@@ -92,10 +68,6 @@ const moodApi = async host => {
   }
 
   api.get.metadata = cookie => {
-    const cookieValue = typeof cookie === 'undefined'
-      ? defaultCookie
-      : cookie
-
     return fetch(`${host}/api/metadata`)
   }
 
@@ -119,6 +91,20 @@ const moodApi = async host => {
 
     return fetch(`${host}/api/moods`, {
       method: 'PATCH',
+      headers: {
+        Cookie: cookieValue
+      },
+      body: JSON.stringify(body)
+    })
+  }
+
+  api.post.register = (body, cookie) => {
+    const cookieValue = typeof cookie === 'undefined'
+      ? defaultCookie
+      : cookie
+
+    return fetch(`${host}/api/register`, {
+      method: 'POST',
       headers: {
         Cookie: cookieValue
       },
