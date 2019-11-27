@@ -67,6 +67,10 @@ firebase.getSession = async (sessionId, ctx, opts) => {
     throw errors.unauthorized('no sessions found', 401)
   }
 
+  if (doc.docs.length > 1) {
+    log.warn(`expected single session for user but found ${doc.docs.length}`)
+  }
+
   const [session] = doc.docs
 
   return session.data()
@@ -95,6 +99,7 @@ firebase.createUser = async (username, ctx, opts) => {
 
     const saved = {
       username,
+      registeredOn: new Date(),
       ips: [
         ctx.ip || 'unknown'
       ],

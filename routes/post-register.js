@@ -4,7 +4,7 @@ const config = require('./shared/config')
 const constants = require('./shared/constants')
 const createUser = require('./services/create-user')
 const errors = require('@rgrannell/errors')
-const validate = require('./shared/validate-input')
+const validate = require('./shared/validate')
 
 const Cookies = require('cookies')
 
@@ -17,7 +17,7 @@ const envConfig = config()
  * @param {Response} res a response object
  */
 const postRegister = async (req, res) => {
-  const credentials = await validate.registerCredentials(req, res)
+  const credentials = await validate.input.registerCredentials(req, res)
 
   const { sessionId } = await createUser(credentials, req.state, {
     key: envConfig.encryption.key

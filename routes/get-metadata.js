@@ -1,6 +1,6 @@
 
 const nanoid = require('nanoid')
-const validate = require('./shared/validate-output')
+const validate = require('./shared/validate')
 
 /**
  * Get application metadata
@@ -14,7 +14,7 @@ const getMetadata = async (req, res) => {
     version: `v${nanoid()}`
   }
 
-  validate.get.metadata.body(body)
+  validate.output.get.metadata.body(body)
 
   res.status(200)
   res.setHeader('Content-Type', 'application/json')

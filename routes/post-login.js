@@ -16,7 +16,7 @@ const envConfig = config()
  * @param {Response} res a response object
  */
 const postLogin = async (req, res) => {
-  const credentials = await validate.signinCredentials(req, res)
+  const credentials = await validate.input.signinCredentials(req, res)
 
   const { sessionId } = await signinUser(credentials, req.state)
 

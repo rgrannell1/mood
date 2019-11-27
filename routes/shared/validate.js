@@ -1,10 +1,13 @@
 
+const signale = require('signale')
 const errors = require('@rgrannell/errors')
 const constants = require('./constants')
 
-const validate = {}
+const validate = {
+  input: {}
+}
 
-validate.mood = (event, ith) => {
+validate.input.mood = (event, ith) => {
   if (event.type !== 'send-mood') {
     throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
   }
@@ -24,7 +27,7 @@ const is = val => {
   return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
 }
 
-validate.body = body => {
+validate.input.body = body => {
   const bodyType = is(body)
 
   if (bodyType === 'undefined' || bodyType === 'null') {
@@ -56,13 +59,13 @@ validate.body = body => {
   }
 
   content.events.forEach((event, ith) => {
-    validate.mood(event, ith)
+    validate.input.mood(event, ith)
   })
 
   return content
 }
 
-validate.signinCredentials = async (req, res) => {
+validate.input.signinCredentials = async (req, res) => {
   try {
     var body = JSON.parse(req.body)
   } catch (err) {
@@ -85,7 +88,7 @@ validate.signinCredentials = async (req, res) => {
   }
 }
 
-validate.registerCredentials = async (req, res) => {
+validate.input.registerCredentials = async (req, res) => {
   try {
     var body = JSON.parse(req.body)
   } catch (err) {
@@ -105,6 +108,29 @@ validate.registerCredentials = async (req, res) => {
   return {
     userName: body.user,
     password: body.password
+  }
+}
+
+validate.output = {
+  get: {
+    moods: {},
+    metadata: {}
+  },
+  patch: {
+    moods: {}
+  },
+  delete: {
+    moods: {}
+  }
+}
+
+validate.output.get.moods.body = body => {
+
+}
+
+validate.output.get.metadata.body = body => {
+  if (!body.hasOwnProperty('version')) {
+    signale.warn('GET /api/metadata was missing property "version"')
   }
 }
 

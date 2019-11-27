@@ -1,6 +1,6 @@
 
 const firebase = require('./shared/db')
-const validate = require('./shared/validate-input')
+const validate = require('./shared/validate')
 const checkLogin = require('./services/check-login')
 
 const config = require('./shared/config')
@@ -19,7 +19,7 @@ const patchMoods = async (req, res) => {
     key: envConfig.encryption.key
   })
 
-  const body = validate.body(req.body)
+  const body = validate.input.body(req.body)
 
   const saveMoodStats = await firebase.saveMoods(username, req.state, body.events, {
     key: envConfig.encryption.key

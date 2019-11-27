@@ -1,5 +1,4 @@
 
-const cookie = require('cookie')
 const fetch = require('node-fetch')
 const dotenv = require('dotenv').config()
 
