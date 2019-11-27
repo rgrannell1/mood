@@ -2,6 +2,7 @@
 const admin = require('firebase-admin')
 const errors = require('@rgrannell/errors')
 
+const validate = require('./validate')
 const security = require('./security')
 const log = require('./log')
 
@@ -37,17 +38,19 @@ firebase.createSession = async (username, ctx, opts) => {
   if (!doc.exists) {
     log.debug(ctx, `storing session information for ${ctx.userId}`)
 
-    await ref.set({
+    const session = validate.db.session({
       username,
       sessionId: sessionId()
     })
+
+    await ref.set(session)
 
     return (await ref.get()).data()
   } else {
     log.debug(ctx, `session already exists for ${ctx.userId}`)
   }
 
-  return doc.data()
+  return validate.db.session(doc.data())
 }
 
 /**
@@ -73,7 +76,7 @@ firebase.getSession = async (sessionId, ctx, opts) => {
 
   const [session] = doc.docs
 
-  return session.data()
+  return validate.db.session(session.data())
 }
 
 /**
@@ -114,17 +117,17 @@ firebase.createUser = async (username, ctx, opts) => {
   } else {
     log.debug(ctx, 'user already exists')
 
-    const existing = doc.data()
+    const existingUser = validate.db.user(doc.data())
 
     let updatedTrackingIdCount = 1
-    if (existing.trackingIdCount && !isNaN(existing.trackingIdCount)) {
-      updatedTrackingIdCount = existing.trackingIdCount + 1
+    if (existingUser.trackingIdCount && !isNaN(existingUser.trackingIdCount)) {
+      updatedTrackingIdCount = existingUser.trackingIdCount + 1
     }
 
     const saved = {
       username,
-      ips: Array.from(new Set(existing.ips, ctx.ip || 'unknown')),
-      forwardedFor: Array.from(new Set(existing.forwardedFor, ctx.forwardedFor || 'unknown')),
+      ips: Array.from(new Set(existingUser.ips, ctx.ip || 'unknown')),
+      forwardedFor: Array.from(new Set(existingUser.forwardedFor, ctx.forwardedFor || 'unknown')),
       trackingIdCount: updatedTrackingIdCount,
       ...roles
     }
@@ -152,28 +155,29 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
     process.exit(1)
   }
 
-  const existing = security.user.decrypt(doc.data(), opts.key)
-  const updated = {
-    ...existing,
+  const data = validate.db.user(doc.data())
+  const currentUser = security.user.decrypt(data, opts.key)
+  const user = {
+    ...currentUser,
     roles: {
       [userId]: 'reader'
     }
   }
 
-  updated.moods = updated.moods
-    ? updated.moods.concat(moods)
+  user.moods = user.moods
+    ? user.moods.concat(moods)
     : moods
 
   log.debug(ctx, 'adding moods for user')
 
-  const encrypted = security.user.encrypt(updated, opts.key)
+  const encrypted = security.user.encrypt(user, opts.key)
 
   await db.collection('userdata').doc(userId).update(encrypted)
 
   log.success(ctx, 'moods successfully added for user')
 
   return {
-    saved: updated.moods.length
+    saved: user.moods.length
   }
 }
 
@@ -200,7 +204,8 @@ firebase.getMoods = async (userId, ctx, opts) => {
     }
   }
 
-  const userData = security.user.decrypt(doc.data(), opts.key)
+  const data = validate.db.user(doc.data())
+  const userData = security.user.decrypt(data, opts.key)
 
   if (!userData.moods) {
     userData.moods = []
@@ -247,7 +252,8 @@ firebase.deleteMoods = async (userId, ctx, opts) => {
     process.exit(1)
   }
 
-  const existing = security.user.decrypt(doc.data(), opts.key)
+  const data = validate.db.user(doc.data())
+  const existing = security.user.decrypt(data, opts.key)
   const updated = {
     ...existing,
     moods: [],

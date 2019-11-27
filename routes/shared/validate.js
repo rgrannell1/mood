@@ -2,6 +2,17 @@
 const signale = require('signale')
 const errors = require('@rgrannell/errors')
 const constants = require('./constants')
+const dotProp = require('dot-prop')
+
+const assertProperties = (object, description, props) => {
+  for (const prop of props) {
+    const hasProp = dotProp.has(object, prop)
+
+    if (!hasProp) {
+      throw errors.invalidDbObject(`${description} missing expected property ${prop}`)
+    }
+  }
+}
 
 const validate = {
   input: {}
@@ -132,6 +143,21 @@ validate.output.get.metadata.body = body => {
   if (!body.hasOwnProperty('version')) {
     signale.warn('GET /api/metadata was missing property "version"')
   }
+}
+
+validate.db = {}
+
+validate.db.session = session => {
+  assertProperties(session, 'session', [
+    'username',
+    'sessionId'
+  ])
+
+  return session
+}
+
+validate.db.user = user => {
+  return user
 }
 
 module.exports = validate
