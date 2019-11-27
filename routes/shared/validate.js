@@ -1,21 +1,88 @@
 
+const log = require('./log')
 const signale = require('signale')
 const errors = require('@rgrannell/errors')
 const constants = require('./constants')
-const dotProp = require('dot-prop')
+const jsonSchema = require('jsonschema').validate
 
-const assertProperties = (object, description, props) => {
-  for (const prop of props) {
-    const hasProp = dotProp.has(object, prop)
+const checkSchema = (object, schema) => {
+  const report = jsonSchema(object, schema)
 
-    if (!hasProp) {
-      throw errors.invalidDbObject(`${description} missing expected property ${prop}`)
-    }
+  const message = report.errors.map(error => {
+    return `${error.message} (${error.schema})`
+  }).join('\n')
+
+  if (message) {
+    log.warn(message)
   }
 }
 
 const validate = {
   input: {}
+}
+
+const schemas = {}
+
+schemas.session = {
+  id: '/session',
+  type: 'object',
+  properties: {
+    username: {
+      type: 'string',
+      minLength: 3,
+      maxLength: 64
+    },
+    sessionId: {
+      type: 'string',
+      minLength: 16,
+      maxLength: 16
+    }
+  }
+}
+
+schemas.user = {
+  id: '/user',
+  type: 'object',
+  properties: {
+    forwardedFor: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    ips: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    moods: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          mood: {
+            type: 'string'
+          },
+          timestamp: {
+            type: 'number'
+          },
+          id: {
+            type: 'string'
+          }
+        }
+      }
+    },
+    trackingIdCount: {
+      type: 'number'
+    },
+    userId: {
+      type: 'string'
+    },
+    userName: {
+      type: 'string'
+    }
+  }
 }
 
 validate.input.mood = (event, ith) => {
@@ -148,15 +215,14 @@ validate.output.get.metadata.body = body => {
 validate.db = {}
 
 validate.db.session = session => {
-  assertProperties(session, 'session', [
-    'username',
-    'sessionId'
-  ])
+  checkSchema(session, schemas.session)
 
   return session
 }
 
 validate.db.user = user => {
+  checkSchema(user, schemas.user)
+
   return user
 }
 
