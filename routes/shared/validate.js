@@ -23,6 +23,9 @@ const validate = {
 
 const schemas = {}
 
+/**
+ * Session database object
+ */
 schemas.session = {
   id: '/session',
   type: 'object',
@@ -40,6 +43,9 @@ schemas.session = {
   }
 }
 
+/**
+ * Session user object
+ */
 schemas.user = {
   id: '/user',
   type: 'object',

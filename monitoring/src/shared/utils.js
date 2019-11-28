@@ -17,6 +17,11 @@ utils.getMoods = async (db, userId) => {
   return doc.data().moods
 }
 
+utils.deleteUser = async (db, userId) => {
+  const ref = db.collection('userdata').doc(userId)
+  return ref.delete()
+}
+
 utils.deleteMoods = async (db, userId) => {
   return utils.patchMoods(db, userId, [])
 }

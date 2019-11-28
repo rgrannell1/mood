@@ -3,7 +3,9 @@ const tests = {
   getMetadata: require('./get-metadata'),
   patchMoods: require('./patch-moods'),
   getMoods: require('./get-moods'),
-  deleteMoods: require('./delete-moods')
+  deleteMoods: require('./delete-moods'),
+  postRegister: require('./post-register'),
+  postLogin: require('./post-login')
 }
 
 /**
@@ -19,6 +21,8 @@ const apiTests = async (browser, config, db) => {
   await tests.getMetadata(config.apiHost)
   await tests.getMoods(config.apiHost, db)
   await tests.patchMoods(config.apiHost, db)
+  await tests.postRegister(config.apiHost, db)
+  await tests.postLogin(config.apiHost, db)
 }
 
 module.exports = apiTests

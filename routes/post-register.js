@@ -40,8 +40,13 @@ const postRegister = async (req, res) => {
     throw errors.internalServerError('failed to create cookie session', 500)
   }
 
+  const body = {
+    created: true
+  }
+
+  res.setHeader('Content-Type', 'application/json')
   res.writeHead(200)
-  res.end()
+  res.end(JSON.stringify(body, null, 2))
 }
 
 module.exports = postRegister
