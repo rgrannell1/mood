@@ -37,8 +37,13 @@ const postLogin = async (req, res) => {
     throw errors.internalServerError('failed to create cookie session', 500)
   }
 
+  const body = {
+    logged_in: true
+  }
+
+  res.setHeader('Content-Type', 'application/json')
   res.writeHead(200)
-  res.end()
+  res.end(JSON.stringify(body, null, 2))
 }
 
 module.exports = postLogin
