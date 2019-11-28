@@ -63,6 +63,34 @@ dev             run the site using docker-compose & watch for file-changes
 deploy          deploy the website and associated apis to Zeit
 ```
 
-## Monitoring
+## ✔️ Monitoring
 
 Mood's repository includes a suite of synthetic-monitoring to check the site works as expected.
+
+### `DELETE api/mood`
+
+- requires authentication
+- rejects invalid cookies
+- returns the expected status-code and body when authenticated
+
+### `GET api/metadata`
+
+- returns the expected status-code and body without authentication
+
+### `GET api/mood`
+
+- requires authentication
+- rejects invalid cookies
+- returns the expected body formats and headers when authenticated
+- returns the expected data-sets when authenticated
+
+### `PATCH api/mood`
+
+- requires authentication
+- rejects invalid cookies
+- returns the expected status-code, body formats and headers when authenticated
+
+### `POST api/login`
+
+- returns the expected status-code
+- returns the expected status-code, body format, and headers when authenticated
