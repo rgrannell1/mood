@@ -124,7 +124,7 @@ label[for="mood-password"] {
 
 #screen-opacity {
   z-index: 1;
-  position: fixed;
+  position: absolute;
   padding: 0;
   margin: 0;
   top: 0;
@@ -136,9 +136,10 @@ label[for="mood-password"] {
 
 #menu {
   z-index: 2;
-  position: fixed;
+  position: absolute;
   top: 58px;
   left: 0px;
+  color: var(--dark-mode-font-colour);
   width: 200px;
   height: 100%;
   background: var(--header-colour);
@@ -151,6 +152,7 @@ label[for="mood-password"] {
 }
 
 #menu ul li {
+  color: var(--dark-mode-font-colour);
   margin-top: 2em;
 }
 
