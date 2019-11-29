@@ -144,6 +144,12 @@ label[for="mood-password"] {
   cursor: pointer;
 }
 
+#menu-home:hover,
+#menu-privacy:hover,
+#menu-dark-mode-toggle:hover {
+  color: var(--emoji-hover);
+}
+
 #menu {
   z-index: 2;
   position: absolute;
