@@ -2,6 +2,8 @@
 import { render } from 'lit-html'
 
 import pages from '../view/pages.js'
+import moodGraphs from '../view/mood-graphs.js'
+import { api } from '../services/api'
 
 import {
   registerServiceWorker
@@ -12,8 +14,9 @@ const state = {
   register: { }
 }
 
-const isAuthenticated = () => {
-  return state.authenticated === true
+const isAuthenticated = async () => {
+  const result = await api.moods.get()
+  return result.status === 200
 }
 
 /**
@@ -25,8 +28,15 @@ async function initPage () {
 
 initPage()
 
-if (isAuthenticated()) {
-  render(pages.index(state), document.body)
-} else {
-  render(pages.signin(state), document.body)
+const main = async () => {
+  const isLoggedIn = await isAuthenticated()
+
+  if (isLoggedIn) {
+    render(pages.index(state), document.body)
+    moodGraphs.refreshMoodGraphs()
+  } else {
+    render(pages.signin(state), document.body)
+  }
 }
+
+main()
