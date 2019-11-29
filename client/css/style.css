@@ -134,13 +134,23 @@ label[for="mood-password"] {
   background: rgba(0, 0, 0, 0.5);
 }
 
+.nav-divider {
+  border-top: 1px solid var(--divider-colour);
+}
+
+#menu-home,
+#menu-privacy,
+#menu-dark-mode-toggle {
+  cursor: pointer;
+}
+
 #menu {
   z-index: 2;
   position: absolute;
   top: 58px;
   left: 0px;
   color: var(--dark-mode-font-colour);
-  width: 200px;
+  width: 240px;
   height: 100%;
   height: calc(100vh - 59px);
   background: var(--header-colour);
@@ -148,7 +158,7 @@ label[for="mood-password"] {
 }
 
 #menu ul {
-  margin: 20px;
+  margin: 15px;
   list-style: none;
 }
 

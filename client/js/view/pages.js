@@ -37,10 +37,10 @@ const toggleTheme = state => () => {
 
   if (newTheme === 'dark') {
     document.querySelector('#dark-mode-toggle').textContent = '☀️'
-    document.querySelector('#menu-dark-mode-toggle').textContent = 'Light Mode ☀️'
+    document.querySelector('#menu-dark-mode-toggle').textContent = '☀️ Light Mode'
   } else {
     document.querySelector('#dark-mode-toggle').textContent = '🌙'
-    document.querySelector('#menu-dark-mode-toggle').textContent = 'Dark Mode 🌙'
+    document.querySelector('#menu-dark-mode-toggle').textContent = '🌙 Dark Mode'
   }
 }
 
@@ -85,9 +85,10 @@ components.menu = state => {
   return html`
     <nav id="menu">
       <ul>
-        <li @click=${onHomeClick(state)}>Home</li>
-        <li @click=${onPrivacyClick(state)}>Privacy</li>
-        <li id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>Dark Mode 🌙</li>
+        <li id="menu-home" @click=${onHomeClick(state)}>🏠 Home</li>
+        <li id="menu-privacy" @click=${onPrivacyClick(state)}>🔒 Privacy</li>
+        <li><div class='nav-divider'></div></li>
+        <li id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>🌙 Dark Mode </li>
       </ul>
     </nav>
   `
