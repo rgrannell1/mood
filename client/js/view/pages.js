@@ -9,9 +9,11 @@ import moodGraphs from '../view/mood-graphs.js'
 
 const components = {}
 
+const onOpacityClick = state => toggleNavMenu(state)
+
 components.page = (main, state) => {
   return html`
-    <div id="screen-opacity"></div>
+    <div @click=${onOpacityClick(state)} id="screen-opacity"></div>
     <div class="grid-container">
       ${components.header(state)}
       ${components.menu(state)}
@@ -71,10 +73,17 @@ const onPrivacyClick = state => () => {
   render(pages.privacy(state), document.body)
 }
 
+const onHomeClick = state => () => {
+  render(pages.index(state), document.body)
+  moodGraphs.refreshMoodGraphs()
+
+}
+
 components.menu = state => {
   return html`
     <nav id="menu">
       <ul>
+        <li @click=${onHomeClick(state)}>Home</li>
         <li @click=${onPrivacyClick(state)}>Privacy</li>
         <li @click=${toggleTheme(state)}>Dark Mode 🌙</li>
       </ul>
