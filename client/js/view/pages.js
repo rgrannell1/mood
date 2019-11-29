@@ -6,7 +6,6 @@ import cache from '../services/cache.js'
 import { api } from '../services/api.js'
 
 import moodGraphs from '../view/mood-graphs.js'
-import { OPACITY } from 'vega-lite/build/src/channel'
 
 const components = {}
 
@@ -15,6 +14,7 @@ components.page = (main, state) => {
     <div id="screen-opacity"></div>
     <div class="grid-container">
       ${components.header(state)}
+      ${components.menu(state)}
       <main>
       ${main}
       </main>
@@ -40,14 +40,20 @@ const toggleTheme = state => () => {
   }
 }
 
+const toggleVisibility = $elem => {
+  if ($elem.style.visibility === 'hidden') {
+    $elem.style.visibility = ''
+  } else {
+    $elem.style.visibility = 'hidden'
+  }
+}
+
 const toggleNavMenu = state => () => {
   const $opacity = document.getElementById('screen-opacity')
+  const $menu = document.getElementById('menu')
 
-  if ($opacity.style.visibility === 'hidden') {
-    $opacity.style.visibility = ''
-  } else {
-    $opacity.style.visibility = 'hidden'
-  }
+  toggleVisibility($opacity)
+  toggleVisibility($menu)
 }
 
 components.header = state => {
@@ -59,6 +65,17 @@ components.header = state => {
         <div id="dark-mode-toggle" class="dark-mode-toggle" @click=${toggleTheme(state)}>🌙</div>
         </nav>
     </header>`
+}
+
+components.menu = state => {
+  return html`
+    <nav id="menu">
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li @click=${toggleTheme(state)}>Dark Mode 🌙</li>
+      </ul>
+    </nav>
+  `
 }
 
 components.sectionHeader = title => {
