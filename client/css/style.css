@@ -142,6 +142,7 @@ label[for="mood-password"] {
   color: var(--dark-mode-font-colour);
   width: 200px;
   height: 100%;
+  height: calc(100vh - 59px);
   background: var(--header-colour);
   border-top: 1px solid var(--divider-colour);
 }
