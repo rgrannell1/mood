@@ -26,7 +26,7 @@ public/            built client-code
 routes/            code implementing each api route exposed in api/
 ```
 
-## Build System
+## 🧰 Build System
 
 Environment secrets are stored in a `.env` file with the following fields:
 
