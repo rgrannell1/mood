@@ -107,21 +107,41 @@ label[for="mood-password"] {
 
 /* HEADER CSS */
 
+#nav-menu {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  margin-left: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+#screen-opacity {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 #brand {
   margin-left: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
   color: var(--brand-colour);
-  grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-start: 2;
+  grid-column-end: 3;
 }
 
 #dark-mode-toggle {
   margin-left: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
-  grid-column-start: 3;
-  grid-column-end: 4;
+  grid-column-start:4;
+  grid-column-end: 5;
   font-size: 1.4em;
   color: var(--dark-mode-font-colour);
   cursor: pointer;

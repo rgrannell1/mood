@@ -6,11 +6,13 @@ import cache from '../services/cache.js'
 import { api } from '../services/api.js'
 
 import moodGraphs from '../view/mood-graphs.js'
+import { OPACITY } from 'vega-lite/build/src/channel'
 
 const components = {}
 
 components.page = (main, state) => {
   return html`
+    <div id="screen-opacity"></div>
     <div class="grid-container">
       ${components.header(state)}
       <main>
@@ -38,10 +40,21 @@ const toggleTheme = state => () => {
   }
 }
 
+const toggleNavMenu = state => () => {
+  const $opacity = document.getElementById('screen-opacity')
+
+  if ($opacity.style.visibility === 'hidden') {
+    $opacity.style.visibility = ''
+  } else {
+    $opacity.style.visibility = 'hidden'
+  }
+}
+
 components.header = state => {
   return html`
     <header>
       <nav id="mood-header">
+        <div id="nav-menu" @click=${toggleNavMenu(state)}>☰</div>
         <a href="/"><h1 id="brand">mood.</h1></a>
         <div id="dark-mode-toggle" class="dark-mode-toggle" @click=${toggleTheme(state)}>🌙</div>
         </nav>

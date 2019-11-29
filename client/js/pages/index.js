@@ -28,10 +28,14 @@ async function initPage () {
 
 initPage()
 
-const main = async () => {
-  const isLoggedIn = await isAuthenticated()
+/**
+ * Render the mood SPA
+ */
+const renderPage = async () => {
+//  const isLoggedIn = await isAuthenticated()
 
-  if (isLoggedIn) {
+  if (true) {
+  //if (isLoggedIn) {
     render(pages.index(state), document.body)
     moodGraphs.refreshMoodGraphs()
   } else {
@@ -39,4 +43,4 @@ const main = async () => {
   }
 }
 
-main()
+renderPage()
