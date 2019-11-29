@@ -139,10 +139,19 @@ label[for="mood-password"] {
   position: fixed;
   top: 58px;
   left: 0px;
-  width: 300px;
+  width: 180px;
   height: 100%;
-  background: var(--input-background);
+  background: var(--header-colour);
   border-top: 1px solid var(--divider-colour)
+}
+
+#menu ul {
+  margin: 20px;
+  list-style: none;
+}
+
+#menu ul li {
+  margin-top: 2em;
 }
 
 #brand {

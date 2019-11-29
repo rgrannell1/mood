@@ -67,11 +67,15 @@ components.header = state => {
     </header>`
 }
 
+const onPrivacyClick = state => () => {
+  render(pages.privacy(state), document.body)
+}
+
 components.menu = state => {
   return html`
     <nav id="menu">
       <ul>
-        <li><a href="/privacy">Privacy</a></li>
+        <li @click=${onPrivacyClick(state)}>Privacy</li>
         <li @click=${toggleTheme(state)}>Dark Mode 🌙</li>
       </ul>
     </nav>
