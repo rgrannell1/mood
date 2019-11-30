@@ -69,13 +69,12 @@ moodGraphs.heatplot = async data => {
 
   const spec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v4.0.0-beta.9.json',
+    autosize: { type: 'fit', resize: true },
     data: {
       values: data.moods
     },
     mark: 'rect',
     config: getHeatplotConfig(theme),
-    width: 400,
-    height: 200,
     encoding: {
       y: {
         field: 'mood',

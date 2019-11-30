@@ -13,7 +13,7 @@ const onOpacityClick = state => toggleNavMenu(state)
 
 components.page = (main, state) => {
   return html`
-    <div @click=${onOpacityClick(state)} id="screen-opacity"></div>
+    <div @click=${onOpacityClick(state)} id="screen-opacity" style="visibility: hidden;"></div>
     <div class="grid-container">
       ${components.header(state)}
       ${components.menu(state)}
@@ -83,7 +83,7 @@ const onHomeClick = state => () => {
 
 components.menu = state => {
   return html`
-    <nav id="menu">
+    <nav id="menu" style="visibility: hidden;">
       <ul>
         <li id="menu-home" @click=${onHomeClick(state)}>🏠 Home</li>
         <li id="menu-privacy" @click=${onPrivacyClick(state)}>🔒 Privacy</li>

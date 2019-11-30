@@ -68,7 +68,8 @@ schemas.user = {
         type: 'object',
         properties: {
           mood: {
-            type: 'string'
+            type: 'string',
+            enum: constants.moods
           },
           timestamp: {
             type: 'number'

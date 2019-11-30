@@ -166,6 +166,10 @@ label[for="mood-password"] {
 #menu ul {
   margin: 15px;
   list-style: none;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: auto;
 }
 
 #menu ul li {

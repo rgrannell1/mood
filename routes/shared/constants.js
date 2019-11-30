@@ -19,5 +19,15 @@ module.exports = {
   },
   cookies: {
     session: 'mood-session'
-  }
+  },
+  moods: [
+    'Stellar',
+    'Fine',
+    'Decent',
+    'Neutral',
+    'Bad',
+    'Ennui',
+    'In pain',
+    'Atrocious'
+  ]
 }
