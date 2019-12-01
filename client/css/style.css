@@ -256,7 +256,7 @@ main {
 
 /* MOOD QUESTION PANEL */
 
-#mood-box {
+#mood-box, #mood-policy {
   grid-row: 1;
   user-select: none;
   grid-row-gap: 100px;
@@ -278,6 +278,20 @@ main {
 
 .mood-emotion:active {
   background: var(--emoji-click);
+}
+
+#mood-policy {
+  color: var(--dark-mode-font-colour);
+}
+
+#mood-policy h3 {
+  margin-top: 1.5em;
+}
+
+#mood-policy ul {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-left: 2em;
 }
 
 /* MOOD GRAPH PANEL */

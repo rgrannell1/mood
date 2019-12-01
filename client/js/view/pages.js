@@ -276,20 +276,38 @@ components.moodPanel = () => {
 
 components.privacyPolicy = () => {
   return html`
-    <section id="mood-box" class="mood-panel">
+    <section id="mood-policy" class="mood-panel">
     ${components.sectionHeader('Privacy Policy')}
-    <div>
 
-      <p>The site may track:</p>
-      <ul>
-        <li>a hash of the users ip-address</li>
-        <li>the user-agent provided</li>
-      </ul>
+    <h3>Password Storage</h3>
 
-      <p>the user-agent is only used to spot poorly-crafted bots.</p>
+    <p>Passwords are stored as bcrypt salted-hashes in Firebase, are not logged, and are never stored in plain-text.</p>
 
-      <p>NOTE: this site is not finished!</p>
-    </div>
+    <h3>User Information Storage</h3>
+
+    <p>User-information is stored in Firebase. As of 1 December 2019, we store:</p>
+
+    <ul>
+      <li>an array of hashed forwardedFor headers</li>
+      <li>an array of hashed ip headers</li>
+      <li>the user's password (as described above)</li>
+      <li>the username and userid</li>
+      <li>the total number of requests made by the user</li>
+      <li>any submitted moods and their corresponding timestamps</li>
+    </ul>
+
+    <p>This information is presently not encrypted when stored.</p>
+
+    <h3>Information Usage</h3>
+
+    <p>The information listed above is stored in Firebase, but won't be shared with any other third-parties. The following fields may be used for security purposes:</p>
+
+    <ul>
+      <li>an array of hashed forwardedFor headers</li>
+      <li>an array of hashed ip headers</li>
+      <li>the total number of requests made by the user</li>
+    </ul>
+
     </section>
   `
 }
