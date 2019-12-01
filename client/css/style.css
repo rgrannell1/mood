@@ -97,11 +97,13 @@ body {
 }
 
 label[for="mood-username"],
-label[for="mood-password"] {
+label[for="mood-password"],
+label[for="mood-password-repeat"] {
   color: var(--input-colour);
 }
 
-label[for="mood-password"] {
+label[for="mood-password"],
+label[for="mood-password-repeat"] {
   margin-top: 20px;
 }
 
@@ -140,6 +142,7 @@ label[for="mood-password"] {
 
 #menu-home,
 #menu-privacy,
+#menu-register,
 #menu-dark-mode-toggle {
   cursor: pointer;
 }

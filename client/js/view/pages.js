@@ -75,10 +75,13 @@ const onPrivacyClick = state => () => {
   render(pages.privacy(state), document.body)
 }
 
+const onRegisterClick = state => () => {
+  render(pages.register(state), document.body)
+}
+
 const onHomeClick = state => () => {
   render(pages.index(state), document.body)
   moodGraphs.refreshMoodGraphs()
-
 }
 
 components.menu = state => {
@@ -86,6 +89,7 @@ components.menu = state => {
     <nav id="menu" style="visibility: hidden;">
       <ul>
         <li id="menu-home" @click=${onHomeClick(state)}>🏠 Home</li>
+        <li id="menu-register" @click=${onRegisterClick(state)}>👤 Register</li>
         <li id="menu-privacy" @click=${onPrivacyClick(state)}>🔒 Privacy</li>
         <li><div class='nav-divider'></div></li>
         <li id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>🌙 Dark Mode </li>
