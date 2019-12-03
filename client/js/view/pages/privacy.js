@@ -51,8 +51,8 @@ components.privacyPolicy = () => {
  *
  * @returns {HTML} index-page
  */
-const privacyPage = state => {
-  return components.page(components.privacyPolicy(), state)
+const privacyPage = (pages, state) => {
+  return components.page(components.privacyPolicy(), pages, state)
 }
 
 export default privacyPage

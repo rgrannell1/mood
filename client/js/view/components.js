@@ -82,7 +82,7 @@ components.menu.onRegisterClick = (pages, state) => () => {
 }
 
 components.menu.onLogoutClick = (pages, state) => () => {
-  render(pages.signin(state), document.body)
+  render(pages.signin(pages, state), document.body)
 }
 
 components.menu.onHomeClick = (pages, state) => () => {

@@ -4,8 +4,7 @@ import clean from 'clean-webpack-plugin'
 
 export default {
   entry: {
-    index: './client/js/pages/index.js',
-    privacy: './client/js/pages/privacy.js'
+    index: './client/js/pages/index.js'
   },
   output: {
     filename: '[name].js',

@@ -1,7 +1,7 @@
 
 import { render } from 'lit-html'
 
-import pages from '../view/pages.js'
+import pages from '../view/pages/index.js'
 import moodGraphs from '../view/mood-graphs.js'
 import { api } from '../services/api'
 
@@ -39,7 +39,7 @@ const renderPage = async () => {
     render(pages.main(pages, state), document.body)
     moodGraphs.refreshMoodGraphs()
   } else {
-    render(pages.signin(state), document.body)
+    render(pages.signin(pages, state), document.body)
   }
 }
 
