@@ -36,7 +36,7 @@ const renderPage = async () => {
 
   if (true) {
   //if (isLoggedIn) {
-    render(pages.index(state), document.body)
+    render(pages.main(state), document.body)
     moodGraphs.refreshMoodGraphs()
   } else {
     render(pages.signin(state), document.body)
