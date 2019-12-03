@@ -1,11 +1,8 @@
 
 import { render, html } from 'lit-html'
-import { model } from '../shared/utils.js'
 import constants from '../shared/constants'
-import cache from '../services/cache.js'
-import { api } from '../services/api.js'
 
-import moodGraphs from '../view/mood-graphs.js'
+import mainPage from '../view/pages/main.js'
 import privacyPage from '../view/pages/privacy.js'
 import registerPage from '../view/pages/register.js'
 
@@ -13,20 +10,6 @@ import sharedComponents from '../view/components.js'
 
 const components = {
   ...sharedComponents
-}
-
-
-/**
- * Construct the mood graph panel.
- *
- * @param {Object} state the application state
- */
-components.moodGraph = () => {
-  return html`
-    <section id="mood-graph" class="mood-panel">
-      ${components.h2('Timeline')}
-      <div id="mood-over-time"></div>
-    </section>`
 }
 
 /**
@@ -81,7 +64,7 @@ components.signinPanel.onSubmitClick = state => async event => {
 
   if (res.status === 200) {
     state.authenticated = true
-    render(pages.main(state), document.body)
+    render(pages.main(pages, state), document.body)
 
     moodGraphs.refreshMoodGraphs()
   } else if (res.status === 401) {
@@ -93,130 +76,11 @@ components.signinPanel.onSubmitClick = state => async event => {
   }
 }
 
-
-/**
- * Render the signin page when clicking the signin register link
- *
- * @param {Object} state the application state
- */
-components.registerPanel.onSigninLinkClick = state => async event => {
-  render(pages.signin(state), document.body)
-}
-
-/**
- * Render the signin page when clicking the signin register link
- *
- * @param {Object} state the application state
- */
-components.registerPanel.onRegisterSubmitClick = state => async event => {
-  event.stopPropagation()
-
-  const $user = document.querySelector('#mood-username')
-  const $password = document.querySelector('#mood-password')
-  const $passwordRepeat = document.querySelector('#mood-password-repeat')
-
-  const passwordsEqual = $password.value === $passwordRepeat.value
-
-  if (passwordsEqual) {
-    state.register.passwordMismatch = false
-    render(pages.register(pages, state), document.body)
-  } else {
-    state.register.passwordMismatch = true
-    render(pages.register(pages, state), document.body)
-  }
-
-  const body = {
-    user: $user.value,
-    password: $password.value
-  }
-
-  const res = await fetch(`${constants.apiHost}/api/register`, {
-    method: 'post',
-    body: JSON.stringify(body)
-  })
-
-  if (res.status === 200) {
-    state.authenticated = true
-    render(pages.main(state), document.body)
-  } else if (res.status === 401) {
-    state.authenticated = false
-    state.passwordIncorrect = true
-    render(pages.register(pages, state), document.body)
-  }
-}
-
-/**
- * Create a mood component
- *
- * @param {Object} state the application state
- */
-components.mood = ({ title, emoji }, idx) => {
-  const filename = title.toLowerCase().replace(' ', '-')
-
-  return html`<div id="mood-${idx}" class="mood-emotion" @click=${components.mood.onClick} title="${title}">
-    <img src="svg/${filename}.svg" title="${title}"></img>
-  </div>`
-}
-
-components.mood.onClick = async event => {
-  const data = model.event(event.target)
-  cache.addEvent(data)
-
-  try {
-    await api.moods.post()
-  } catch (err) {
-    console.error(`failed to send events: ${err.message}`)
-  }
-}
-
-/**
- * Construct a panel containing the mood inputs.
- *
- * @param {Object} state the application state
- */
-components.moodPanel = () => {
-  const data = [
-    { title: 'Atrocious' },
-    { title: 'In pain' },
-    { title: 'Ennui' },
-    { title: 'Bad' },
-    { title: 'Neutral' },
-    { title: 'Decent' },
-    { title: 'Fine' },
-    { title: 'Stellar' }
-  ]
-
-  return html`
-    <section id="mood-box" class="mood-panel">
-    ${components.h2('How are you?')}
-    <div class="emoji-container">
-      ${data.map(components.mood)}
-    </div>
-    </section>
-  `
-}
-
-
 const pages = {}
-
-/**
- * Create the index-page component
- *
- * @returns {HTML} index-page
- */
-pages.main = state => {
-  if (!state) {
-    throw new Error('state not supplied to page')
-  }
-  const indexMain = html`
-    ${components.moodPanel()}
-    ${components.moodGraph()}
-  `
-  return components.page(indexMain, pages, state)
-}
 
 pages.privacy = privacyPage
 pages.register = registerPage
+pages.main = mainPage
 
 pages.signin = state => {
   if (!state) {

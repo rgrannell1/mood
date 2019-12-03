@@ -86,7 +86,7 @@ components.menu.onLogoutClick = (pages, state) => () => {
 }
 
 components.menu.onHomeClick = (pages, state) => () => {
-  render(pages.main(state), document.body)
+  render(pages.main(pages, state), document.body)
   moodGraphs.refreshMoodGraphs()
 }
 
@@ -116,6 +116,19 @@ const toggleVisibility = $elem => {
   } else {
     $elem.style.visibility = 'hidden'
   }
+}
+
+/**
+ * Construct the mood graph panel.
+ *
+ * @param {Object} state the application state
+ */
+components.moodGraph = () => {
+  return html`
+    <section id="mood-graph" class="mood-panel">
+      ${components.h2('Timeline')}
+      <div id="mood-over-time"></div>
+    </section>`
 }
 
 export default components

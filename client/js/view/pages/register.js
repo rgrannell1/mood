@@ -79,7 +79,7 @@ components.registerPanel.onRegisterSubmitClick = (pages, state) => async event =
 
   if (res.status === 200) {
     state.authenticated = true
-    render(pages.main(state), document.body)
+    render(pages.main(pages, state), document.body)
   } else if (res.status === 401) {
     state.authenticated = false
     state.passwordIncorrect = true
