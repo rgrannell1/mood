@@ -79,6 +79,10 @@ const onRegisterClick = state => () => {
   render(pages.register(state), document.body)
 }
 
+const onLogoutClick = state => () => {
+  render(pages.signin(state), document.body)
+}
+
 const onHomeClick = state => () => {
   render(pages.index(state), document.body)
   moodGraphs.refreshMoodGraphs()
@@ -88,11 +92,12 @@ components.menu = state => {
   return html`
     <nav id="menu" style="visibility: hidden;">
       <ul>
-        <li id="menu-home" @click=${onHomeClick(state)}>🏠 Home</li>
-        <li id="menu-register" @click=${onRegisterClick(state)}>👤 Register</li>
-        <li id="menu-privacy" @click=${onPrivacyClick(state)}>🔒 Privacy</li>
+        <li class="menu-item" id="menu-home" @click=${onHomeClick(state)}>🏠 Home</li>
+        <li class="menu-item" id="menu-register" @click=${onRegisterClick(state)}>👤 Register</li>
+        <li class="menu-item" id="menu-logout" @click=${onLogoutClick(state)}>❌ Logout</li>
+        <li class="menu-item" id="menu-privacy" @click=${onPrivacyClick(state)}>🔒 Privacy</li>
         <li><div class='nav-divider'></div></li>
-        <li id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>🌙 Dark Mode </li>
+        <li class="menu-item" id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>🌙 Dark Mode </li>
       </ul>
     </nav>
   `
@@ -110,11 +115,41 @@ components.moodGraph = () => {
     </section>`
 }
 
-const onCreateAccountLinkClick = state => async event => {
+/**
+ * The signin component.
+ *
+ * @param {Object} state the application state
+ */
+components.signinPanel = state => {
+  let submitText = 'Sign In'
+
+  if (state === 'submit-invalid-password') {
+    submitText = 'Incorrect Password'
+  }
+
+  return html`
+    <section id="mood-signin" class="mood-panel">
+      ${components.sectionHeader('Sign In')}
+        <div id="mood-input-form">
+          <label for="mood-username">Username:</label>
+          <input id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
+
+          <label for="mood-password">Password (min 14 characters):</label>
+          <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
+
+          <input id="mood-signin-submit" @click=${components.signinPanel.onSubmitClick(state)} class="${state}" type="submit" value="${submitText}">
+
+          <p id="mood-create-account" @click=${components.signinPanel.onCreateAccountLinkClick(state)}>Create Account</p>
+          </div>
+    </section>
+  `
+}
+
+components.signinPanel.onCreateAccountLinkClick = state => async event => {
   render(pages.register(state), document.body)
 }
 
-const onSigninSubmitClick = state => async event => {
+components.signinPanel.onSubmitClick = state => async event => {
   event.stopPropagation()
 
   const $user = document.querySelector('#mood-username')
@@ -144,7 +179,53 @@ const onSigninSubmitClick = state => async event => {
   }
 }
 
-const onRegisterSubmitClick = state => async event => {
+/**
+ * The registration panel component.
+ *
+ * @param {Object} state the application state
+ */
+components.registerPanel = state => {
+  let submitText = 'Sign Up'
+
+  if (state.register.passwordMismatch) {
+    submitText = 'Passwords Do Not Match'
+  }
+
+  return html`
+    <section id="mood-signup" class="mood-panel">
+      ${components.sectionHeader('Sign Up')}
+        <div id="mood-input-form">
+          <label for="mood-username">Username:</label>
+          <input class="form-input" id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
+
+          <label for="mood-password">Password (min 14 characters):</label>
+          <input class="form-input" id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
+
+          <label for="mood-password-repeat">Re-enter Password:</label>
+          <input class="form-input" id="mood-password-repeat" type="password" spellcheck="false" minlength="14" aria-label="Re-enter your password"></input>
+
+          <input id="mood-signup-submit" @click=${components.registerPanel.onRegisterSubmitClick(state)} class="${state}" type="submit" value="${submitText}">
+
+          <p id="mood-create-account" @click=${components.registerPanel.onSigninLinkClick(state)}>Already Registered? Sign In</p>
+          </div>
+    </section>`
+}
+
+/**
+ * Render the signin page when clicking the signin register link
+ *
+ * @param {Object} state the application state
+ */
+components.registerPanel.onSigninLinkClick = state => async event => {
+  render(pages.signin(state), document.body)
+}
+
+/**
+ * Render the signin page when clicking the signin register link
+ *
+ * @param {Object} state the application state
+ */
+components.registerPanel.onRegisterSubmitClick = state => async event => {
   event.stopPropagation()
 
   const $user = document.querySelector('#mood-username')
@@ -181,63 +262,20 @@ const onRegisterSubmitClick = state => async event => {
   }
 }
 
-components.signinPanel = state => {
-  let submitText = 'Sign In'
+/**
+ * Create a mood component
+ *
+ * @param {Object} state the application state
+ */
+components.mood = ({ title, emoji }, idx) => {
+  const filename = title.toLowerCase().replace(' ', '-')
 
-  if (state === 'submit-invalid-password') {
-    submitText = 'Incorrect Password'
-  }
-
-  return html`
-    <section id="mood-signin" class="mood-panel">
-      ${components.sectionHeader('Sign In')}
-        <div id="mood-input-form">
-          <label for="mood-username">Username:</label>
-          <input id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
-
-          <label for="mood-password">Password (min 14 characters):</label>
-          <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
-
-          <input id="mood-signin-submit" @click=${onSigninSubmitClick(state)} class="${state}" type="submit" value="${submitText}">
-
-          <p id="mood-create-account" @click=${onCreateAccountLinkClick(state)}>Create Account</p>
-          </div>
-    </section>
-  `
+  return html`<div id="mood-${idx}" class="mood-emotion" @click=${components.mood.onClick} title="${title}">
+    <img src="svg/${filename}.svg" title="${title}"></img>
+  </div>`
 }
 
-const onSigninAccountLinkClick = state => async event => {
-  render(pages.signin(state), document.body)
-}
-
-components.registerPanel = state => {
-  let submitText = 'Sign Up'
-
-  if (state.register.passwordMismatch) {
-    submitText = 'Passwords Do Not Match'
-  }
-
-  return html`
-    <section id="mood-signup" class="mood-panel">
-      ${components.sectionHeader('Sign Up')}
-        <div id="mood-input-form">
-          <label for="mood-username">Username:</label>
-          <input id="mood-username" type="text" spellcheck="false" aria-label="Username"></input>
-
-          <label for="mood-password">Password (min 14 characters):</label>
-          <input id="mood-password" type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
-
-          <label for="mood-password-repeat">Re-enter Password:</label>
-          <input id="mood-password-repeat" type="password" spellcheck="false" minlength="14" aria-label="Re-enter your password"></input>
-
-          <input id="mood-signup-submit" @click=${onRegisterSubmitClick(state)} class="${state}" type="submit" value="${submitText}">
-
-          <p id="mood-create-account" @click=${onSigninAccountLinkClick(state)}>Already Registered? Sign In</p>
-          </div>
-    </section>`
-}
-
-const onMoodClick = async event => {
+components.mood.onClick = async event => {
   const data = model.event(event.target)
   cache.addEvent(data)
 
@@ -246,14 +284,6 @@ const onMoodClick = async event => {
   } catch (err) {
     console.error(`failed to send events: ${err.message}`)
   }
-}
-
-components.mood = ({ title, emoji }, idx) => {
-  const filename = title.toLowerCase().replace(' ', '-')
-
-  return html`<div id="mood-${idx}" class="mood-emotion" @click=${onMoodClick} title="${title}">
-    <img src="svg/${filename}.svg" title="${title}"></img>
-  </div>`
 }
 
 components.moodPanel = () => {
