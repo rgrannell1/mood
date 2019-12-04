@@ -42,7 +42,7 @@ components.registerPanel = (pages, state) => {
  * @param {Object} state the application state
  */
 components.registerPanel.onSigninLinkClick = (pages, state) => async event => {
-  render(pages.signin(page, state), document.body)
+  render(pages.signin(pages, state), document.body)
 }
 
 /**
@@ -88,6 +88,10 @@ components.registerPanel.onRegisterSubmitClick = (pages, state) => async event =
 }
 
 const registerPage = (pages, state) => {
+  if (!state.register) {
+    state.register = {}
+  }
+
   return components.page(components.registerPanel(pages, state), pages, state)
 }
 

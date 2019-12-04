@@ -74,7 +74,7 @@ components.menu = (pages, state) => {
 }
 
 components.menu.onPrivacyClick = (pages, state) => () => {
-  render(pages.privacy(state), document.body)
+  render(pages.privacy(pages, state), document.body)
 }
 
 components.menu.onRegisterClick = (pages, state) => () => {

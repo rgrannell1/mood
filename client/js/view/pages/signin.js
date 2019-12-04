@@ -36,10 +36,22 @@ components.signinPanel = (pages, state) => {
   `
 }
 
+/**
+ * The signin component's "create account" link click-handler.
+ *
+ * @param {Object} pages
+ * @param {Object} state the application state
+ */
 components.signinPanel.onCreateAccountLinkClick = (pages, state) => async event => {
   render(pages.register(pages, state), document.body)
 }
 
+/**
+ * The signin component's submit button click-handler.
+ *
+ * @param {Object} pages
+ * @param {Object} state the application state
+ */
 components.signinPanel.onSubmitClick = (pages, state) => async event => {
   event.stopPropagation()
 
@@ -70,9 +82,15 @@ components.signinPanel.onSubmitClick = (pages, state) => async event => {
   }
 }
 
+/**
+ * The signin page
+ *
+ * @param {Object} pages
+ * @param {Object} state the application state
+ */
 const signinPage = (pages, state) => {
-  if (!state) {
-    throw new Error('state not supplied to page')
+  if (!state.signin) {
+    state.signin = {}
   }
 
   return components.page(components.signinPanel(state), pages, state)

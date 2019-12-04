@@ -64,6 +64,10 @@ components.mood.onClick = async event => {
  * @returns {HTML} index-page
  */
 const mainPage = (pages, state) => {
+  if (!state.main) {
+    state.main = {}
+  }
+
   const indexMain = html`
     ${components.moodPanel()}
     ${components.moodGraph()}
