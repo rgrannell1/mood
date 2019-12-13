@@ -34,10 +34,10 @@ components.signinPanel = (pages, state) => {
       ${components.h2('Sign In')}
         <div id="mood-input-form">
           <label for="mood-username">Username:</label>
-          <input class="form-input" id="mood-username" @keydown=${components.signinPanel.onUpdate(pages, state)} type="text" spellcheck="false" aria-label="Username"></input>
+          <input class="form-input" id="mood-username" @input=${components.signinPanel.onUpdate(pages, state)} type="text" spellcheck="false" aria-label="Username"></input>
 
           <label for="mood-password">Password (min 14 characters):</label>
-          <input class="form-input" id="mood-password" @keydown=${components.signinPanel.onUpdate(pages, state)} type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
+          <input class="form-input" id="mood-password" @input=${components.signinPanel.onUpdate(pages, state)} type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
           <div id="mood-signin-error">${errorText}</div>
 
