@@ -41,7 +41,7 @@ components.signinPanel = (pages, state) => {
 
           <div id="mood-signin-error">${errorText}</div>
 
-          <input id="mood-signin-submit" @click=${components.signinPanel.onSubmitClick(pages, state)} class="${state}" type="submit" value="${submitText}">
+          <input id="mood-signin-submit" data-state=${state.signin.button} @click=${components.signinPanel.onSubmitClick(pages, state)} type="submit" value="${submitText}">
 
           <p id="mood-create-account" @click=${components.signinPanel.onCreateAccountLinkClick(pages, state)}>Create Account</p>
           </div>
