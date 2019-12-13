@@ -5,6 +5,11 @@ import moodGraphs from '../mood-graphs.js'
 
 import components from '../components'
 
+const buttonStates = {
+  LOADING: 'loading',
+  INVALID: 'invalid'
+}
+
 /**
  * The signin component.
  *
@@ -12,7 +17,17 @@ import components from '../components'
  * @param {Object} state the application state
  */
 components.signinPanel = (pages, state) => {
-  const submitText = 'Sign In'
+  let submitText = ''
+
+  if (state.signin.button === buttonStates.LOADING) {
+    submitText = 'Signing In...'
+  } else if (state.signin.button === buttonStates.INVALID) {
+    submitText = 'Invalid Credentials'
+  } else {
+    submitText = 'Sign In'
+  }
+
+  const errorText = state.signin.error
 
   return html`
     <section id="mood-signin" class="mood-panel">
@@ -24,7 +39,7 @@ components.signinPanel = (pages, state) => {
           <label for="mood-password">Password (min 14 characters):</label>
           <input class="form-input" id="mood-password" @keydown=${components.signinPanel.onUpdate(pages, state)} type="password" spellcheck="false" minlength="14" aria-label="Enter your password"></input>
 
-          <div id="mood-signin-error">${state.signin.error}</div>
+          <div id="mood-signin-error">${errorText}</div>
 
           <input id="mood-signin-submit" @click=${components.signinPanel.onSubmitClick(pages, state)} class="${state}" type="submit" value="${submitText}">
 
@@ -83,6 +98,11 @@ components.signinPanel.onUpdate = (pages, state) => async event => {
 components.signinPanel.onSubmitClick = (pages, state) => async event => {
   event.stopPropagation()
 
+  if (state.signin.button === buttonStates.LOADING) {
+    render(pages.signin(pages, state), document.body)
+    return
+  }
+
   const $user = document.querySelector('#mood-username')
   const $password = document.querySelector('#mood-password')
 
@@ -90,6 +110,10 @@ components.signinPanel.onSubmitClick = (pages, state) => async event => {
     user: $user.value,
     password: $password.value
   }
+
+  state.signin.button = buttonStates.LOADING
+
+  render(pages.signin(pages, state), document.body)
 
   const res = await fetch(`${constants.apiHost}/api/login`, {
     method: 'post',
@@ -102,8 +126,12 @@ components.signinPanel.onSubmitClick = (pages, state) => async event => {
     render(pages.main(pages, state), document.body)
     moodGraphs.refreshMoodGraphs()
   } else if (res.status === 401) {
-    render(pages.signin(state), document.body)
-    moodGraphs.refreshMoodGraphs()
+    state.signin.button = buttonStates.INVALID
+
+    render(pages.signin(pages, state), document.body)
+  } else if (res.status === 422) {
+    // -- todo
+    render(pages.signin(pages, state), document.body)
   }
 }
 

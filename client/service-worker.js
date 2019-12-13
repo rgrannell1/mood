@@ -24,7 +24,7 @@ api.sendEvents = () => {
 // -- todo expand caceable
 const cached = [
   '/',
-  '/js/pages/index.js',
+  '/js/index.js',
   '/css/style.css',
   '/fonts/open-sans.woff2',
   '/favicon.ico',

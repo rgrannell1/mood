@@ -1,13 +1,13 @@
 
 import { render } from 'lit-html'
 
-import pages from '../view/pages/index.js'
-import moodGraphs from '../view/mood-graphs.js'
-import { api } from '../services/api'
+import pages from './view/pages/index.js'
+import moodGraphs from './view/mood-graphs.js'
+import { api } from './services/api'
 
 import {
   registerServiceWorker
-} from '../shared/utils.js'
+} from './shared/utils.js'
 
 const state = {
   signin: { },
