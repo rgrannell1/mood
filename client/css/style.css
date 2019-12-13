@@ -86,6 +86,11 @@ body {
   cursor: pointer;
 }
 
+#mood-signin-error {
+  color: var(--brand-colour);
+  margin-top: 20px;
+}
+
 #mood-create-account {
   margin-top: 20px;
   font-weight: bolder;
@@ -249,7 +254,8 @@ main {
 
 /* MOOD QUESTION PANEL */
 
-#mood-box, #mood-policy {
+#mood-box,
+#mood-policy {
   grid-row: 1;
   user-select: none;
   grid-row-gap: 100px;

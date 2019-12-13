@@ -1,6 +1,7 @@
 
 import moodGraphs from '../view/mood-graphs.js'
 import { render, html } from 'lit-html'
+import { local } from '../shared/utils.js'
 
 const components = {}
 
@@ -91,13 +92,16 @@ components.menu.onHomeClick = (pages, state) => () => {
 }
 
 const toggleTheme = state => () => {
+  const storedScheme = local.get('theme')
+
   const $html = document.querySelector('html')
-  const theme = $html.getAttribute('data-theme') || 'light'
+  const theme = storedScheme || 'light'
   const newTheme = theme === 'light'
     ? 'dark'
     : 'light'
 
   $html.setAttribute('data-theme', newTheme)
+  local.set('theme', newTheme)
 
   moodGraphs.refreshMoodGraphs()
 
