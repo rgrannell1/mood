@@ -52,13 +52,13 @@
     "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build --production",
     "clean": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs clean",
     "build:watch": "find client routes | entr -s 'npm run build'",
-    "live-reload": "live-reload --build 'npm run build:watch' --site index.html --public_folder public",
     "run:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
     "run:client": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-public",
     "deploy": "export NODE_ENV=production; npm run build & time node_modules/.bin/now",
     "standard": "npx standard 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
     "standard:fix": "npx standard --fix 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
-    "monitoring": "node monitoring/src/index.js"
+    "monitoring": "node monitoring/src/index.js",
+    "pulp": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs"
   },
   "repository": {
     "type": "git",
@@ -73,6 +73,14 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run build"
+    }
+  },
+  "live-reload": {
+    "build": ["npm run build:watch"],
+    "site": {
+      "path": "index.html",
+      "publicFolder": "public",
+      "watch": ["public"]
     }
   }
 }
