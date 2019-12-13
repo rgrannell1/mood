@@ -35,8 +35,9 @@ const command = {
 command.cli = `
 Usage:
   script serve-api
+
 Description:
-  serve api
+  serve mood's API
 `
 
 command.task = () => {
