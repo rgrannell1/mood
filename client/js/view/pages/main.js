@@ -5,7 +5,7 @@ import components from '../components'
 import { model } from '../../shared/utils'
 
 import cache from '../../services/cache.js'
-import { api } from '../../services/api.js'
+import { api } from '../../shared/api.js'
 
 /**
  * Construct a panel containing the mood inputs.

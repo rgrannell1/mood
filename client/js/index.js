@@ -3,7 +3,7 @@ import { render } from 'lit-html'
 
 import pages from './view/pages/index.js'
 import moodGraphs from './view/mood-graphs.js'
-import { api } from './services/api'
+import { api } from './shared/api'
 
 import {
   registerServiceWorker

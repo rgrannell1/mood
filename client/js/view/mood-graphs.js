@@ -1,6 +1,6 @@
 
 import vegaEmbed from 'vega-embed'
-import { api } from '../services/api'
+import { api } from '../shared/api'
 import constants from '../shared/constants'
 
 const moodGraphs = {}

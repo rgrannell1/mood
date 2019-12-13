@@ -26,6 +26,7 @@ const cached = [
   '/',
   '/js/index.js',
   '/css/style.css',
+  '/css/device-sizing.css',
   '/fonts/open-sans.woff2',
   '/favicon.ico',
   '/manifest.webmanifest',
