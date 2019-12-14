@@ -7,12 +7,13 @@ const signale = require('signale')
 const config = require('./shared/config')()
 const dotenv = require('dotenv').config()
 
+const apiTests = require('./api-tests')
+const browserTests = require('./browser-tests')
+
 process.on('unhandledRejection', err => {
   signale.error(`${err.message}\n\n${err.stack}`)
   process.exit(1)
 })
-
-const apiTests = require('./api-tests')
 
 const key = JSON.parse(Buffer.from(dotenv.parsed.GOOGLE_PRIVATE_KEY, 'base64'))
 
@@ -28,11 +29,12 @@ const db = admin.firestore()
  */
 async function syntheticMonitoring () {
   const browser = await puppeteer.launch({
-    headless: true
+    headless: false
   })
 
   // run e2e api-tests
-  await apiTests(browser, config, db)
+  //await apiTests(browser, config, db)
+  await browserTests(browser, config, db)
 
   await browser.close()
 

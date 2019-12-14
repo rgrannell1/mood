@@ -53,13 +53,3 @@ export const model = {
     }
   }
 }
-
-/**
- * Sends the events queued into the cache to the server for storage
- * when a connection is available.
- */
-export async function syncData () {
-
-//  const reg = await navigator.serviceWorker.ready
-//  reg.sync.register('sync')
-}

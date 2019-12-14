@@ -64,6 +64,7 @@ components.menu = (pages, state) => {
     <nav id="menu" style="visibility: hidden;">
       <ul>
         <li class="menu-item" id="menu-home" @click=${components.menu.onHomeClick(pages, state)}>🏠 Home</li>
+        <li class="menu-item" id="menu-edit" @click=${components.menu.onEditClick(pages, state)}>✏️ Edit</li>
         <li class="menu-item" id="menu-register" @click=${components.menu.onRegisterClick(pages, state)}>👤 Register</li>
         <li class="menu-item" id="menu-logout" @click=${components.menu.onLogoutClick(pages, state)}>❌ Logout</li>
         <li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>
@@ -89,6 +90,10 @@ components.menu.onLogoutClick = (pages, state) => () => {
 components.menu.onHomeClick = (pages, state) => () => {
   render(pages.main(pages, state), document.body)
   moodGraphs.refreshMoodGraphs()
+}
+
+components.menu.onEditClick = (pages, state) => () => {
+  render(pages.edit(pages, state), document.body)
 }
 
 const toggleTheme = state => () => {
