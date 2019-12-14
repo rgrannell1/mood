@@ -20,6 +20,7 @@ jobs:
     - name: Run Synthetic-Monitoring
       run: |
         npm install
+        cd monitoring && npm install && cd ..
         npm run monitoring
       env:
         CI: true
