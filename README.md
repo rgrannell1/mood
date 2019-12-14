@@ -69,12 +69,17 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 ### Browser Tests
 
-#### Signin
+#### Sign-in
 
 - page includes expected selectors
 - login response contained expected fields and headers
 - login request contained expected fields and headers
 - login with valid-credentials succeeds at navigating to the main page
+
+#### Register
+
+
+#### Main Page
 
 ### API Tests
 
