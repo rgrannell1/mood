@@ -84,6 +84,8 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 #### Edit
 
+---
+
 ### API Tests
 
 #### `DELETE api/mood`
