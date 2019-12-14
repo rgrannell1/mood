@@ -67,30 +67,39 @@ deploy          deploy the website and associated apis to Zeit
 
 Mood's repository includes a suite of synthetic-monitoring to check the site works as expected.
 
-### `DELETE api/mood`
+### Browser Tests
+
+#### Signin
+
+- page includes expected selectors
+- login with valid-credentials succeeds at navigating to the main page
+
+### API Tests
+
+#### `DELETE api/mood`
 
 - requires authentication
 - rejects invalid cookies
 - returns the expected status-code and body when authenticated
 
-### `GET api/metadata`
+#### `GET api/metadata`
 
 - returns the expected status-code and body without authentication
 
-### `GET api/mood`
+#### `GET api/mood`
 
 - requires authentication
 - rejects invalid cookies
 - returns the expected body formats and headers when authenticated
 - returns the expected data-sets when authenticated
 
-### `PATCH api/mood`
+#### `PATCH api/mood`
 
 - requires authentication
 - rejects invalid cookies
 - returns the expected status-code, body formats and headers when authenticated
 
-### `POST api/login`
+#### `POST api/login`
 
 - returns the expected status-code
 - returns the expected status-code, body format, and headers when authenticated
