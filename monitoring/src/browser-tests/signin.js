@@ -27,6 +27,59 @@ tests.hasSelectors = async page => {
   return expectations.hasSelector(page, selectors)
 }
 
+const validateLogin = {}
+
+validateLogin.request = async request => {
+  const isLogin = request.url().includes('login')
+
+  if (!isLogin) {
+    return
+  }
+
+  try {
+    var postData = JSON.parse(await request.postData())
+  } catch (err) {
+    const text = await request.postData()
+    throw errors.invalidResponseBody(`failed to parse response-body as JSON:\n\n${text}`)
+  }
+
+  for (const prop of ['user', 'password']) {
+    if (!postData.hasOwnProperty(prop)) {
+      throw errors.invalidRequestBody(`login body did not contain property "${prop}"`)
+    }
+  }
+
+  if (postData.user !== TEST_ACCOUNT_USER) {
+    throw errors.invalidRequestBody('login body had wrong username"')
+  }
+  if (postData.password !== TEST_ACCOUNT_PASSWORD) {
+    throw errors.invalidRequestBody('login body had wrong password"')
+  }
+}
+
+validateLogin.response = async response => {
+  const isLogin = response.url().includes('login')
+
+  if (!isLogin) {
+    return
+  }
+
+  try {
+    var body = await response.json()
+  } catch (err) {
+    const text = await response.text()
+    throw errors.invalidResponseBody(`failed to parse response-body as JSON:\n\n${text}`)
+  }
+
+  if (!body.hasOwnProperty('logged_in')) {
+    throw errors.invalidResponseBody('login call did not contain "logged_in" field')
+  }
+
+  if (!body.logged_in) {
+    throw errors.invalidResponseBody('login body field "logged_in" was not true')
+  }
+}
+
 /**
  * Test whether login succeeds for valid credentials
  *
@@ -36,13 +89,17 @@ tests.loginValidCredentials = async page => {
   await page.type('#mood-username', TEST_ACCOUNT_USER)
   await page.type('#mood-password', TEST_ACCOUNT_PASSWORD)
 
-  const submitCredentials = Promise.all([
+  // -- todo wait for callbacks
+  page
+    .on('request', validateLogin.request)
+    .on('response', validateLogin.response)
+
+  return Promise.all([
     page.click('#mood-signin-submit'),
     page.waitForSelector('#mood-box')
   ])
 
   return Promise.race([
-    submitCredentials,
     utils.timeoutError(errors.missingSelector('could not find selector "#moodBox"'), 10 * 1000)
   ])
 }
