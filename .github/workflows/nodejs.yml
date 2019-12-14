@@ -17,6 +17,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        envkey_NODE_ENV: production
+        envkey_COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
+        envkey_ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        envkey_GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        envkey_TEST_ACCOUNT_CREDENTIAL: ${{ secrets.TEST_ACCOUNT_CREDENTIAL }}
+        envkey_TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
+        envkey_TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
+        file_name: .env
+
     - name: Run Synthetic-Monitoring
       run: |
         npm install
@@ -24,11 +38,3 @@ jobs:
         npm run monitoring
       env:
         CI: true
-        NODE_ENV: production
-        COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
-        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-        GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-        TEST_ACCOUNT_CREDENTIAL: ${{ secrets.TEST_ACCOUNT_CREDENTIAL }}
-        TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
-        TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
