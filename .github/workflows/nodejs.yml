@@ -24,3 +24,11 @@ jobs:
         npm run monitoring
       env:
         CI: true
+        NODE_ENV: production
+        COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
+        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        TEST_ACCOUNT_CREDENTIAL: ${{ secrets.TEST_ACCOUNT_CREDENTIAL }}
+        TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
+        TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
