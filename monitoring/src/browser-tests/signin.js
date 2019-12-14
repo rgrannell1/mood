@@ -12,10 +12,15 @@ tests.hasSelectors = async page => {
     '#mood-password',
     '#mood-signin-error',
     '#mood-signin-submit',
-    '#mood-create-account'
+    '#mood-create-account',
+    '#dark-mode-toggle'
   ]
 
   return expectations.hasSelector(page, selectors)
+}
+
+tests.formBehaviour = async page => {
+
 }
 
 const signinTests = async (host, db, browser) => {
@@ -24,6 +29,7 @@ const signinTests = async (host, db, browser) => {
   await page.goto(host)
 
   await tests.hasSelectors(page)
+  await tests.formBehaviour(page)
 
   signale.success('browser signin worked as expected')
 }

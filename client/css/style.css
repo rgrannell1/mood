@@ -84,7 +84,9 @@ body {
   cursor: pointer;
 }
 
-#mood-signin-submit[data-state="loading"] {
+#mood-signin-submit[data-state="loading"],
+#mood-signin-submit[data-state="default"],
+#mood-signin-submit[data-state="error"] {
   cursor: not-allowed;
 }
 

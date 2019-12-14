@@ -7,7 +7,9 @@ import components from '../components'
 
 const buttonStates = {
   LOADING: 'loading',
-  INVALID: 'invalid'
+  INVALID: 'invalid',
+  DEFAULT: 'default',
+  ERROR: 'error'
 }
 
 /**
@@ -41,7 +43,7 @@ components.signinPanel = (pages, state) => {
 
           <div id="mood-signin-error">${errorText}</div>
 
-          <input id="mood-signin-submit" data-state=${state.signin.button} @click=${components.signinPanel.onSubmitClick(pages, state)} type="submit" value="${submitText}">
+          <input id="mood-signin-submit" data-state=${state.signin.button || buttonStates.DEFAULT} @click=${components.signinPanel.onSubmitClick(pages, state)} type="submit" value="${submitText}">
 
           <p id="mood-create-account" @click=${components.signinPanel.onCreateAccountLinkClick(pages, state)}>Create Account</p>
           </div>
@@ -86,6 +88,10 @@ components.signinPanel.onUpdate = (pages, state) => async event => {
 
   state.signin.error = error
 
+  state.signin.button = state.signin.error.trim()
+    ? buttonStates.ERROR
+    : ' '
+
   render(pages.signin(pages, state), document.body)
 }
 
@@ -98,7 +104,13 @@ components.signinPanel.onUpdate = (pages, state) => async event => {
 components.signinPanel.onSubmitClick = (pages, state) => async event => {
   event.stopPropagation()
 
-  if (state.signin.button === buttonStates.LOADING) {
+  const shouldReturn = [
+    buttonStates.LOADING,
+    buttonStates.DEFAULT,
+    buttonStates.ERROR
+  ].includes(state.signin.button)
+
+  if (shouldReturn) {
     render(pages.signin(pages, state), document.body)
     return
   }
@@ -109,6 +121,11 @@ components.signinPanel.onSubmitClick = (pages, state) => async event => {
   const body = {
     user: $user.value,
     password: $password.value
+  }
+
+  if (!body.user && !body.password) {
+    render(pages.signin(pages, state), document.body)
+    return
   }
 
   state.signin.button = buttonStates.LOADING
