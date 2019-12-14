@@ -84,22 +84,29 @@ validateLogin.response = async response => {
  * Test whether login succeeds for valid credentials
  *
  * @param {Page} page the puppeteer page
+ *
+ * @returns {Promise<>} a result promise
  */
 tests.loginValidCredentials = async page => {
   await page.type('#mood-username', TEST_ACCOUNT_USER)
   await page.type('#mood-password', TEST_ACCOUNT_PASSWORD)
 
-  // -- todo wait for callbacks
-  page
-    .on('request', validateLogin.request)
-    .on('response', validateLogin.response)
+  await page.click('#mood-signin-submit')
+  await new Promise((resolve, reject) => {
+    page
+      .on('request', validateLogin.request)
+      .on('response', function handleResponse (response) {
+        validateLogin.response(response)
 
-  return Promise.all([
-    page.click('#mood-signin-submit'),
-    page.waitForSelector('#mood-box')
-  ])
+        page.removeListener('request', validateLogin.request)
+        page.removeListener('request', handleResponse)
+
+        resolve()
+      })
+  })
 
   return Promise.race([
+    page.waitForSelector('#mood-box'),
     utils.timeoutError(errors.missingSelector('could not find selector "#moodBox"'), 10 * 1000)
   ])
 }
