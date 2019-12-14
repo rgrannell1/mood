@@ -78,8 +78,11 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 #### Register
 
-
 #### Main Page
+
+#### Privacy
+
+#### Edit
 
 ### API Tests
 
