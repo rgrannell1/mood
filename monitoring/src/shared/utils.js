@@ -59,4 +59,10 @@ utils.data = {
   ]
 }
 
+utils.timeoutError = (error, timeout) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => reject(error), timeout)
+  })
+}
+
 module.exports = utils
