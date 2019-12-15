@@ -18,9 +18,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Set env
+    - name: Detect Mood Version
       run: echo ::set-env name=MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
-    - name: Run Synthetic-Monitoring of $MOOD_VERSION
+    - name: "Run Synthetic-Monitoring of $MOOD_VERSION"
       run: |
         env > .env
         npm install
