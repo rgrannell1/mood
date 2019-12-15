@@ -41,7 +41,7 @@ jobs:
       run: echo ::set-env name=NEW_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')        
 
     - name: Show Mood Versions
-      run: echo "$OLD_MOOD_VERSION → $NEW_MOOD_VERSION"
+      run: echo "Upgraded $OLD_MOOD_VERSION → $NEW_MOOD_VERSION"
 
     - name: Run Synthetic-Monitoring
       run: |
