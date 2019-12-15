@@ -24,7 +24,7 @@ jobs:
     - name: Detect Mood Version
       run: echo ::set-env name=MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
     
-    - name: Deploy for staging
+    - name: Deploy Mood Website
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
@@ -32,7 +32,6 @@ jobs:
         now deploy
         --local-config=./now.json
         --build-env NODE_ENV=production
-        --build-env BUILD_ID=${BUILD_ID}
         --env NODE_ENV=production
         --public
         --no-clipboard
