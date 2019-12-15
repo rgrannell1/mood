@@ -31,9 +31,6 @@ routes/            code implementing each api route exposed in api/
 Environment secrets are stored in a `.env` file with the following fields:
 
 ```
-AUTH0_CLIENT_ID
-AUTH0_CLIENT_SECRET
-AUTH0_DOMAIN
 COOKIE_KEY
 ENCRYPTION_KEY
 GOOGLE_CLIENT_ID
