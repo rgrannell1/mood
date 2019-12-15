@@ -18,6 +18,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Set env
+      run: echo ::set-env name=MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | grep -oP '(?<="version": ")[^"]\*')')
     - name: Run Synthetic-Monitoring
       run: |
         env > .env
