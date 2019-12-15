@@ -141,7 +141,7 @@ components.signinPanel.onSubmitClick = (pages, state) => async event => {
     state.signin = null
 
     render(pages.main(pages, state), document.body)
-    moodGraphs.refreshMoodGraphs()
+    moodGraphs.refreshMoodGraphs(state)
   } else if (res.status === 401) {
     state.signin.button = buttonStates.INVALID
 

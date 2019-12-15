@@ -9,11 +9,19 @@ import components from '../components'
  *
  * @param {Object} state the application state
  */
-components.edit = () => {
-  return html`
-    <section id="mood-edit" class="mood-panel">
+components.edit = state => {
+  let moodComponents = []
+
+  if (state.moods) {
+    moodComponents = state.moods.map(mood => {
+      return `<div>${mood.mood}</div>`
+    })
+  }
+
+  return html`<section id="mood-edit" class="mood-panel">
     ${components.h2('Edit Moods')}
-  `
+    ${moodComponents}
+    `
 }
 
 /**
@@ -26,7 +34,7 @@ const editPage = (pages, state) => {
     state.edit = {}
   }
 
-  return components.page(components.edit(), pages, state)
+  return components.page(components.edit(state), pages, state)
 }
 
 export default editPage

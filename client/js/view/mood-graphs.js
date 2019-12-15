@@ -115,10 +115,13 @@ moodGraphs.heatplot = async data => {
 /**
  * Draw a mood heatplot to the page
  */
-moodGraphs.refreshMoodGraphs = async () => {
+moodGraphs.refreshMoodGraphs = async state => {
   try {
     const moods = await api.moods.get()
     const moodData = await moods.json()
+
+    state.moods = moods
+
     await moodGraphs.heatplot(moodData)
   } catch (err) {
     console.error('failed to render graph.')

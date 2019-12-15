@@ -89,7 +89,7 @@ components.menu.onLogoutClick = (pages, state) => () => {
 
 components.menu.onHomeClick = (pages, state) => () => {
   render(pages.main(pages, state), document.body)
-  moodGraphs.refreshMoodGraphs()
+  moodGraphs.refreshMoodGraphs(state)
 }
 
 components.menu.onEditClick = (pages, state) => () => {
@@ -108,7 +108,7 @@ const toggleTheme = state => () => {
   $html.setAttribute('data-theme', newTheme)
   local.set('theme', newTheme)
 
-  moodGraphs.refreshMoodGraphs()
+  moodGraphs.refreshMoodGraphs(state)
 
   if (newTheme === 'dark') {
     document.querySelector('#dark-mode-toggle').textContent = '☀️'
