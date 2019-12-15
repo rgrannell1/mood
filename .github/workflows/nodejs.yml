@@ -24,7 +24,7 @@ jobs:
     - name: Run Synthetic-Monitoring
       run: |
         env > .env
-        echo "testing $MOOD_VERSION"
+        echo "\n\ntesting mood version $MOOD_VERSION\n\n"
         npm install
         cd monitoring && npm install && cd ..
         npm run monitoring
