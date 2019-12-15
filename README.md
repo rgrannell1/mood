@@ -115,3 +115,10 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 - returns the expected status-code
 - returns the expected status-code, body format, and headers when authenticated
+
+## ➡️ Continuous Integration
+
+- Detect the current website version
+- Deploy mood
+- Detect the new website version
+- Run synthetic tests
