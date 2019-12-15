@@ -18,12 +18,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install other dependencies
+    # -- install dependencies needed for the CI pipeline
+    - name: Install Dependencies
       run: sudo npm i -g now
 
+    # -- detect the current mood version and set as a variable
     - name: Detect Old Mood Version
       run: echo ::set-env name=OLD_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
     
+    # -- deploy to Zeit
     - name: Deploy Mood Website
       env:
         BUILD_ID: ${{ github.sha }}
@@ -37,12 +40,15 @@ jobs:
         --no-clipboard
         --token ${ZEIT_TOKEN}
          
+    # -- detect the new mood version and set as a variable
     - name: Detect Current Mood Version
       run: echo ::set-env name=NEW_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')        
 
+    # -- print the two versions
     - name: Show Mood Versions
       run: echo "Upgraded $OLD_MOOD_VERSION → $NEW_MOOD_VERSION"
 
+    # -- run the synthetic monitoring
     - name: Run Synthetic-Monitoring
       run: |
         env > .env
