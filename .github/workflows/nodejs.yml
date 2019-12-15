@@ -21,8 +21,8 @@ jobs:
     - name: Install other dependencies
       run: sudo npm i -g now
 
-    - name: Detect Mood Version
-      run: echo ::set-env name=MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
+    - name: Detect Old Mood Version
+      run: echo ::set-env name=OLD_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
     
     - name: Deploy Mood Website
       env:
@@ -36,11 +36,17 @@ jobs:
         --public
         --no-clipboard
         --token ${ZEIT_TOKEN}
+         
+    - name: Detect Current Mood Version
+      run: echo ::set-env name=NEW_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')        
+
+    - name: Show Mood Versions
+      run: echo "$OLD_MOOD_VERSION → $NEW_MOOD_VERSION"
 
     - name: Run Synthetic-Monitoring
       run: |
         env > .env
-        echo "\n\ntesting mood version $MOOD_VERSION\n\n"
+        echo "\n\ntesting mood version $OLD_MOOD_VERSION\n\n"
         npm install
         cd monitoring && npm install && cd ..
         npm run monitoring
