@@ -21,7 +21,6 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
       with:
-        envkey_NODE_ENV: production
         envkey_COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
         envkey_ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
         envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -29,6 +28,7 @@ jobs:
         envkey_TEST_ACCOUNT_CREDENTIAL: ${{ secrets.TEST_ACCOUNT_CREDENTIAL }}
         envkey_TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
         envkey_TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
+        envkey_NODE_ENV: production
         file_name: .env
 
     - name: Run Synthetic-Monitoring
