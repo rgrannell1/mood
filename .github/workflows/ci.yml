@@ -1,0 +1,68 @@
+name: Deploy & Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # -- install dependencies needed for the CI pipeline
+    - name: Install Dependencies
+      run: sudo npm i -g now
+
+    # -- detect the current mood version and set as a variable
+    - name: Detect Old Mood Version
+      run: echo ::set-env name=OLD_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
+    
+    # -- deploy to Zeit
+    - name: Deploy Mood Website
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      run: >
+        now deploy
+        --local-config=./now.json
+        --build-env NODE_ENV=production
+        --env NODE_ENV=production
+        --public
+        --no-clipboard
+        --token ${ZEIT_TOKEN}
+         
+    # -- detect the new mood version and set as a variable
+    - name: Detect Current Mood Version
+      run: echo ::set-env name=NEW_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')        
+
+    # -- print the two versions
+    - name: Show Mood Versions
+      run: echo "Upgraded $OLD_MOOD_VERSION → $NEW_MOOD_VERSION"
+
+    # -- run the synthetic monitoring
+    - name: Run Synthetic-Monitoring
+      run: |
+        env > .env
+        echo "\n\ntesting mood version $OLD_MOOD_VERSION\n\n"
+        npm install
+        cd monitoring && npm install && cd ..
+        npm run monitoring
+      env:
+        CI: true
+        NODE_ENV: production
+        COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
+        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        TEST_ACCOUNT_CREDENTIAL: ${{ secrets.TEST_ACCOUNT_CREDENTIAL }}
+        TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
+        TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}

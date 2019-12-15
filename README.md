@@ -66,12 +66,22 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 ### Browser Tests
 
-#### Signin
+#### Sign-in
 
 - page includes expected selectors
 - login response contained expected fields and headers
 - login request contained expected fields and headers
 - login with valid-credentials succeeds at navigating to the main page
+
+#### Register
+
+#### Main Page
+
+#### Privacy
+
+#### Edit
+
+---
 
 ### API Tests
 
@@ -102,3 +112,12 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 - returns the expected status-code
 - returns the expected status-code, body format, and headers when authenticated
+
+## ➡️ Continuous Integration
+
+Mood's CI pipeline is implemented using Github Actions.
+
+- Detect the current website version
+- Deploy mood
+- Detect the new website version
+- Run synthetic tests
