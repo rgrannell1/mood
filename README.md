@@ -118,6 +118,8 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 
 ## ➡️ Continuous Integration
 
+Mood's CI pipeline is implemented using Github Actions.
+
 - Detect the current website version
 - Deploy mood
 - Detect the new website version
