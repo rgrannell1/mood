@@ -20,9 +20,11 @@ jobs:
 
     - name: Detect Mood Version
       run: echo ::set-env name=MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
-    - name: "Run Synthetic-Monitoring of $MOOD_VERSION"
+    
+    - name: Run Synthetic-Monitoring
       run: |
         env > .env
+        echo "testing $MOOD_VERSION"
         npm install
         cd monitoring && npm install && cd ..
         npm run monitoring
