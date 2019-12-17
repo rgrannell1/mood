@@ -1,9 +1,11 @@
 
 # 😐 mood.
 
-Badge | Status
------ | ------
+Badge   | Status
+------- | ------
 License | MIT
+CI      | https://github.com/rgrannell1/mood/workflows/ci/badge.svg
+
 
 ![example screenshot](screenshot.png "Example Screenshot")
 
