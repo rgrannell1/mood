@@ -65,4 +65,13 @@ utils.timeoutError = (error, timeout) => {
   })
 }
 
+/**
+ * Navigate to the mood site.
+ */
+utils.moodPage = async (browser, host) => {
+  const page = await browser.newPage()
+  await page.goto(host)
+  return page
+}
+
 module.exports = utils

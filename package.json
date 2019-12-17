@@ -79,8 +79,16 @@
     "build": ["npm run build:watch"],
     "site": {
       "path": "index.html",
-      "publicFolder": "public",
+      "publicDir": "public",
       "watch": ["public"]
+    },
+    "api": {
+      "path": "build/shared/api.mjs",
+      "watch": ["api", "routes"],
+      "port": 4010,
+      "env": {
+        "path": ".env"
+      }
     }
   }
 }

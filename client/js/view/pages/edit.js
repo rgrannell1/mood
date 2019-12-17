@@ -13,6 +13,7 @@ components.edit = state => {
   let moodComponents = []
 
   if (state.moods) {
+    console.log(state.moods)
     moodComponents = state.moods.map(mood => {
       return `<div>${mood.mood}</div>`
     })

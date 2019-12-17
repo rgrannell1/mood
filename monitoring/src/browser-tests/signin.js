@@ -134,19 +134,10 @@ tests.redirectToRegister = async page => {
   }
 }
 
-/**
- * Navigate to the mood site.
- */
-const moodPage = async (browser, host) => {
-  const page = await browser.newPage()
-  await page.goto(host)
-  return page
-}
-
 const signinTests = async (host, db, browser) => {
-//  await tests.hasSelectors(await moodPage(browser, host))
-//  await tests.loginValidCredentials(await moodPage(browser, host))
-  await tests.redirectToRegister(await moodPage(browser, host))
+  await tests.hasSelectors(await utils.moodPage(browser, host))
+  await tests.loginValidCredentials(await utils.moodPage(browser, host))
+  await tests.redirectToRegister(await utils.moodPage(browser, host))
 
   signale.success('browser signin worked as expected')
 }
