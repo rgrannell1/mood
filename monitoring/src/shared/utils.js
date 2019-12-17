@@ -74,4 +74,31 @@ utils.moodPage = async (browser, host) => {
   return page
 }
 
+utils.interceptRequestResponse = (page, fragment) => {
+  return new Promise((resolve, reject) => {
+
+    function handleRequest (request) {
+      if (request.url().includes(fragment)) {
+        pair.request = request
+      }
+    }
+
+    function handleResponse (response) {
+      if (response.url().includes(fragment)) {
+        pair.response = response
+
+        page.removeListener('request', handleRequest)
+        page.removeListener('response', handleResponse)
+
+        resolve(pair)
+      }
+    }
+
+    const pair = {}
+    page
+      .on('request', handleRequest)
+      .on('response', handleResponse)
+  })
+}
+
 module.exports = utils
