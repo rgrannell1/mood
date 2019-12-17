@@ -13,6 +13,8 @@ const {
 const tests = {}
 
 tests.hasSelectors = async page => {
+  await page.click('#mood-create-account')
+
   const selectors = [
     '#mood-signup',
     '#mood-input-form',
