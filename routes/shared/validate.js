@@ -9,11 +9,11 @@ const checkSchema = (object, schema) => {
   const report = jsonSchema(object, schema)
 
   const message = report.errors.map(error => {
-    return `${error.message} (${error.schema})`
+    return ` - ${error.message} (${error.schema})`
   }).join('\n')
 
   if (message) {
-    log.warn(message)
+    log.warn({}, `failed to validate schema:\n${message}`)
   }
 }
 
@@ -29,6 +29,7 @@ const schemas = {}
 schemas.session = {
   id: '/session',
   type: 'object',
+  required: ['username', 'sessionId'],
   properties: {
     username: {
       type: 'string',
@@ -233,5 +234,7 @@ validate.db.user = user => {
 
   return user
 }
+
+validate.log = log
 
 module.exports = validate

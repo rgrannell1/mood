@@ -1,9 +1,19 @@
 /* eslint-env mocha */
 
-const validate = require('../routes/shared/validate')
+const tap = require('tap')
+const path = require('path')
+
+const constants = {
+  paths: {
+    log: path.join(__dirname, '../routes/shared/log.js')
+  }
+}
+
+const td = require('testdouble')
 
 const examples = {
-  users: {}
+  users: {},
+  sessions: {}
 }
 
 examples.users.valid = [
@@ -16,22 +26,106 @@ examples.users.valid = [
 
 examples.users.invalid = [
   {
-    moods: {
-
-    }
+    moods: []
+  },
+  {
+    forwardedFor: [],
+    moods: []
+  },
+  {
+    forwardedFor: [],
+    ips: [],
+    moods: {}
   }
 ]
 
-describe('validate.db.user', () => {
-  it('should pass valid users', () => {
-    for (const user of examples.users.valid) {
-      validate.db.user(user)
+examples.sessions.valid = [
+  {
+    username: 'santa',
+    sessionId: '................'
+  }
+]
+
+examples.sessions.invalid = [
+  {
+    username: 'f'
+  },
+  {
+    username: 'santa',
+    sessionId: '.'
+  }
+]
+
+const tests = {}
+
+tests.validUsers = () => {
+  td.replace(constants.paths.log, {
+    warn (ctx, message) {
+      throw new Error(message)
     }
   })
 
-  it('should fail invalid users', () => {
-    for (const user of examples.users.invalid) {
-      validate.db.user(user)
+  const validate = require('../routes/shared/validate')
+
+  for (const user of examples.users.valid) {
+    validate.db.user(user)
+    tap.pass('user parsed as expected')
+  }
+
+  td.reset()
+}
+
+tests.invalidUsers = () => {
+  td.replace(constants.paths.log, {
+    warn (ctx, message) {
+      throw new Error(message)
     }
   })
-})
+
+  const validate = require('../routes/shared/validate')
+
+  for (const user of examples.users.invalid) {
+    tap.throws(() => validate.db.user(user))
+  }
+
+  td.reset()
+}
+
+tests.validSessions = () => {
+  td.replace(constants.paths.log, {
+    warn (ctx, message) {
+      throw new Error(message)
+    }
+  })
+
+  const validate = require('../routes/shared/validate')
+
+  for (const session of examples.sessions.valid) {
+    validate.db.session(session)
+    tap.pass('session parsed as expected')
+  }
+
+  td.reset()
+}
+
+tests.invalidSessions = () => {
+  td.replace(constants.paths.log, {
+    warn (ctx, message) {
+      throw new Error(message)
+    }
+  })
+
+  const validate = require('../routes/shared/validate')
+
+  for (const session of examples.sessions.invalid) {
+    tap.throws(() => validate.db.session(session))
+  }
+
+  td.reset()
+}
+
+tests.validUsers()
+tests.invalidUsers()
+
+tests.validSessions()
+tests.invalidSessions()

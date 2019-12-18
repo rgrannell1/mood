@@ -103,12 +103,8 @@ moodGraphs.heatplot = async data => {
   // eslint-disable-next-line no-undef
   vegaEmbed('#mood-over-time', spec, {
     renderer: 'svg',
-    //height: 200,
-    "autosize": {
-      "type": "fit",
-      "contains": "padding"
-    },
-
+    height: 200,
+    width: 400
   })
 }
 
