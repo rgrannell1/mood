@@ -124,8 +124,67 @@ tests.invalidSessions = () => {
   td.reset()
 }
 
+tests.getValidMetadataBody = () => {
+  td.replace(constants.paths.log, {
+    warn (ctx, message) {
+      throw new Error(message)
+    }
+  })
+
+  const validate = require('../routes/shared/validate')
+
+  validate.output.get.metadata.body({
+    version: 'v1'
+  })
+
+  td.reset()
+}
+
+tests.getInvalidMetadataBody = () => {
+  td.replace(constants.paths.log, {
+    warn (ctx, message) {
+      throw new Error(message)
+    }
+  })
+
+  const validate = require('../routes/shared/validate')
+
+  tap.throws(() => {
+    validate.output.get.metadata.body({
+
+    })
+  })
+
+  td.reset()
+}
+
+tests.validRegisterCredentials = () => {
+  const validate = require('../routes/shared/validate')
+
+  const body = JSON.stringify({
+    user: 'abc',
+    password: '..............'
+  })
+
+  validate.input.registerCredentials({ body })
+}
+
+tests.invalidRegisterCredentials = () => {
+  const validate = require('../routes/shared/validate')
+
+  tap.throws(() => {
+    validate.input.registerCredentials({ body: '{' })
+  })
+}
+
 tests.validUsers()
 tests.invalidUsers()
 
 tests.validSessions()
 tests.invalidSessions()
+
+tests.getValidMetadataBody()
+tests.getInvalidMetadataBody()
+
+//tests.validRegisterCredentials()
+//tests.invalidRegisterCredentials()

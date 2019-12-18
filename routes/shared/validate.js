@@ -188,6 +188,9 @@ validate.input.registerCredentials = async (req, res) => {
   if (!body.password) {
     throw errors.unprocessableEntity('Empty password value provided', 422)
   }
+  if (body.user.length < 3) {
+    throw errors.unprocessableEntity('Insuffienctly long username provided', 422)
+  }
   if (body.password.length < 14) {
     throw errors.unprocessableEntity('Insuffienctly long password provided', 422)
   }
@@ -211,13 +214,11 @@ validate.output = {
   }
 }
 
-validate.output.get.moods.body = body => {
-
-}
+validate.output.get.moods.body = body => {}
 
 validate.output.get.metadata.body = body => {
   if (!body.hasOwnProperty('version')) {
-    signale.warn('GET /api/metadata was missing property "version"')
+    log.warn({}, 'GET /api/metadata was missing property "version"')
   }
 }
 
