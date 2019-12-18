@@ -72,8 +72,12 @@ Mood's repository includes a suite of synthetic-monitoring to check the site wor
 - login response contained expected fields and headers
 - login request contained expected fields and headers
 - login with valid-credentials succeeds at navigating to the main page
+- clicking register link redirects to that page
 
 #### Register
+
+- page includes expected selectors
+- clicking sign in link redirects to that page
 
 #### Main Page
 

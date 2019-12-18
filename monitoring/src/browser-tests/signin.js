@@ -80,8 +80,6 @@ validateLogin.response = async response => {
   }
 }
 
-
-
 /**
  * Test whether login succeeds for valid credentials
  *
@@ -94,11 +92,18 @@ tests.loginValidCredentials = async page => {
   await page.type('#mood-password', TEST_ACCOUNT_PASSWORD)
 
   await page.click('#mood-signin-submit')
+  await new Promise((resolve, reject) => {
+    page
+      .on('request', validateLogin.request)
+      .on('response', function handleResponse(response) {
+        validateLogin.response(response)
 
-  const { request, response } = await utils.interceptRequestResponse(page, 'login')
+        page.removeListener('request', validateLogin.request)
+        page.removeListener('request', handleResponse)
 
-  validateLogin.request(request)
-  validateLogin.response(response)
+        resolve()
+      })
+  })
 
   return Promise.race([
     page.waitForSelector('#mood-box'),

@@ -95,7 +95,8 @@ body {
   margin-top: 20px;
 }
 
-#mood-create-account {
+#mood-create-account,
+#mood-login-account {
   margin-top: 20px;
   font-weight: bolder;
   color: var(--font-colour);

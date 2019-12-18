@@ -31,7 +31,7 @@ components.registerPanel = (pages, state) => {
 
           <input id="mood-signup-submit" @click=${components.registerPanel.onRegisterSubmitClick(pages, state)} class="${state}" type="submit" value="${submitText}">
 
-          <p id="mood-create-account" @click=${components.registerPanel.onSigninLinkClick(pages, state)}>Already Registered? Sign In</p>
+          <p id="mood-login-account" @click=${components.registerPanel.onSigninLinkClick(pages, state)}>Already Registered? Sign In</p>
           </div>
     </section>`
 }

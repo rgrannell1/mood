@@ -76,6 +76,7 @@ utils.moodPage = async (browser, host) => {
 
 utils.interceptRequestResponse = (page, fragment) => {
   return new Promise((resolve, reject) => {
+    const pair = {}
 
     function handleRequest (request) {
       if (request.url().includes(fragment)) {
@@ -87,14 +88,24 @@ utils.interceptRequestResponse = (page, fragment) => {
       if (response.url().includes(fragment)) {
         pair.response = response
 
-        page.removeListener('request', handleRequest)
         page.removeListener('response', handleResponse)
 
-        resolve(pair)
+        if (!pair.request) {
+          setTimeout(() =>{
+            page.removeListener('request', handleRequest)
+            if (!pair.request) {
+              reject(new Error(`no request matching "${fragment}" found`))
+            }
+
+            resolve(pair)
+          }, 2000)
+        } else {
+          page.removeListener('request', handleRequest)
+          resolve(pair)
+        }
       }
     }
 
-    const pair = {}
     page
       .on('request', handleRequest)
       .on('response', handleResponse)
