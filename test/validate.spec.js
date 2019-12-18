@@ -186,5 +186,5 @@ tests.invalidSessions()
 tests.getValidMetadataBody()
 tests.getInvalidMetadataBody()
 
-//tests.validRegisterCredentials()
+tests.validRegisterCredentials()
 //tests.invalidRegisterCredentials()
