@@ -38,7 +38,9 @@
     "copy-webpack-plugin": "^5.1.1",
     "express": "^4.17.1",
     "fs-extra": "^8.1.0",
+    "mocha": "^6.2.2",
     "now": "16.1.3",
+    "nyc": "^14.1.1",
     "puppeteer-firefox": "^0.5.0",
     "rimraf": "^3.0.0",
     "standard": "^14.3.1",
@@ -58,7 +60,8 @@
     "standard": "npx standard 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
     "standard:fix": "npx standard --fix 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
     "monitoring": "node monitoring/src/index.js",
-    "pulp": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs"
+    "pulp": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs",
+    "test": "npx nyc mocha"
   },
   "repository": {
     "type": "git",
@@ -76,15 +79,22 @@
     }
   },
   "live-reload": {
-    "build": ["npm run build:watch"],
+    "build": [
+      "npm run build:watch"
+    ],
     "site": {
       "path": "index.html",
       "publicDir": "public",
-      "watch": ["public"]
+      "watch": [
+        "public"
+      ]
     },
     "api": {
       "path": "build/shared/api.mjs",
-      "watch": ["api", "routes"],
+      "watch": [
+        "api",
+        "routes"
+      ],
       "port": 4010,
       "env": {
         "path": ".env"

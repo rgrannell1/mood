@@ -49,6 +49,7 @@ schemas.session = {
 schemas.user = {
   id: '/user',
   type: 'object',
+  required: ['forwardedFor', 'ips'],
   properties: {
     forwardedFor: {
       type: 'array',

@@ -22,10 +22,15 @@ jobs:
     - name: Install Dependencies
       run: sudo npm i -g now
 
+    - name: Run Tests
+      run: |
+        npm install
+        npm test
+
     # -- detect the current mood version and set as a variable
     - name: Detect Old Mood Version
       run: echo ::set-env name=OLD_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
-    
+
     # -- deploy to Zeit
     - name: Deploy Mood Website
       env:
@@ -39,10 +44,10 @@ jobs:
         --public
         --no-clipboard
         --token ${ZEIT_TOKEN}
-         
+
     # -- detect the new mood version and set as a variable
     - name: Detect Current Mood Version
-      run: echo ::set-env name=NEW_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')        
+      run: echo ::set-env name=NEW_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
 
     # -- print the two versions
     - name: Show Mood Versions
