@@ -56,30 +56,3 @@ module.exports.userId = () => {
 module.exports.hash = string => {
   return crypto.createHash('sha512').update(string).digest('base64')
 }
-
-/**
- * Create a koremutake random string
- *
- * @param {number} num a non-negative integer, the number of phonemes to use
- *
- * @returns {string} a random koremutake string
- */
-module.exports.asKoremutake = num => {
-  if (num < 0) {
-    throw new Error('require a positive number')
-  } else if (num === 0) {
-    return phonemes[0]
-  }
-
-  let digits = []
-  const plen = phonemes.length
-
-  while (num > 0) {
-    const digit = num % plen
-    num = Math.floor(num / plen)
-
-    digits = [phonemes[digit]].concat(digits)
-  }
-
-  return digits.join('')
-}
