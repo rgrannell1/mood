@@ -129,6 +129,11 @@ label[for="mood-password-repeat"] {
   color: var(--emoji-hover);
 }
 
+#menu-version {
+  margin-top: auto;
+  color: var(--divider-colour) !important;
+}
+
 #screen-opacity {
   z-index: 1;
   position: absolute;
@@ -160,7 +165,6 @@ label[for="mood-password-repeat"] {
   left: 0;
   color: var(--dark-mode-font-colour);
   width: 240px;
-  height: 100%;
   height: calc(100vh - 59px);
   background: var(--header-colour);
   border-top: 1px solid var(--divider-colour);
@@ -170,9 +174,9 @@ label[for="mood-password-repeat"] {
   margin: 15px;
   list-style: none;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  height: auto;
+  justify-content: flex-start;
+  height: calc(100vh - 59px - 30px);
 }
 
 #menu ul li {

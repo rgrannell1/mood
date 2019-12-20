@@ -20,7 +20,7 @@ tests.sessionIdLength = () => {
 }
 
 tests.userIdLength = () => {
-  const result = utils.userId()
+  utils.userId()
 }
 
 tests.hash = () => {

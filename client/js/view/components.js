@@ -2,6 +2,7 @@
 import moodGraphs from '../view/mood-graphs.js'
 import { render, html } from 'lit-html'
 import { local } from '../shared/utils.js'
+import constants from '../shared/constants.js'
 
 const components = {}
 
@@ -70,6 +71,7 @@ components.menu = (pages, state) => {
         <li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>
         <li><div class='nav-divider'></div></li>
         <li class="menu-item" id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>🌙 Dark Mode </li>
+        <li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>
       </ul>
     </nav>
   `
