@@ -131,6 +131,7 @@ label[for="mood-password-repeat"] {
 
 #menu-version {
   margin-top: auto;
+  overflow-wrap: break-word;
   color: var(--divider-colour) !important;
 }
 
