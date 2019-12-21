@@ -101,9 +101,9 @@ components.menu = (pages, state) => {
     <nav id="menu" style="visibility: hidden;">
       <ul>
         ${components.menuHome(pages, state)}
-        ${guardLoggedIn(components.menuEdit(pages, state))}
+        ${components.menuEdit(pages, state)}
         ${components.menuRegister(pages, state)}
-        ${guardLoggedIn(components.menuLogout(pages, state))}
+        ${components.menuLogout(pages, state)}
         ${components.menuPrivacy(pages, state)}
 
         <li><div class='nav-divider'></div></li>
