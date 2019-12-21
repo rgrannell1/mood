@@ -50,40 +50,47 @@ components.header.onBurgerMenuClick = state => () => {
   const $opacity = document.getElementById('screen-opacity')
   const $menu = document.getElementById('menu')
 
+  if (!$opacity) {
+    console.error('$opacity missing')
+  }
+  if (!$menu) {
+    console.error('$menu missing')
+  }
+
   toggleVisibility($opacity)
   toggleVisibility($menu)
 }
 
 components.menuHome = (pages, state) => {
-  return `<li class="menu-item" id="menu-home" @click=${components.menu.onHomeClick(pages, state)}>🏠 Home</li>`
+  return html`<li class="menu-item" id="menu-home" @click=${components.menu.onHomeClick(pages, state)}>🏠 Home</li>`
 }
 
 components.menuEdit = (pages, state) => {
-  return `<li class="menu-item" id="menu-edit" @click=${components.menu.onEditClick(pages, state)}>✏️ Edit</li>`
+  return html`<li class="menu-item" id="menu-edit" @click=${components.menu.onEditClick(pages, state)}>✏️ Edit</li>`
 }
 
 components.menuRegister = (pages, state) => {
-  return `<li class="menu-item" id="menu-register" @click=${components.menu.onRegisterClick(pages, state)}>👤 Register</li>`
+  return html`<li class="menu-item" id="menu-register" @click=${components.menu.onRegisterClick(pages, state)}>👤 Register</li>`
 }
 
 components.menuLogout = (pages, state) => {
-  return `<li class="menu-item" id="menu-logout" @click=${components.menu.onLogoutClick(pages, state)}>❌ Logout</li>`
+  return html`<li class="menu-item" id="menu-logout" @click=${components.menu.onLogoutClick(pages, state)}>❌ Logout</li>`
 }
 
 components.menuPrivacy = (pages, state) => {
-  return `<li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>`
+  return html`<li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>`
 }
 
 components.menuDarkMode = (pages, state) => {
-  return `<li class="menu-item" id="menu-dark-mode-toggle" @click=${ toggleTheme(state) }>🌙 Dark Mode </li>`
+  return html`<li class="menu-item" id="menu-dark-mode-toggle" @click=${ toggleTheme(state) }>🌙 Dark Mode </li>`
 }
 
 components.menuVersion = (pages, state) => {
-  return `<li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>`
+  return html`<li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>`
 }
 
 components.menuDivider = () =>{
-  return `<li><div class='nav-divider'></div></li>`
+  return html`<li><div class='nav-divider'></div></li>`
 }
 
 /**
@@ -93,7 +100,7 @@ components.menuDivider = () =>{
  * @param {Object} state the application state
  */
 components.menu = (pages, state) => {
-  let listItems
+  let listItems = []
 
   if (state.isLoggedIn) {
     listItems = [
@@ -117,13 +124,9 @@ components.menu = (pages, state) => {
     ]
   }
 
-  return html`
-    <nav id="menu" style="visibility: hidden;">
-      <ul>
-        ${listItems}
-        </ul>
-    </nav>
-  `
+  return html`<nav id="menu" style="visibility: hidden;">
+    <ul>${listItems}</ul>
+  </nav>`
 }
 
 components.menu.onPrivacyClick = (pages, state) => () => {
@@ -171,6 +174,11 @@ const toggleTheme = state => () => {
 }
 
 const toggleVisibility = $elem => {
+  if (!$elem) {
+    console.error('$elem missing')
+    return
+  }
+
   if ($elem.style.visibility === 'hidden') {
     $elem.style.visibility = ''
   } else {

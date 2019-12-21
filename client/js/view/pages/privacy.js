@@ -52,9 +52,11 @@ components.privacyPolicy = () => {
  * @returns {HTML} index-page
  */
 const privacyPage = (pages, state) => {
-  if (!state.main) {
+  if (!state.privacy) {
     state.privacy = {}
   }
+
+  state.page = 'privacy'
 
   return components.page(components.privacyPolicy(), pages, state)
 }

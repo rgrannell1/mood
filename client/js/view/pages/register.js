@@ -90,6 +90,8 @@ const registerPage = (pages, state) => {
     state.register = {}
   }
 
+  state.page = 'register'
+
   return components.page(components.registerPanel(pages, state), pages, state)
 }
 

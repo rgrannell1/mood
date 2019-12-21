@@ -12,8 +12,9 @@ import components from '../components'
 components.edit = state => {
   let moodComponents = []
 
+  state.page = 'edit'
+
   if (state.moods) {
-    console.log(state.moods)
     moodComponents = state.moods.map(mood => {
       return `<div>${mood.mood}</div>`
     })

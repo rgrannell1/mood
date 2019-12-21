@@ -68,6 +68,8 @@ const mainPage = (pages, state) => {
     state.main = {}
   }
 
+  state.page = 'main'
+
   const indexMain = html`
     ${components.moodPanel()}
     ${components.moodGraph()}

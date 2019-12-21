@@ -9,6 +9,7 @@ import {
 } from './shared/utils.js'
 
 const state = {
+  menu: { },
   signin: { },
   register: { }
 }
