@@ -90,6 +90,8 @@ components.menuVersion = (pages, state) => {
  */
 components.menu = (pages, state) => {
   const guardLoggedIn = component => {
+    return component
+
     if (state.isLoggedIn) {
       return component
     }

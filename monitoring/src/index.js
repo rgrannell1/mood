@@ -29,7 +29,7 @@ const db = admin.firestore()
  */
 async function syntheticMonitoring () {
   const browser = await puppeteer.launch({
-    headless: true
+    headless: false
   })
 
   // run e2e api-tests
