@@ -317,3 +317,21 @@ main {
   width: 100%;
   height: calc(width);
 }
+
+.mood-history-list {
+  list-style: none;
+}
+
+.mood-history-item {
+  padding: 1.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--divider-colour);
+}
+
+.mood-edit-time {
+  margin-bottom: 0.5em;
+}
+
+.mood-edit-mood {
+
+}

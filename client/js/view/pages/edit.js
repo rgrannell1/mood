@@ -8,15 +8,12 @@ import components from '../components'
 
 components.moodRow = mood => {
   const time = formatDate(new Date(mood.timestamp))
-  const centre = html`
-  <li>
-    <div>
-      <h2>${time}</h2>
-      <span>${mood.mood}</span>
-    </div>
-  <li>
-  `
-  return html`<li>${centre}</li>`
+
+  return html`
+  <li class="mood-history-item">
+    <h3 class="mood-edit-time">${time}</h3>
+    <span class="mood-edit-mood">${mood.mood}</span>
+  <li>`
 }
 
 /**
@@ -34,8 +31,8 @@ components.edit = state => {
   const moodComponents = html`${until(moods, html`<span>Loading</span>`)}`
 
   return html`<section id="mood-edit" class="mood-panel">
-    ${components.h2('Edit Moods')}
-    <ul>
+    ${components.h2('History')}
+    <ul class="mood-history-list">
       ${moodComponents}
     </ul>
   `
