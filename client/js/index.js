@@ -3,7 +3,6 @@ import { render } from 'lit-html'
 
 import pages from './view/pages/index.js'
 import moodGraphs from './view/mood-graphs.js'
-import { api } from './shared/api'
 
 import {
   registerServiceWorker
@@ -14,9 +13,8 @@ const state = {
   register: { }
 }
 
-const isAuthenticated = async () => {
-  const result = await api.moods.get()
-  return result.status === 200
+const isAuthenticated = () => {
+  return document.cookie.includes('mood-session.sig')
 }
 
 /**
@@ -31,11 +29,10 @@ initPage()
 /**
  * Render the mood SPA
  */
-const renderPage = async () => {
-//  const isLoggedIn = await isAuthenticated()
+const landingPage = async () => {
+  state.isLoggedIn = isAuthenticated()
 
-  if (false) {
-  //if (isLoggedIn) {
+  if (state.isLoggedIn) {
     render(pages.main(pages, state), document.body)
     moodGraphs.refreshMoodGraphs(state)
   } else {
@@ -43,4 +40,4 @@ const renderPage = async () => {
   }
 }
 
-renderPage()
+landingPage(state)

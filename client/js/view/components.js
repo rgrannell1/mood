@@ -54,6 +54,34 @@ components.header.onBurgerMenuClick = state => () => {
   toggleVisibility($menu)
 }
 
+components.menuHome = (pages, state) => {
+  return `<li class="menu-item" id="menu-home" @click=${components.menu.onHomeClick(pages, state)}>🏠 Home</li>`
+}
+
+components.menuEdit = (pages, state) => {
+  return `<li class="menu-item" id="menu-edit" @click=${components.menu.onEditClick(pages, state)}>✏️ Edit</li>`
+}
+
+components.menuRegister = (pages, state) => {
+  return `<li class="menu-item" id="menu-register" @click=${components.menu.onRegisterClick(pages, state)}>👤 Register</li>`
+}
+
+components.menuLogout = (pages, state) => {
+  return `<li class="menu-item" id="menu-logout" @click=${components.menu.onLogoutClick(pages, state)}>❌ Logout</li>`
+}
+
+components.menuPrivacy = (pages, state) => {
+  return `<li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>`
+}
+
+components.menuDarkMode = (pages, state) => {
+  return `<li class="menu-item" id="menu-dark-mode-toggle" @click=${ toggleTheme(state) }>🌙 Dark Mode </li>`
+}
+
+components.menuVersion = (pages, state) => {
+  return `<li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>`
+}
+
 /**
  * Construct the side-menu (hidden by default)
  *
@@ -61,18 +89,25 @@ components.header.onBurgerMenuClick = state => () => {
  * @param {Object} state the application state
  */
 components.menu = (pages, state) => {
+  const guardLoggedIn = component => {
+    if (state.isLoggedIn) {
+      return component
+    }
+  }
+
   return html`
     <nav id="menu" style="visibility: hidden;">
       <ul>
-        <li class="menu-item" id="menu-home" @click=${components.menu.onHomeClick(pages, state)}>🏠 Home</li>
-        <li class="menu-item" id="menu-edit" @click=${components.menu.onEditClick(pages, state)}>✏️ Edit</li>
-        <li class="menu-item" id="menu-register" @click=${components.menu.onRegisterClick(pages, state)}>👤 Register</li>
-        <li class="menu-item" id="menu-logout" @click=${components.menu.onLogoutClick(pages, state)}>❌ Logout</li>
-        <li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>
+        ${components.menuHome(pages, state)}
+        ${guardLoggedIn(components.menuEdit(pages, state))}
+        ${components.menuRegister(pages, state)}
+        ${guardLoggedIn(components.menuLogout(pages, state))}
+        ${components.menuPrivacy(pages, state)}
+
         <li><div class='nav-divider'></div></li>
-        <li class="menu-item" id="menu-dark-mode-toggle" @click=${toggleTheme(state)}>🌙 Dark Mode </li>
-        <li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>
-      </ul>
+        ${components.menuDarkMode(pages, state)}
+        ${components.menuVersion(pages, state)}
+        </ul>
     </nav>
   `
 }
