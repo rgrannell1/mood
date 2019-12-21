@@ -4,13 +4,9 @@ LICENSE.md
 pulpfile.mjs
 README.md
 screenshot.png
-webpack.common.mjs
-webpack.dev.mjs
-webpack.prod.mjs
 yarn.lock
 .github/
 .nyc_output/
-build/
 monitoring/
 src/
 test/
