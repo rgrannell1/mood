@@ -67,8 +67,8 @@ export const formatDate = input => {
   if (isToday) {
     return `Today, ${date.format('HH:mm')}`
   } else if (isThisYear) {
-    return `${dayjs(date).format('ddd MMM D')} @ ${dayjs(date).format('HH:mm')}`
+    return `${dayjs(date).format('ddd MMM D')} ${dayjs(date).format('HH:mm')}`
   } else {
-    return `${dayjs(date).format('ddd MMM D YYYY')} @ ${dayjs(date).format('HH:mm')}`
+    return `${dayjs(date).format('ddd MMM D YYYY')} ${dayjs(date).format('HH:mm')}`
   }
 }

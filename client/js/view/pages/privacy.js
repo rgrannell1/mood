@@ -30,7 +30,7 @@ components.privacyPolicy = () => {
       <li>any submitted moods and their corresponding timestamps</li>
     </ul>
 
-    <p>This information is presently not encrypted when stored.</p>
+    <p>This information is not yet encrypted when stored.</p>
 
     <h3>Information Usage</h3>
 
@@ -41,6 +41,10 @@ components.privacyPolicy = () => {
       <li>an array of hashed ip headers</li>
       <li>the total number of requests made by the user</li>
     </ul>
+
+    <h3>Third-Party Monitoring & Storage</h3>
+
+    <p>mood uses Google Analytics to monitoring users visiting the site. This information is captured for pricing and security reasons.</p>
 
     </section>
   `
