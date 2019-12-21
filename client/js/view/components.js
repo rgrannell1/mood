@@ -141,6 +141,8 @@ components.menu.onLogoutClick = (pages, state) => () => {
   document.cookie = ''
   localStorage.clear()
 
+  // -- todo move to service
+
   render(pages.signin(pages, state), document.body)
 }
 
