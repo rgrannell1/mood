@@ -138,6 +138,9 @@ components.menu.onRegisterClick = (pages, state) => () => {
 }
 
 components.menu.onLogoutClick = (pages, state) => () => {
+  document.cookie = ''
+  localStorage.clear()
+
   render(pages.signin(pages, state), document.body)
 }
 
