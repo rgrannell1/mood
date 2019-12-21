@@ -1,4 +1,7 @@
 
+import day from 'dayjs'
+import dayjs from 'dayjs'
+
 /**
  * Typed wrapper for localstorage
  *
@@ -54,19 +57,18 @@ export const model = {
   }
 }
 
-export const formatDate = date => {
-  const now = new Date()
+export const formatDate = input => {
+  const now = dayjs()
+  const date = dayjs(input)
 
-  const isThisYear = now.getFullYear() === date.getFullYear()
-  const isToday = now.getDate() === date.getDate() &&
-    now.getMonth() === date.getMonth() &&
-    isThisYear
+  const isThisYear = now.format('YYYY') === date.format('YYYY')
+  const isToday = now.format('YYYY MM D') === date.format('YYYY MM D')
 
-  // -- TODO, improve this for items on other years,
-  // -- last month, etc.
   if (isToday) {
-    return `Today, ${date.getHours()}:${date.getMinutes()}`
+    return `Today, ${date.format('HH:Mm')}`
+  } else if (isThisYear) {
+    return `${dayjs(date).format('ddd MMM D')} @ ${dayjs(date).format('HH:mm')}`
   } else {
-    return `${date.toDateString()} @ ${date.getHours()}:${date.getMinutes()}`
+    return `${dayjs(date).format('ddd MMM D YYYY')} @ ${dayjs(date).format('HH:mm')}`
   }
 }
