@@ -3,6 +3,7 @@ import moodGraphs from '../view/mood-graphs.js'
 import { render, html } from 'lit-html'
 import { local } from '../shared/utils.js'
 import constants from '../shared/constants.js'
+import logout from '../services/logout.js'
 
 const components = {}
 
@@ -138,11 +139,7 @@ components.menu.onRegisterClick = (pages, state) => () => {
 }
 
 components.menu.onLogoutClick = (pages, state) => () => {
-  document.cookie = ''
-  localStorage.clear()
-
-  // -- todo move to service
-
+  logout()
   render(pages.signin(pages, state), document.body)
 }
 
