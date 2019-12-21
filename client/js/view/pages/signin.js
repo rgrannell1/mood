@@ -165,7 +165,7 @@ const signinPage = (pages, state) => {
     }
   }
 
-  state.page = 'signin'
+  state.currentPage = signinPage
 
   return components.page(components.signinPanel(pages, state), pages, state)
 }

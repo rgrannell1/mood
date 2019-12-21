@@ -36,6 +36,8 @@ const editPage = (pages, state) => {
     state.edit = {}
   }
 
+  state.currentPage = editPage
+
   return components.page(components.edit(state), pages, state)
 }
 

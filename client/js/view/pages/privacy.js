@@ -56,7 +56,7 @@ const privacyPage = (pages, state) => {
     state.privacy = {}
   }
 
-  state.page = 'privacy'
+  state.currentPage = privacyPage
 
   return components.page(components.privacyPolicy(), pages, state)
 }

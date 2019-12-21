@@ -68,7 +68,7 @@ const mainPage = (pages, state) => {
     state.main = {}
   }
 
-  state.page = 'main'
+  state.currentPage = mainPage
 
   const indexMain = html`
     ${components.moodPanel()}
