@@ -82,6 +82,10 @@ components.menuVersion = (pages, state) => {
   return `<li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>`
 }
 
+components.menuDivider = () =>{
+  return `<li><div class='nav-divider'></div></li>`
+}
+
 /**
  * Construct the side-menu (hidden by default)
  *
@@ -89,26 +93,34 @@ components.menuVersion = (pages, state) => {
  * @param {Object} state the application state
  */
 components.menu = (pages, state) => {
-  const guardLoggedIn = component => {
-    return component
+  let listItems
 
-    if (state.isLoggedIn) {
-      return component
-    }
+  if (state.isLoggedIn) {
+    listItems = [
+      components.menuHome(pages, state),
+      components.menuEdit(pages, state),
+      components.menuRegister(pages, state),
+      components.menuLogout(pages, state),
+      components.menuPrivacy(pages, state),
+      components.menuDivider(),
+      components.menuDarkMode(pages, state),
+      components.menuVersion(pages, state)
+    ]
+  } else {
+    listItems = [
+      components.menuHome(pages, state),
+      components.menuRegister(pages, state),
+      components.menuPrivacy(pages, state),
+      components.menuDivider(),
+      components.menuDarkMode(pages, state),
+      components.menuVersion(pages, state)
+    ]
   }
 
   return html`
     <nav id="menu" style="visibility: hidden;">
       <ul>
-        ${components.menuHome(pages, state)}
-        ${components.menuEdit(pages, state)}
-        ${components.menuRegister(pages, state)}
-        ${components.menuLogout(pages, state)}
-        ${components.menuPrivacy(pages, state)}
-
-        <li><div class='nav-divider'></div></li>
-        ${components.menuDarkMode(pages, state)}
-        ${components.menuVersion(pages, state)}
+        ${listItems}
         </ul>
     </nav>
   `
