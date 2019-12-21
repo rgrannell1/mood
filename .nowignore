@@ -1,7 +1,6 @@
 .eslintrc
 .stylelintrc
 LICENSE.md
-pulpfile.mjs
 README.md
 screenshot.png
 yarn.lock
