@@ -1,5 +1,6 @@
 
 import * as path from 'path'
+import webpack from 'webpack'
 import clean from 'clean-webpack-plugin'
 
 export default {
@@ -11,6 +12,7 @@ export default {
     path: path.resolve('public/js')
   },
   plugins: [
+    new webpack.ExtendedAPIPlugin(),
     new clean.CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         path.resolve('public/**/*')

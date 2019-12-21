@@ -1,7 +1,7 @@
 
 const constants = {
   // eslint-disable-next-line no-undef
-  version: __DEPLOYMENT_VERSION__,
+  version: __webpack_hash__,
 
   // eslint-disable-next-line no-undef
   staticHost: __STATIC_HOST__,
