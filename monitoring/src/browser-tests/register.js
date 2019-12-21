@@ -22,7 +22,7 @@ tests.hasSelectors = async page => {
     '#mood-password',
     '#mood-password-repeat',
     '#mood-signup-submit',
-    '#mood-create-account',
+    '#mood-login-account',
     '#dark-mode-toggle'
   ]
 
