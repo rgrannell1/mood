@@ -32,6 +32,14 @@ export const local = {
     } catch (err) {
       return localStorage.getItem(key)
     }
+  },
+  /**
+   * Clear localstorage
+   *
+   * @returns {undefined}
+   */
+  clear () {
+    localStorage.clear()
   }
 }
 

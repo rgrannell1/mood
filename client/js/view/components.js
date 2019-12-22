@@ -155,27 +155,37 @@ components.menu = (pages, state) => {
   </nav>`
 }
 
+/**
+ * Toggle the page-theme.
+ *
+ * TODO refactor this code heavily
+ *
+ * @param {*} state
+ */
 const toggleTheme = state => () => {
   const storedScheme = local.get('theme')
-
-  const $html = document.querySelector('html')
   const theme = storedScheme || 'light'
   const newTheme = theme === 'light'
     ? 'dark'
     : 'light'
 
+  const $html = document.querySelector('html')
   $html.setAttribute('data-theme', newTheme)
   local.set('theme', newTheme)
 
+  // -- todo factor this out into a component
   moodGraphs.refreshMoodGraphs(state)
 
-  if (newTheme === 'dark') {
-    document.querySelector('#dark-mode-toggle').textContent = '☀️'
-    document.querySelector('#menu-dark-mode-toggle').textContent = '☀️ Light Mode'
-  } else {
-    document.querySelector('#dark-mode-toggle').textContent = '🌙'
-    document.querySelector('#menu-dark-mode-toggle').textContent = '🌙 Dark Mode'
-  }
+  const $darkModeToggle = document.querySelector('#dark-mode-toggle')
+  const $menuDarkModeToggle = document.querySelector('#dark-mode-toggle')
+
+  $darkModeToggle.textContent = newTheme === 'dark'
+    ? '🌙'
+    : '☀️'
+
+  $menuDarkModeToggle.textContent = newTheme === 'dark'
+    ? '☀️ Light Mode'
+    : '🌙 Dark Mode'
 }
 
 /**

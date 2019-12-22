@@ -1,4 +1,6 @@
 
+import { local } from '../shared/utils.js'
+
 /**
  *
  * Log out of mood, and clear all local information
@@ -6,7 +8,7 @@
  */
 const logout = () => {
   document.cookie = ''
-  localStorage.clear()
+  local.clear()
 }
 
 export default logout
