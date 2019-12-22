@@ -8,29 +8,33 @@ import {
   registerServiceWorker
 } from './shared/utils.js'
 
+/**
+ * The page state.
+ */
 const state = {
   menu: { },
   signin: { },
   register: { }
 }
 
+/**
+ * Is there an existing session on this page?
+ *
+ * @returns {boolean}
+ */
 const isAuthenticated = () => {
   return document.cookie.includes('mood-session.sig')
 }
 
 /**
- * Run the client-side code
+ * Entrypoint to the application. This function renders to
+ * mood SPA's entrypoint.
+ *
+ * @returns {undefined}
  */
-async function initPage () {
+const renderMoodLandingPage = async () => {
   await registerServiceWorker()
-}
 
-initPage()
-
-/**
- * Render the mood SPA
- */
-const landingPage = async () => {
   state.isLoggedIn = isAuthenticated()
 
   if (state.isLoggedIn) {
@@ -41,4 +45,4 @@ const landingPage = async () => {
   }
 }
 
-landingPage(state)
+renderMoodLandingPage(state)

@@ -1,5 +1,4 @@
 
-import day from 'dayjs'
 import dayjs from 'dayjs'
 
 /**
@@ -43,6 +42,11 @@ export const local = {
   }
 }
 
+/**
+ * Register the page's service-worker
+ *
+ * @returns {undefined}
+ */
 export async function registerServiceWorker () {
   try {
     const reg = await navigator.serviceWorker.register('./../service-worker.js')
@@ -52,6 +56,7 @@ export async function registerServiceWorker () {
   }
 }
 
+// TODO: too small, remove
 export const model = {
   event (elem) {
     const time = Date.now()
@@ -65,6 +70,11 @@ export const model = {
   }
 }
 
+/**
+ * Format dates into a human-readable format.
+ *
+ * @param {date} input an input date
+ */
 export const formatDate = input => {
   const now = dayjs()
   const date = dayjs(input)
@@ -81,6 +91,11 @@ export const formatDate = input => {
   }
 }
 
+/**
+ * Toggle the elements visibility
+ *
+ * @param {DomElement} $elem
+ */
 export const toggleVisibility = $elem => {
   if (!$elem) {
     console.error('$elem missing')
