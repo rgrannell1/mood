@@ -1,7 +1,10 @@
 
 import moodGraphs from '../view/mood-graphs.js'
 import { render, html } from 'lit-html'
-import { local } from '../shared/utils.js'
+import {
+  local,
+  toggleVisibility
+} from '../shared/utils.js'
 import constants from '../shared/constants.js'
 import logout from '../services/logout.js'
 
@@ -63,23 +66,45 @@ components.header.onBurgerMenuClick = state => () => {
 }
 
 components.menuHome = (pages, state) => {
-  return html`<li class="menu-item" id="menu-home" @click=${components.menu.onHomeClick(pages, state)}>🏠 Home</li>`
+  return html`<li class="menu-item" id="menu-home" @click=${components.menuHome.onClick(pages, state)}>🏠 Home</li>`
+}
+
+components.menuHome.onClick = (pages, state) => () => {
+  render(pages.main(pages, state), document.body)
+  moodGraphs.refreshMoodGraphs(state)
 }
 
 components.menuEdit = (pages, state) => {
-  return html`<li class="menu-item" id="menu-edit" @click=${components.menu.onEditClick(pages, state)}>✏️ Edit</li>`
+  return html`<li class="menu-item" id="menu-edit" @click=${components.menuEdit.onClick(pages, state)}>✏️ Edit</li>`
+}
+
+components.menuEdit.onClick = (pages, state) => () => {
+  render(pages.edit(pages, state), document.body)
 }
 
 components.menuRegister = (pages, state) => {
-  return html`<li class="menu-item" id="menu-register" @click=${components.menu.onRegisterClick(pages, state)}>👤 Register</li>`
+  return html`<li class="menu-item" id="menu-register" @click=${components.menuRegister.onClick(pages, state)}>👤 Register</li>`
+}
+
+components.menuRegister.onClick = (pages, state) => () => {
+  render(pages.register(pages, state), document.body)
 }
 
 components.menuLogout = (pages, state) => {
-  return html`<li class="menu-item" id="menu-logout" @click=${components.menu.onLogoutClick(pages, state)}>❌ Logout</li>`
+  return html`<li class="menu-item" id="menu-logout" @click=${components.menuLogout.onClick(pages, state)}>❌ Logout</li>`
+}
+
+components.menuLogout.onClick = (pages, state) => () => {
+  logout()
+  render(pages.signin(pages, state), document.body)
 }
 
 components.menuPrivacy = (pages, state) => {
-  return html`<li class="menu-item" id="menu-privacy" @click=${components.menu.onPrivacyClick(pages, state)}>🔒 Privacy</li>`
+  return html`<li class="menu-item" id="menu-privacy" @click=${components.menu.onClick(pages, state)}>🔒 Privacy</li>`
+}
+
+components.menuPrivacy.onClick = (pages, state) => () => {
+  render(pages.privacy(pages, state), document.body)
 }
 
 components.menuDarkMode = (pages, state) => {
@@ -130,28 +155,6 @@ components.menu = (pages, state) => {
   </nav>`
 }
 
-components.menu.onPrivacyClick = (pages, state) => () => {
-  render(pages.privacy(pages, state), document.body)
-}
-
-components.menu.onRegisterClick = (pages, state) => () => {
-  render(pages.register(pages, state), document.body)
-}
-
-components.menu.onLogoutClick = (pages, state) => () => {
-  logout()
-  render(pages.signin(pages, state), document.body)
-}
-
-components.menu.onHomeClick = (pages, state) => () => {
-  render(pages.main(pages, state), document.body)
-  moodGraphs.refreshMoodGraphs(state)
-}
-
-components.menu.onEditClick = (pages, state) => () => {
-  render(pages.edit(pages, state), document.body)
-}
-
 const toggleTheme = state => () => {
   const storedScheme = local.get('theme')
 
@@ -172,19 +175,6 @@ const toggleTheme = state => () => {
   } else {
     document.querySelector('#dark-mode-toggle').textContent = '🌙'
     document.querySelector('#menu-dark-mode-toggle').textContent = '🌙 Dark Mode'
-  }
-}
-
-const toggleVisibility = $elem => {
-  if (!$elem) {
-    console.error('$elem missing')
-    return
-  }
-
-  if ($elem.style.visibility === 'hidden') {
-    $elem.style.visibility = ''
-  } else {
-    $elem.style.visibility = 'hidden'
   }
 }
 

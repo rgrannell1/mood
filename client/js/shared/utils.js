@@ -72,3 +72,16 @@ export const formatDate = input => {
     return `${dayjs(date).format('ddd MMM D YYYY')} ${dayjs(date).format('HH:mm')}`
   }
 }
+
+export const toggleVisibility = $elem => {
+  if (!$elem) {
+    console.error('$elem missing')
+    return
+  }
+
+  if ($elem.style.visibility === 'hidden') {
+    $elem.style.visibility = ''
+  } else {
+    $elem.style.visibility = 'hidden'
+  }
+}
