@@ -307,6 +307,7 @@ main {
 
 #mood-graph {
   grid-row: 2;
+  grid-template-columns: 1fr 6fr 1fr;
 }
 
 #mood-list {
@@ -322,6 +323,11 @@ main {
   list-style: none;
 }
 
+.mood-edit-row {
+  display: grid;
+  grid-template-columns: 1fr 6fr 1fr;
+}
+
 .mood-history-item {
   padding: 1.5em;
   padding-bottom: 0.5em;
@@ -333,5 +339,11 @@ main {
 }
 
 .mood-edit-mood {
+  grid-row: 1;
+  grid-column: 1;
+}
 
+.mood-edit-delete {
+  grid-row: 1;
+  grid-column: 3;
 }

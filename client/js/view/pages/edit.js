@@ -12,7 +12,10 @@ components.moodRow = mood => {
   return html`
   <li class="mood-history-item">
     <h3 class="mood-edit-time">${time}</h3>
-    <span class="mood-edit-mood">${mood.mood}</span>
+    <div class="mood-edit-row">
+      <span class="mood-edit-mood">${mood.mood}</span>
+      <span class="mood-edit-delete">x</span>
+    </div>
   <li>`
 }
 
