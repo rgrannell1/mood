@@ -100,7 +100,7 @@ components.menuLogout.onClick = (pages, state) => () => {
 }
 
 components.menuPrivacy = (pages, state) => {
-  return html`<li class="menu-item" id="menu-privacy" @click=${components.menu.onClick(pages, state)}>🔒 Privacy</li>`
+  return html`<li class="menu-item" id="menu-privacy" @click=${components.menuPrivacy.onClick(pages, state)}>🔒 Privacy</li>`
 }
 
 components.menuPrivacy.onClick = (pages, state) => () => {

@@ -53,7 +53,7 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build --production",
+    "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build",
     "clean": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs clean",
     "build:watch": "find client routes | entr -s 'npm run build'",
     "run:api": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs serve-api",
