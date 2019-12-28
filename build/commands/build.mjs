@@ -27,7 +27,9 @@ build.webpack = async ({ production }) => {
 
   await new Promise((resolve, reject) => {
     webpack(webpackConfig, (err, stats) => {
-      console.log(stats.toString({ colors: true }))
+      if (stats) {
+        console.log(stats.toString({ colors: true }))
+      }
 
       if (err) {
         reject(err)
@@ -40,7 +42,7 @@ build.webpack = async ({ production }) => {
   })
 }
 
-command.task = async args => {
+command.task = async (args = {}) => {
   try {
     await new Promise((resolve, reject) => {
       fs.mkdir('public', err => {
