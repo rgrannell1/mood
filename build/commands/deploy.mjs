@@ -8,7 +8,7 @@ const fsp = fs.promises
 
 const command = {
   name: 'deploy',
- // dependencies: ['build']
+  dependencies: ['build']
 }
 
 command.cli = `
