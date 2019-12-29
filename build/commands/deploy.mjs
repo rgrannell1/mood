@@ -2,6 +2,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import cp from 'child_process'
+import chalk from 'chalk'
 import getFolderSize from 'get-folder-size'
 const fsp = fs.promises
 
@@ -86,7 +87,7 @@ command.task = async args => {
   const now = cp.spawn('./node_modules/.bin/now')
 
   const report = reportAnalysis(await dirStats('public'))
-  console.log(report)
+  console.log(chalk.blue(report))
 
   now.stderr.on('data', data => {
     console.error(data.toString())
