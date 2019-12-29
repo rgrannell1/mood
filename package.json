@@ -18,6 +18,7 @@
     "dotenv": "^8.2.0",
     "execa": "^4.0.0",
     "firebase-admin": "^8.8.0",
+    "get-folder-size": "^2.0.1",
     "google-auth-library": "5.2.0",
     "http-errors": "1.7.3",
     "husky": "^3.1.0",
