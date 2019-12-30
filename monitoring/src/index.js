@@ -33,7 +33,7 @@ async function syntheticMonitoring () {
   })
 
   // run e2e api-tests
-  await apiTests(browser, config, db)
+  //await apiTests(browser, config, db)
   await browserTests(browser, config, db)
 
   await browser.close()

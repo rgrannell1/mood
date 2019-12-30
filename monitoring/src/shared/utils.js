@@ -1,4 +1,6 @@
 
+const chalk = require('chalk')
+
 const utils = {}
 
 utils.getMoods = async (db, userId) => {
@@ -69,7 +71,9 @@ utils.timeoutError = (error, timeout) => {
  * Navigate to the mood site.
  */
 utils.moodPage = async (browser, host) => {
-  const page = await browser.newPage()
+  const context = await browser.createIncognitoBrowserContext()
+  const page = await context.newPage()
+
   await page.goto(host)
   return page
 }
@@ -110,6 +114,13 @@ utils.interceptRequestResponse = (page, fragment) => {
       .on('request', handleRequest)
       .on('response', handleResponse)
   })
+}
+
+utils.showHtml = async page => {
+  const $html = await page.$('html')
+  const text = await page.evaluate(elem => elem.innerHTML, $html);
+
+  console.log(chalk.blue(`\n\n${text}\n\n`))
 }
 
 module.exports = utils

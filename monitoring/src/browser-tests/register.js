@@ -1,14 +1,8 @@
 
 const errors = require('@rgrannell/errors')
 const expectations = require('./expectations')
-const signale = require('signale')
 const dotenv = require('dotenv').config()
 const utils = require('../shared/utils')
-
-const {
-  TEST_ACCOUNT_USER,
-  TEST_ACCOUNT_PASSWORD
-} = dotenv.parsed
 
 const tests = {}
 
@@ -55,7 +49,6 @@ tests.redirectToLogin = async page => {
 const registerTests = async (host, db, browser) => {
   await tests.hasSelectors(await utils.moodPage(browser, host))
   await tests.redirectToLogin(await utils.moodPage(browser, host))
-
 }
 
 module.exports = registerTests
