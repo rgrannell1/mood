@@ -1,6 +1,7 @@
 {
   "version": 2,
   "env": {
+    "NODE_ENV": "production",
     "COOKIE_KEY": "@cookie_key",
     "ENCRYPTION_KEY": "@encryption_key",
     "GOOGLE_CLIENT_ID": "@google_client_id",
@@ -9,6 +10,7 @@
   },
   "build": {
     "env": {
+      "NODE_ENV": "production",
       "COOKIE_KEY": "@cookie_key",
       "ENCRYPTION_KEY": "@encryption_key",
       "GOOGLE_CLIENT_ID": "@google_client_id",

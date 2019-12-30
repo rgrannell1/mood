@@ -84,6 +84,11 @@ const reportAnalysis = data => {
 }
 
 command.task = async args => {
+  const nodeEnv = process.env.NODE_ENV
+  if (nodeEnv !== 'production') {
+    throw new Error(`wrong environment ${nodeEnv}`)
+  }
+
   const now = cp.spawn('./node_modules/.bin/now')
 
   const report = reportAnalysis(await dirStats('public'))

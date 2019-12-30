@@ -11,7 +11,7 @@ const command = {
 
 command.cli = `
 Usage:
-  script build [--production]
+  script build
 Description:
   Build
 `
@@ -19,7 +19,9 @@ Description:
 const build = {}
 
 build.webpack = async ({ production }) => {
-  const source = await (production
+  const nodeEnv = process.env.NODE_ENV
+
+  const source = await (nodeEnv === 'production'
     ? import('../../webpack.prod.mjs')
     : import('../../webpack.dev.mjs'))
 
