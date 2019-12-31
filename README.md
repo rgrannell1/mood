@@ -26,6 +26,7 @@ client/            miscelleneous client-side code
 monitoring/        synthetic monitoring used to check the code works as expected
 public/            built client-code
 routes/            code implementing each api route exposed in api/
+test/              unit tests
 ```
 
 ## 🧰 Build System
@@ -64,4 +65,5 @@ deploy          deploy the website and associated apis to Zeit
 
 ## ✔️ Monitoring
 
-See monitoring/README.md
+See the [monitoring readme](./monitoring/README.md) for details about synthetic monitoring for this project.
+
