@@ -14,7 +14,7 @@ const tests = {
  */
 const browserTests = async (browser, config, db) => {
   await tests.signin(config.staticHost, db, browser)
-  //await tests.register(config.staticHost, db, browser)
+  await tests.register(config.staticHost, db, browser)
 }
 
 module.exports = browserTests

@@ -1,4 +1,5 @@
 
+const errors = require('@rgrannell/errors')
 const chalk = require('chalk')
 
 const utils = {}
@@ -121,6 +122,23 @@ utils.showHtml = async page => {
   const text = await page.evaluate(elem => elem.innerHTML, $html);
 
   console.log(chalk.blue(`\n\n${text}\n\n`))
+}
+
+utils.waitForSelectors = async (selectors, page, opts = { timeout: 5000 }) => {
+  const check = selectors.map(async selector => {
+    try {
+      return page.waitForSelector(selector, opts)
+    } catch (err) {
+      throw new Error(selector)
+    }
+  })
+
+  try {
+    await Promise.all(check)
+  } catch (err) {
+    await utils.showHtml(page)
+    throw errors.missingSelector(`page missing selector "${err.message}"`)
+  }
 }
 
 module.exports = utils

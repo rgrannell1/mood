@@ -88,13 +88,9 @@ validateLogin.response = async response => {
  * @returns {Promise<>} a result promise
  */
 tests.loginValidCredentials = async page => {
-  try {
-    await page.type('#mood-username', TEST_ACCOUNT_USER)
-    await page.type('#mood-password', TEST_ACCOUNT_PASSWORD)
-  } catch (err) {
-    await utils.showHtml(page)
-    throw errors.missingSelector(err.message)
-  }
+  await utils.waitForSelectors(['#mood-username', '#mood-password'], page)
+  await page.type('#mood-username', TEST_ACCOUNT_USER)
+  await page.type('#mood-password', TEST_ACCOUNT_PASSWORD)
 
   await page.click('#mood-signin-submit')
   await new Promise((resolve, reject) => {
@@ -124,13 +120,7 @@ tests.loginValidCredentials = async page => {
  * @returns {Promise<>} a result promise
  */
 tests.redirectToRegister = async page => {
-  try {
-    await page.waitForSelector('#mood-create-account', {
-      timeout: 5000
-    })
-  } catch (err) {
-    await utils.showHtml(page)
-  }
+  await utils.waitForSelectors(['#mood-create-account'], page)
 
   await page.click('#mood-create-account')
 

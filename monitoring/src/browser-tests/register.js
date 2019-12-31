@@ -2,11 +2,13 @@
 const errors = require('@rgrannell/errors')
 const expectations = require('./expectations')
 const dotenv = require('dotenv').config()
+const signale = require('signale')
 const utils = require('../shared/utils')
 
 const tests = {}
 
 tests.hasSelectors = async page => {
+  await utils.waitForSelectors(['#mood-create-account'], page)
   await page.click('#mood-create-account')
 
   const selectors = [
@@ -31,9 +33,15 @@ tests.hasSelectors = async page => {
  * @returns {Promise<>} a result promise
  */
 tests.redirectToLogin = async page => {
+  await utils.waitForSelectors(['#mood-create-account'], page)
+  await page.click('#mood-create-account')
+
+  await utils.waitForSelectors(['#mood-login-account'], page)
+
   await page.click('#mood-login-account')
 
-  const [$elem] = await page.$$('#mood-signup .mood-h2')
+  await utils.waitForSelectors(['#mood-signin .mood-h2'], page)
+  const [$elem] = await page.$$('#mood-signin .mood-h2')
 
   if (!$elem) {
     throw errors.invalidPageContent('h2 element not found')
@@ -49,6 +57,8 @@ tests.redirectToLogin = async page => {
 const registerTests = async (host, db, browser) => {
   await tests.hasSelectors(await utils.moodPage(browser, host))
   await tests.redirectToLogin(await utils.moodPage(browser, host))
+
+  signale.success('browser register worked as expected')
 }
 
 module.exports = registerTests
