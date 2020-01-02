@@ -1,4 +1,6 @@
 
+const day = require('days')
+
 const admin = require('firebase-admin')
 const errors = require('@rgrannell/errors')
 
@@ -220,10 +222,16 @@ firebase.getMoods = async (userId, ctx, opts) => {
       count: 0
     }
   } else {
+    const to = userData.moods[userData.moods.length - 1].timestamp
+    const from = userData.moods[0].timestamp
+
     stats = {
       count: userData.moods.length,
-      to: userData.moods[userData.moods.length - 1].timestamp,
-      from: userData.moods[0].timestamp
+      to,
+      from,
+      timeInterval: {
+        days: day(to).diff(day(from), 'days')
+      }
     }
   }
 
