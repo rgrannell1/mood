@@ -64,6 +64,12 @@ moodGraphs.heatplot = async data => {
     throw new Error('data did not have moods property')
   }
 
+  let timeUnit = 'monthdate'
+
+  if (data.stats && data.stats.timeInterval && data.stats.timeInterval.days > 30) {
+    timeUnit = 'yearmonth'
+  }
+
   const [$html] = document.getElementsByTagName('html')
   const theme = $html.getAttribute('data-theme') || 'light'
 
@@ -82,7 +88,7 @@ moodGraphs.heatplot = async data => {
         sort: constants.moodOrdering
       },
       x: {
-        timeUnit: 'monthdate',
+        timeUnit,
         field: 'timestamp',
         type: 'temporal'
       },

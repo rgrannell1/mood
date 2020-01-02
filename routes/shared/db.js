@@ -1,5 +1,5 @@
 
-const day = require('days')
+const day = require('dayjs')
 
 const admin = require('firebase-admin')
 const errors = require('@rgrannell/errors')

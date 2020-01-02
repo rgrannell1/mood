@@ -177,7 +177,7 @@ const toggleTheme = state => () => {
   moodGraphs.refreshMoodGraphs(state)
 
   const $darkModeToggle = document.querySelector('#dark-mode-toggle')
-  const $menuDarkModeToggle = document.querySelector('#dark-mode-toggle')
+  const $menuDarkModeToggle = document.querySelector('#menu-dark-mode-toggle')
 
   $darkModeToggle.textContent = newTheme === 'dark'
     ? '🌙'
