@@ -180,8 +180,8 @@ const toggleTheme = state => () => {
   const $menuDarkModeToggle = document.querySelector('#menu-dark-mode-toggle')
 
   $darkModeToggle.textContent = newTheme === 'dark'
-    ? '🌙'
-    : '☀️'
+    ? '☀️'
+    : '🌙'
 
   $menuDarkModeToggle.textContent = newTheme === 'dark'
     ? '☀️ Light Mode'
