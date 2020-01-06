@@ -18,7 +18,7 @@ const patchMoods = async (req, res) => {
     key: envConfig.encryption.key
   })
 
-  const deleteMoodStats = await firebase.deleteMoods(username, req.state, {
+  const deleteMoodStats = await firebase.moods.delete(username, req.state, {
     key: envConfig.encryption.key
   })
 
