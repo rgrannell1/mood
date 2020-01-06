@@ -51,7 +51,7 @@ const createUser = async ({ userName, password }, ctx, opts) => {
 
   await ref.set(security.user.encrypt(userFields, opts.key))
 
-  return firebase.createSession(userName, ctx, {})
+  return firebase.session.create(userName, ctx, {})
 }
 
 module.exports = createUser

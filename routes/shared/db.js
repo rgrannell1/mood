@@ -20,7 +20,9 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
-const firebase = {}
+const firebase = {
+  session: {}
+}
 
 firebase.database = () => db
 
@@ -33,11 +35,15 @@ firebase.database = () => db
  *
  * @returns {Promise<Object>} session information
  */
-firebase.createSession = async (username, ctx, opts) => {
+firebase.session.create = async (username, ctx, opts) => {
   const ref = db.collection('sessions').doc(username)
   const doc = await ref.get()
 
-  if (!doc.exists) {
+  const sessionExists = doc.exists
+
+  if (sessionExists) {
+    log.debug(ctx, `session already exists for ${ctx.userId}`)
+  } else {
     log.debug(ctx, `storing session information for ${ctx.userId}`)
 
     const session = validate.db.session({
@@ -47,9 +53,7 @@ firebase.createSession = async (username, ctx, opts) => {
 
     await ref.set(session)
 
-    return (await ref.get()).data()
-  } else {
-    log.debug(ctx, `session already exists for ${ctx.userId}`)
+    return validate.db.session((await ref.get()).data())
   }
 
   return validate.db.session(doc.data())
@@ -69,11 +73,11 @@ firebase.getSession = async (sessionId, ctx, opts) => {
   const doc = await ref.get()
 
   if (!doc.docs) {
-    throw errors.unauthorized('no sessions found', 401)
+    throw errors.unauthorized('no sessions found for sessionId', 401)
   }
 
   if (doc.docs.length > 1) {
-    log.warn(`expected single session for user but found ${doc.docs.length}`)
+    log.warn(`expected single session for user but found ${doc.docs.length} sessions.`)
   }
 
   const [session] = doc.docs
