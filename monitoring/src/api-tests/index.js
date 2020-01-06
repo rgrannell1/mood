@@ -18,12 +18,12 @@ const tests = {
  * @returns {Promise<>} a result promise
  */
 const apiTests = async (browser, config, db) => {
-//  await tests.deleteMoods(config.apiHost, db)
-//  await tests.getMetadata(config.apiHost)
-//  await tests.getMoods(config.apiHost, db)
-//  await tests.patchMoods(config.apiHost, db)
-//  await tests.postRegister(config.apiHost, db)
-//  await tests.postLogin(config.apiHost, db)
+  await tests.deleteMoods(config.apiHost, db)
+  await tests.getMetadata(config.apiHost)
+  await tests.getMoods(config.apiHost, db)
+  await tests.patchMoods(config.apiHost, db)
+  await tests.postRegister(config.apiHost, db)
+  await tests.postLogin(config.apiHost, db)
   await tests.checkTls(config.staticHost, db)
 }
 
