@@ -18,7 +18,7 @@ const getMoods = async (req, res) => {
     key: envConfig.encryption.key
   })
 
-  const moods = await firebase.getMoods(username, req.state, {
+  const moods = await firebase.moods.get(username, req.state, {
     key: envConfig.encryption.key
   })
 

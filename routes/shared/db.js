@@ -31,7 +31,7 @@ firebase.database = () => {
 firebase.user.create = require('./db/create-user')
 firebase.session.create = require('./db/create-session')
 firebase.moods.delete = require('./db/delete-moods')
-firebase.getMoods = require('./db/get-moods')
-firebase.saveMoods = require('./db/save-moods')
+firebase.moods.get = require('./db/get-moods')
+firebase.moods.save = require('./db/save-moods')
 
 module.exports = firebase

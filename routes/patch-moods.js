@@ -21,7 +21,7 @@ const patchMoods = async (req, res) => {
 
   const body = validate.input.body(req.body)
 
-  const saveMoodStats = await firebase.saveMoods(username, req.state, body.events, {
+  const saveMoodStats = await firebase.moods.save(username, req.state, body.events, {
     key: envConfig.encryption.key
   })
 
