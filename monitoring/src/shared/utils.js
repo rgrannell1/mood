@@ -124,7 +124,7 @@ utils.showHtml = async page => {
   console.log(chalk.blue(`\n\n${text}\n\n`))
 }
 
-utils.waitForSelectors = async (selectors, page, opts = { timeout: 5000 }) => {
+utils.waitForSelectors = async (selectors, page, opts = { timeout: 10000 }) => {
   const check = selectors.map(async selector => {
     try {
       return page.waitForSelector(selector, opts)

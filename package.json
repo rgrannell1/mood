@@ -6,6 +6,7 @@
   "dependencies": {
     "@google-cloud/firestore": "^2.6.1",
     "@rgrannell/errors": "8.2.0",
+    "@rgrannell/ssl-labs": "^9.1.0",
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "chai": "4.2.0",
