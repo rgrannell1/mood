@@ -24,7 +24,27 @@ const firebase = {
   session: {}
 }
 
-firebase.database = () => db
+const roles = {
+  reader (userId) {
+    return {
+      [userId]: 'reader'
+    }
+  }
+}
+
+const unknown = val => {
+  return val || 'unknown'
+}
+
+/**
+ * Return a firebase data instance.
+ *
+ * @returns {Database}
+ *
+ */
+firebase.database = () => {
+  return db
+}
 
 /**
  * Create a session for a user
@@ -99,24 +119,23 @@ firebase.createUser = async (username, ctx, opts) => {
   const ref = db.collection('userdata').doc(username)
   const doc = await ref.get()
 
-  const roles = {
-    [username]: 'reader'
-  }
+  const userExists = doc.exists
 
-  if (!doc.exists) {
+
+  if (!userExists) {
     log.debug(ctx, 'storing information for new user')
 
     const saved = {
       username,
       registeredOn: new Date(),
       ips: [
-        ctx.ip || 'unknown'
+        unknown(ctx.ip)
       ],
       forwardedFor: [
-        ctx.forwardedFor || 'unknown'
+        unknown(ctx.forwardedFor)
       ],
       trackingIdCount: 1,
-      ...roles
+      roles: roles.reader(username)
     }
 
     await ref.set(security.user.encrypt(saved, opts.key))
@@ -132,8 +151,8 @@ firebase.createUser = async (username, ctx, opts) => {
 
     const saved = {
       username,
-      ips: Array.from(new Set(existingUser.ips, ctx.ip || 'unknown')),
-      forwardedFor: Array.from(new Set(existingUser.forwardedFor, ctx.forwardedFor || 'unknown')),
+      ips: Array.from(new Set(existingUser.ips, unknown(ctx.ip))),
+      forwardedFor: Array.from(new Set(existingUser.forwardedFor, unknown(ctx.forwardedFor))),
       trackingIdCount: updatedTrackingIdCount,
       ...roles
     }
@@ -165,9 +184,7 @@ firebase.saveMoods = async (userId, ctx, moods, opts) => {
   const currentUser = security.user.decrypt(data, opts.key)
   const user = {
     ...currentUser,
-    roles: {
-      [userId]: 'reader'
-    }
+    roles: roles.reader(userId)
   }
 
   user.moods = user.moods
@@ -259,31 +276,30 @@ firebase.deleteMoods = async (userId, ctx, opts) => {
   const ref = db.collection('userdata').doc(userId)
   const doc = await ref.get()
 
-  if (!doc.exists) {
-    log.error(ctx, 'profile missing for user')
+  const profileExists = doc.exists
+  if (!profileExists) {
+    log.error(ctx, 'profile unexpectedly missing for user; exiting')
     process.exit(1)
   }
 
-  const data = validate.db.user(doc.data())
-  const existing = security.user.decrypt(data, opts.key)
+  // -- create an empty user-profile.
+  const encryptedData = validate.db.user(doc.data())
+  const existingData = security.user.decrypt(encryptedData, opts.key)
   const updated = {
-    ...existing,
+    ...existingData,
     moods: [],
-    roles: {
-      [userId]: 'reader'
-    }
+    roles: roles.reader(userId)
   }
 
-  log.debug(ctx, 'removing moods for user')
-
+  log.debug(ctx, 'removing mood-data for user')
   const encrypted = security.user.encrypt(updated, opts.key)
 
   await db.collection('userdata').doc(userId).update(encrypted)
 
-  log.success(ctx, 'moods successfully added for user')
+  log.success(ctx, 'moods successfully deleted for user')
 
   return {
-    deleted: existing.moods.length
+    deleted: existingData.moods.length
   }
 }
 
