@@ -56,3 +56,11 @@ module.exports.userId = () => {
 module.exports.hash = string => {
   return crypto.createHash('sha512').update(string).digest('base64')
 }
+
+module.exports.dataRoles = {
+  reader (userId) {
+    return {
+      [userId]: 'reader'
+    }
+  }
+}

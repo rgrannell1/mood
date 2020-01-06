@@ -1,7 +1,6 @@
 
 const day = require('dayjs')
 
-const admin = require('firebase-admin')
 const errors = require('@rgrannell/errors')
 
 const validate = require('./validate')
@@ -10,18 +9,12 @@ const log = require('./log')
 
 const { sessionId } = require('./utils')
 
-const config = require('./config')
-const envConfig = config()
-
-admin.initializeApp({
-  credential: admin.credential.cert(envConfig.google.privateKey),
-  databaseURL: envConfig.google.db
-})
-
-const db = admin.firestore()
+const getDatabase = require('./database')
+const db = getDatabase()
 
 const firebase = {
-  session: {}
+  session: {},
+  user: {}
 }
 
 const roles = {
@@ -105,61 +98,7 @@ firebase.getSession = async (sessionId, ctx, opts) => {
   return validate.db.session(session.data())
 }
 
-/**
- * Save information about a user to the database, including
- * anonymised tracking information for security reasons.
- *
- * @param {string} userId the user-id
- * @param {object} ctx request metadata
- * @param {object} opts an object with a key
- *
- * @returns {Promise<*>}
- */
-firebase.createUser = async (username, ctx, opts) => {
-  const ref = db.collection('userdata').doc(username)
-  const doc = await ref.get()
-
-  const userExists = doc.exists
-
-
-  if (!userExists) {
-    log.debug(ctx, 'storing information for new user')
-
-    const saved = {
-      username,
-      registeredOn: new Date(),
-      ips: [
-        unknown(ctx.ip)
-      ],
-      forwardedFor: [
-        unknown(ctx.forwardedFor)
-      ],
-      trackingIdCount: 1,
-      roles: roles.reader(username)
-    }
-
-    await ref.set(security.user.encrypt(saved, opts.key))
-  } else {
-    log.debug(ctx, 'user already exists')
-
-    const existingUser = validate.db.user(doc.data())
-
-    let updatedTrackingIdCount = 1
-    if (existingUser.trackingIdCount && !isNaN(existingUser.trackingIdCount)) {
-      updatedTrackingIdCount = existingUser.trackingIdCount + 1
-    }
-
-    const saved = {
-      username,
-      ips: Array.from(new Set(existingUser.ips, unknown(ctx.ip))),
-      forwardedFor: Array.from(new Set(existingUser.forwardedFor, unknown(ctx.forwardedFor))),
-      trackingIdCount: updatedTrackingIdCount,
-      ...roles
-    }
-
-    await ref.update(security.user.encrypt(saved, opts.key))
-  }
-}
+firebase.user.create = require('../db/create-user')
 
 /**
  * Add mood data to the database
