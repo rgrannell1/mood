@@ -1,4 +1,6 @@
 
+const errors = require('@rgrannell/errors')
+
 const log = require('../log')
 const security = require('../security')
 const validate = require('../validate')
@@ -16,17 +18,21 @@ const {
  * @param {object} opts an object with a key
  *
  * @returns {Promise<*>}
- *
  */
-const deleteMoods = async (userId, ctx, opts) => {
+const deleteMoods = async (username, ctx, opts) => {
+  if (!username) {
+    throw errors.unauthorized('username not present.')
+  }
+
   const db = getDatabase()
-  const ref = db.collection('userdata').doc(userId)
+  const ref = db.collection('userdata').doc(username)
   const doc = await ref.get()
 
   const profileExists = doc.exists
   if (!profileExists) {
     log.error(ctx, 'profile unexpectedly missing for user; exiting')
-    process.exit(1)
+
+    throw errors.notFound('user profile not found')
   }
 
   // -- create an empty user-profile.

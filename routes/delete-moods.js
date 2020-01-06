@@ -13,7 +13,7 @@ const envConfig = config()
  * @param {Response} res a Response object
  *
  */
-const patchMoods = async (req, res) => {
+const deleteMoods = async (req, res) => {
   const { username } = await checkLogin(req, {
     key: envConfig.encryption.key
   })
@@ -32,4 +32,4 @@ const patchMoods = async (req, res) => {
   res.end(JSON.stringify(response, null, 2))
 }
 
-module.exports = patchMoods
+module.exports = deleteMoods

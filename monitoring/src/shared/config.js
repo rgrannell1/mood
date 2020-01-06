@@ -5,8 +5,8 @@ const environments = {}
 
 environments.local = () => {
   return {
-    staticHost: 'http://localhost:3000',
-    apiHost: 'http://localhost:3001',
+    staticHost: 'http://localhost:4000',
+    apiHost: 'http://localhost:4010',
     dbHost: 'https://mood-251413.firebaseio.com'
   }
 }

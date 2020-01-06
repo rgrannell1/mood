@@ -1,4 +1,5 @@
 
+const utils = require('../shared/utils')
 const api = require('../shared/api')
 const expectations = require('./expectations')
 const signale = require('signale')
@@ -39,6 +40,8 @@ tests.badCookie = async ({ api, db, userId }) => {
 }
 
 tests.deleteAllMoods = async ({ api, db, userId }) => {
+  await utils.patchMoods(db, userId, utils.data.moods)
+
   const result = await api.delete.moods()
 
   await expect.delete.moods.statusCode(result)

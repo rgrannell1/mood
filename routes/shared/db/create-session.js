@@ -23,8 +23,14 @@ const createSession = async (username, ctx, opts) => {
 
   const sessionExists = doc.exists
 
+  if (!ctx.userId) {
+    log.error(ctx, 'userid not present for request.')
+  }
+
   if (sessionExists) {
     log.debug(ctx, `session already exists for ${ctx.userId}`)
+
+    return validate.db.session(doc.data())
   } else {
     log.debug(ctx, `storing session information for ${ctx.userId}`)
 
@@ -39,7 +45,6 @@ const createSession = async (username, ctx, opts) => {
     return validate.db.session((await ref.get()).data())
   }
 
-  return validate.db.session(doc.data())
 }
 
 module.exports = createSession
