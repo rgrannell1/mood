@@ -27,7 +27,7 @@ const checkLogin = async (req, res, opts) => {
   })
 
   if (!sessionId) {
-    throw errors.authorization('no session-cookie provided', 401)
+    throw errors.authorization('no session-id found in session-cookie', 401)
   }
 
   const session = await firebase.session.get(sessionId, req.state, opts)

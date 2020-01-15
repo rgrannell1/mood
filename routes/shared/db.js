@@ -13,9 +13,19 @@ const getDatabase = require('./database')
 const db = getDatabase()
 
 const firebase = {
-  session: {},
-  user: {},
-  moods: {}
+  session: {
+    create: require('./db/create-session'),
+    get: require('./db/get-session')
+
+  },
+  user: {
+    create: require('./db/create-user')
+  },
+  moods: {
+    delete: require('./db/delete-moods'),
+    get: require('./db/get-moods'),
+    save: require('./db/save-moods')
+  }
 }
 
 /**
@@ -27,11 +37,5 @@ const firebase = {
 firebase.database = () => {
   return db
 }
-
-firebase.user.create = require('./db/create-user')
-firebase.session.create = require('./db/create-session')
-firebase.moods.delete = require('./db/delete-moods')
-firebase.moods.get = require('./db/get-moods')
-firebase.moods.save = require('./db/save-moods')
 
 module.exports = firebase
