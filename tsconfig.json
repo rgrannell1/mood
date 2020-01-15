@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
     "outDir": ".",
     "allowJs": true,
-    "target": "ES2016"
+    "moduleResolution": "node",
+    "module": "ES2015"
   },
   "include": [
     "./server/**/*"
