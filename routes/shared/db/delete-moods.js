@@ -30,9 +30,7 @@ const deleteMoods = async (username, ctx, opts) => {
 
   const profileExists = doc.exists
   if (!profileExists) {
-    log.error(ctx, 'profile unexpectedly missing for user; exiting')
-
-    throw errors.notFound('user profile not found')
+    throw errors.notFound('cannot authorize deletion; user profile not found')
   }
 
   // -- create an empty user-profile.

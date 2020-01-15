@@ -32,10 +32,14 @@ const handleErrors = async (err, req, res) => {
     res
       .status(err.code)
       .end(`${err.name}: ${err.message}`)
+  } else if (err.code && err.code === 500) {
+    res
+      .status(err.code)
+      .end(`${err.name}: internal service error.`)
   } else {
     res
       .status(500)
-      .end('error handling not implemented')
+      .end('internal service error')
   }
 }
 

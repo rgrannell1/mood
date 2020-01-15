@@ -44,7 +44,6 @@ const createSession = async (username, ctx, opts) => {
 
     return validate.db.session((await ref.get()).data())
   }
-
 }
 
 module.exports = createSession

@@ -65,6 +65,7 @@
     "standard": "npx standard 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
     "standard:fix": "npx standard --fix 'api /**/*.js' 'client /**/*.js' 'monitoring/src /**/*.js' 'routes /**/*.js'",
     "monitoring": "node monitoring/src/index.js",
+    "monitoring:prod": "export NODE_ENV=production; node monitoring/src/index.js",
     "pulp": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs",
     "test": "node_modules/.bin/tap",
     "test:watch": "node_modules/.bin/tap --watch",
