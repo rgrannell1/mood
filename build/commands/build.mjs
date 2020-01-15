@@ -44,6 +44,10 @@ build.webpack = async ({ production }) => {
   })
 }
 
+build.server = async () => {
+
+}
+
 command.task = async (args = {}) => {
   try {
     await new Promise((resolve, reject) => {
@@ -56,11 +60,13 @@ command.task = async (args = {}) => {
       throw err
     }
   }
-
+  await build.server()
   await build.webpack({
     production: args['--production']
   })
   await Promise.all([
+    fse.copy('server/api', 'api'),
+    fse.copy('server/routes', 'routes'),
     fse.copy('client/css', 'public/css'),
     fse.copy('client/fonts', 'public/fonts'),
     fse.copy('client/icons', 'public/icons'),

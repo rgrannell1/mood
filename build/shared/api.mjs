@@ -1,8 +1,8 @@
 
 import express from 'express'
-import metadata from '../../api/metadata.js'
-import moods from '../../api/moods.js'
-import login from '../../api/login.js'
+import metadata from '../../server/api/metadata.js'
+import moods from '../../server/api/moods.js'
+import login from '../../server/api/login.js'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
