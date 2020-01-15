@@ -1,6 +1,6 @@
 
-const { routeMethod } = require('../routes/shared/routes')
-const getMetadata = require('../routes/get-metadata')
+import { routeMethod } from '../routes/shared/routes'
+import getMetadata from '../routes/get-metadata'
 
 const methods = new Map()
 

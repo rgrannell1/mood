@@ -3,9 +3,9 @@ const {
   trackingId,
   hash
 } = require('./utils')
-const signale = require('signale')
+import signale from 'signale'
 const errors = require('@rgrannell/errors')
-const log = require('./log')
+import log from './log'
 
 /**
  * What internal type is a value

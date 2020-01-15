@@ -1,6 +1,6 @@
 
-const nanoid = require('nanoid')
-const validate = require('./shared/validate')
+import nanoid from 'nanoid'
+import validate from './shared/validate'
 
 /**
  * Get application metadata

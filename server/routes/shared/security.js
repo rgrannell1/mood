@@ -1,9 +1,9 @@
 
-const constants = require('./constants')
+import constants from './constants'
 
-const crypto = require('crypto')
+import crypto from 'crypto'
 const errors = require('@rgrannell/errors')
-const bcrypt = require('bcrypt')
+import bcrypt from 'bcrypt'
 
 const security = {
   user: {},

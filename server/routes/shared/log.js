@@ -1,5 +1,5 @@
 
-const signale = require('signale')
+import signale from 'signale'
 
 const attachContext = (ctx, message) => {
   return message

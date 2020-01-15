@@ -1,6 +1,6 @@
 
-const admin = require('firebase-admin')
-const config = require('./config')
+import admin from 'firebase-admin'
+import config from './config'
 const envConfig = config()
 
 admin.initializeApp({

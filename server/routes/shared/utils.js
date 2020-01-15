@@ -1,8 +1,8 @@
 
-const nanoid = require('nanoid')
-const crypto = require('crypto')
+import nanoid from 'nanoid'
+import crypto from 'crypto'
 
-const constants = require('./constants')
+import constants from './constants'
 
 /**
  * Create a request-tracking id, to uniquely identify a function

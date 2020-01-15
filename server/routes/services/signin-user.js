@@ -1,11 +1,9 @@
 
 const errors = require('@rgrannell/errors')
 
-const firebase = require('../shared/db')
-const security = require('../shared/security')
-const {
-  userId
-} = require('../shared/utils')
+import firebase from '../shared/db'
+import security from '../shared/security'
+import { userId } from '../shared/utils'
 
 /**
  * Sign-in a registered user

@@ -1,15 +1,15 @@
 
-const log = require('./shared/log')
-const config = require('./shared/config')
-const constants = require('./shared/constants')
-const createUser = require('./services/create-user')
+import log from './shared/log'
+import config from './shared/config'
+import constants from './shared/constants'
+import createUser from './services/create-user'
 
-const database = require('./shared/db')
+import database from './shared/db'
 
 const errors = require('@rgrannell/errors')
-const validate = require('./shared/validate')
+import validate from './shared/validate'
 
-const Cookies = require('cookies')
+import Cookies from 'cookies'
 
 const envConfig = config()
 

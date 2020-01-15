@@ -1,8 +1,8 @@
 
-const firebase = require('./shared/db')
-const checkLogin = require('./services/check-login')
+import firebase from './shared/db'
+import checkLogin from './services/check-login'
 
-const config = require('./shared/config')
+import config from './shared/config'
 
 const envConfig = config()
 

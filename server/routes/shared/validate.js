@@ -1,9 +1,9 @@
 
-const log = require('./log')
-const signale = require('signale')
+import log from './log'
+import signale from 'signale'
 const errors = require('@rgrannell/errors')
-const constants = require('./constants')
-const jsonSchema = require('jsonschema').validate
+import constants from './constants'
+import { validate as jsonSchema } from 'jsonschema'
 
 const checkSchema = (object, schema) => {
   const report = jsonSchema(object, schema)

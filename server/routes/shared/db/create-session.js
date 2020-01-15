@@ -1,7 +1,7 @@
 
-const log = require('../log')
-const validate = require('../validate')
-const getDatabase = require('../database')
+import log from '../log'
+import validate from '../validate'
+import getDatabase from '../database'
 const {
   dataRoles,
   sessionId

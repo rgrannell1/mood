@@ -1,6 +1,6 @@
 
-const { routeMethod } = require('../routes/shared/routes')
-const postRegister = require('../routes/post-register')
+import { routeMethod } from '../routes/shared/routes'
+import postRegister from '../routes/post-register'
 
 const methods = new Map()
 

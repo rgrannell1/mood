@@ -1,8 +1,8 @@
 
-const { routeMethod } = require('../routes/shared/routes')
-const getMoods = require('../routes/get-moods')
-const patchMoods = require('../routes/patch-moods')
-const deleteMoods = require('../routes/delete-moods')
+import { routeMethod } from '../routes/shared/routes'
+import getMoods from '../routes/get-moods'
+import patchMoods from '../routes/patch-moods'
+import deleteMoods from '../routes/delete-moods'
 
 const methods = new Map()
 

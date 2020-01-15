@@ -1,6 +1,6 @@
 
-const { routeMethod } = require('../routes/shared/routes')
-const postLogin = require('../routes/post-login')
+import { routeMethod } from '../routes/shared/routes'
+import postLogin from '../routes/post-login'
 
 const methods = new Map()
 
