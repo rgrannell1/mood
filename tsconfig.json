@@ -3,7 +3,8 @@
     "outDir": ".",
     "allowJs": true,
     "moduleResolution": "node",
-    "module": "ES2015"
+    "module": "ES2015",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./server/**/*"
