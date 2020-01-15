@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": ".",
+    "allowJs": true,
+    "target": "ES2016"
+  },
+  "include": [
+    "./server/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

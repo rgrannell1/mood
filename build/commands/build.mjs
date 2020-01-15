@@ -3,6 +3,7 @@ import * as fs from 'fs'
 
 import fse from 'fs-extra'
 import webpack from 'webpack'
+import execa from 'execa'
 
 const command = {
   name: 'build',
@@ -45,7 +46,9 @@ build.webpack = async ({ production }) => {
 }
 
 build.server = async () => {
-
+  const { stdout, stderr } = await execa('./node_modules/.bin/tsc')
+  console.log(stdout)
+  console.error(stderr)
 }
 
 command.task = async (args = {}) => {
@@ -65,8 +68,6 @@ command.task = async (args = {}) => {
     production: args['--production']
   })
   await Promise.all([
-    fse.copy('server/api', 'api'),
-    fse.copy('server/routes', 'routes'),
     fse.copy('client/css', 'public/css'),
     fse.copy('client/fonts', 'public/fonts'),
     fse.copy('client/icons', 'public/icons'),
