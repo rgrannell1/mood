@@ -23,7 +23,7 @@ const signinUser = async ({ username, password }: UserCredentials, ctx:RequestSt
 
   const userExists = doc.exists
 
-  if (!userExists) {
+  if (!data || !userExists) {
     throw errors.unauthorized('user does not exist', 401)
   }
 

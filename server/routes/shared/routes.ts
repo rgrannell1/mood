@@ -51,22 +51,25 @@ const attachMetadata = (req: MoodRequest, metadata: ArbitraryObject):RequestStat
   return state
 }
 
+type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PATCH'
+
 /**
  * Route a path request to a specific method.
  *
  * @param {Map<string, function>} methods the available methods for this request.
  */
-export const routeMethod = (methods: Map<string, Function>, metadata: ArbitraryObject) => async (req: MoodRequest, res: MoodResponse) => {
+export const routeMethod = (methods: Map<HttpMethod, Function>, metadata: ArbitraryObject) => async (req: MoodRequest, res: MoodResponse) => {
   req.state = attachMetadata(req, metadata)
 
   signale.debug(`received request ${req.method} ${req.state.url}`)
 
   try {
-    if (!methods.has(req.method)) {
+    const route = methods.get(req.method)
+
+    if (!route) {
       throw errors.methodNotAllowed(`method ${req.method} not supported`, 405)
     }
 
-    const route = methods.get(req.method)
     await route(req, res)
   } catch (err) {
     signale.warn(`error-response received: ${err.message ? err.message : err} \n${err.stack}`)

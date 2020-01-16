@@ -6,6 +6,8 @@
     "module": "ESNext",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
     "target": "ES2018"
   },
   "include": [

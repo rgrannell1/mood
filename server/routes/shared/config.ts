@@ -1,4 +1,6 @@
 
+import errors from '@rgrannell/errors'
+
 /**
  * Ensure required variables are present
  *
@@ -33,8 +35,14 @@ const parseGooglePrivateKey = (content:string) => {
  *
  * @param {string} name the name of the environmental variable
  */
-const readVariable = (name:string):string => {
-  return process.env[name] || process.env[name.toLowerCase()]
+const readVariable = (name:string): string => {
+  const value = process.env[name] || process.env[name.toLowerCase()]
+
+  if (typeof value === 'undefined') {
+    throw errors.internalServerError(`configuration variable ${name} absent`, 500)
+  }
+
+  return value
 }
 
 /**
