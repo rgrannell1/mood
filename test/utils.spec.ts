@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-const tap = require('tap')
+import tap from 'tap'
 
 const utils = require('../routes/shared/utils')
 const constants = require('../routes/shared/constants')

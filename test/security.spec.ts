@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-const tap = require('tap')
+import tap from 'tap'
 
 const security = require('../routes/shared/security')
 

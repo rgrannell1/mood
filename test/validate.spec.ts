@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
-const tap = require('tap')
-const path = require('path')
+import tap from 'tap'
+import * as path from 'path'
 
 const constants = {
   paths: {
