@@ -120,6 +120,15 @@ components.menuDivider = () =>{
 }
 
 /**
+ * Is there an existing session on this page?
+ *
+ * @returns {boolean}
+ */
+const isAuthenticated = () => {
+  return document.cookie.includes('mood-session.sig')
+}
+
+/**
  * Construct the side-menu (hidden by default)
  *
  * @param {Object} pages a reference to the other pages
@@ -127,6 +136,8 @@ components.menuDivider = () =>{
  */
 components.menu = (pages, state) => {
   let listItems = []
+
+  state.isLoggedIn = isAuthenticated()
 
   if (state.isLoggedIn) {
     listItems = [

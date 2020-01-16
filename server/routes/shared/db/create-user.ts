@@ -41,12 +41,13 @@ const updateUser = async (ref:any, doc:any, ctx: RequestState, opts: {key: strin
   }
 
   const roles = dataRoles.reader(data.username)
+  const registeredOn = data.registeredOn || new Date()
 
   const updatedUserData = {
     username: data.username,
     password: data.password,
     userId: data.userId,
-    registeredOn: data.registeredOn,
+    registeredOn,
     ips,
     forwardedFor,
     trackingIdCount,

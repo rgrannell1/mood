@@ -18,15 +18,6 @@ const state = {
 }
 
 /**
- * Is there an existing session on this page?
- *
- * @returns {boolean}
- */
-const isAuthenticated = () => {
-  return document.cookie.includes('mood-session.sig')
-}
-
-/**
  * Entrypoint to the application. This function renders to
  * mood SPA's entrypoint.
  *
@@ -34,8 +25,6 @@ const isAuthenticated = () => {
  */
 const renderMoodLandingPage = async () => {
   await registerServiceWorker()
-
-  state.isLoggedIn = isAuthenticated()
 
   if (state.isLoggedIn) {
     render(pages.main(pages, state), document.body)
