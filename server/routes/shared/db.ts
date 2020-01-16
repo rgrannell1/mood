@@ -1,7 +1,7 @@
 
 import day from 'dayjs'
 
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 
 import validate from './validate'
 import * as security from './security'

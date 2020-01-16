@@ -2,7 +2,7 @@
 import constants from './constants'
 
 import * as crypto from 'crypto'
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 import bcrypt from 'bcrypt'
 
 /**

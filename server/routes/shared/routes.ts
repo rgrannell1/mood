@@ -4,7 +4,7 @@ import {
   hash
 } from './utils'
 import signale from 'signale'
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 import * as log from './log'
 
 /**

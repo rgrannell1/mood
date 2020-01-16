@@ -12,7 +12,13 @@ const passingGrades = new Set([
  *
  */
 const checkTls = async host => {
-  const result = await sslLabs().scan(host)
+  try {
+    var result = await sslLabs().scan(host)
+  } catch (err) {
+    // -- TODO handle 529
+    console.log(err)
+    throw err
+  }
 
   const [endpoint] = result.endpoints
   const grade = endpoint.grade

@@ -1,5 +1,5 @@
 
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 
 import * as log from '../log'
 import * as security from '../security'

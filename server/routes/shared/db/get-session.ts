@@ -2,7 +2,7 @@
 import * as log from '../log'
 import validate from '../validate'
 import getDatabase from '../database'
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 
 /**
  * Get session information for a user, given a sessionId

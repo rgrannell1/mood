@@ -5,7 +5,7 @@ import constants from './shared/constants'
 
 import database from './shared/db'
 
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 import validate from './shared/validate'
 
 import Cookies from 'cookies'

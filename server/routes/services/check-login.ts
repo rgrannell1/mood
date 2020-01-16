@@ -4,7 +4,7 @@ import config from '../shared/config'
 import constants from '../shared/constants'
 import * as log from '../shared/log'
 import firebase from '../shared/db'
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 
 const envConfig = config()
 
@@ -16,7 +16,7 @@ const envConfig = config()
  * @param {Response} res a response
  * @param {Object} opts firebase config
  */
-const checkLogin = async (req: MoodRequest, res: Response, opts: FirebaseOpts) => {
+const checkLogin = async (req: MoodRequest, res: MoodResponse, opts: FirebaseOpts):Promise<MoodSession> => {
   const cookies = new Cookies(req as any, res as any, {
     keys: envConfig.cookies.keys
   })

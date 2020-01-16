@@ -6,7 +6,7 @@ import config from '../shared/config'
 
 const envConfig = config()
 
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 
 /**
  * Sign-in a registered user
@@ -14,7 +14,7 @@ import errors from '@rgrannell/errors'
  * @param {Object} credentials
  * @param {*} ctx
  */
-const signinUser = async ({ username, password }: UserCredentials, ctx:RequestState) => {
+const signinUser = async ({ username, password }: UserCredentials, ctx: RequestState) => {
   const db = firebase.database()
 
   const ref = db.collection('userdata').doc(username)

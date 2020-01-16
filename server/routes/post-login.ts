@@ -4,7 +4,7 @@ import config from './shared/config'
 import constants from './shared/constants'
 import validate from './shared/validate'
 import signinUser from './services/signin-user'
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 import Cookies from 'cookies'
 import { IncomingMessage } from 'http'
 

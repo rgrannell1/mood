@@ -1,6 +1,6 @@
 
 import * as log from './log'
-import errors from '@rgrannell/errors'
+import * as errors from '@rgrannell/errors'
 import constants from './constants'
 import { validate as jsonSchema } from 'jsonschema'
 
