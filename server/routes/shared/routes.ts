@@ -39,7 +39,7 @@ const handleErrors = async (err: MoodError, req: MoodRequest, res: MoodResponse)
  *
  * @param {Request} req a request object
  */
-const attachMetadata = (req: MoodRequest, metadata):RequestState => {
+const attachMetadata = (req: MoodRequest, metadata: ArbitraryObject):RequestState => {
   const state:RequestState = {}
 
   state.trackingId = trackingId()

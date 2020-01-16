@@ -17,7 +17,6 @@ const checkSchema = (object:any, schema:{[key:string]:any}) => {
 }
 
 const validate = {
-
   output: {
     get: {
       moods: {
@@ -39,7 +38,7 @@ const validate = {
     }
   },
   input: {
-    signinCredentials: async (req, res) => {
+    signinCredentials: async (req: any, res: any) => {
       try {
         var body = JSON.parse(req.body)
       } catch (err) {
@@ -62,7 +61,7 @@ const validate = {
       }
     },
 
-    registerCredentials: async (req, res) => {
+    registerCredentials: async (req: any, res: any) => {
       try {
         var body = JSON.parse(req.body)
       } catch (err) {
@@ -88,7 +87,7 @@ const validate = {
       }
     },
 
-    mood: (event, ith) => {
+    mood: (event: any, ith: number) => {
       if (event.type !== 'send-mood') {
         throw errors.unprocessableEntity(`${ith}th event type was "${event.type}"`, 422)
       }
@@ -103,7 +102,7 @@ const validate = {
         }
       }
     },
-    body: body => {
+    body: (body: any) => {
       const bodyType = is(body)
 
       if (bodyType === 'undefined' || bodyType === 'null') {
@@ -134,7 +133,7 @@ const validate = {
         throw errors.requestEntityTooLarge('too many events sent to server in one batch', 413)
       }
 
-      content.events.forEach((event, ith:number) => {
+      content.events.forEach((event:any, ith:number) => {
         validate.input.mood(event, ith)
       })
 
@@ -228,7 +227,7 @@ const schemas = {
   }
 }
 
-const is = val => {
+const is = (val:any) => {
   return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
 }
 

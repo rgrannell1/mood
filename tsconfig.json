@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "module": "ESNext",
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "target": "ES2018"
   },
   "include": [

@@ -15,7 +15,7 @@ import getDatabase from '../database'
  *
  * @returns {Promise<*>}
  */
-const getMoods = async (userId:string, ctx, opts: FirebaseOpts) => {
+const getMoods = async (userId: string, ctx: RequestState, opts: FirebaseOpts) => {
   const db = getDatabase()
 
   const ref = db.collection('userdata').doc(userId)
@@ -37,7 +37,7 @@ const getMoods = async (userId:string, ctx, opts: FirebaseOpts) => {
     userData.moods = []
   }
 
-  userData.moods.sort((datum0, datum1) => datum0.timestamp - datum1.timestamp)
+  userData.moods.sort((datum0: Mood, datum1: Mood) => datum0.timestamp - datum1.timestamp)
 
   let stats
 

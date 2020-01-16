@@ -19,7 +19,7 @@ import {
  *
  * @returns {Promise<*>}
  */
-const deleteMoods = async (username: string, ctx, opts: FirebaseOpts) => {
+const deleteMoods = async (username: string, ctx: RequestState, opts: FirebaseOpts) => {
   if (!username) {
     throw errors.unauthorized('username not present.', 401)
   }

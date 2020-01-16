@@ -58,7 +58,7 @@ export const hash = (string:string):string => {
 }
 
 export const dataRoles = {
-  reader (userId) {
+  reader (userId:string|number) {
     return {
       [userId]: 'reader'
     }
