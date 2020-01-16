@@ -4,7 +4,8 @@
     "allowJs": true,
     "moduleResolution": "node",
     "module": "ES2015",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false
   },
   "include": [
     "./server/**/*"
