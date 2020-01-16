@@ -17,7 +17,7 @@ const envConfig = config()
  * @param {Object} opts firebase config
  */
 const checkLogin = async (req: MoodRequest, res: Response, opts: FirebaseOpts) => {
-  const cookies = new Cookies(req, res, {
+  const cookies = new Cookies(req as any, res as any, {
     keys: envConfig.cookies.keys
   })
 

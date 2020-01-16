@@ -6,6 +6,7 @@ import validate from './shared/validate'
 import signinUser from './services/signin-user'
 import errors from '@rgrannell/errors'
 import Cookies from 'cookies'
+import { IncomingMessage } from 'http'
 
 const envConfig = config()
 
@@ -20,7 +21,7 @@ const postLogin = async (req: MoodRequest, res: MoodResponse) => {
 
   const { sessionId } = await signinUser(credentials, req.state)
 
-  const cookies = new Cookies(req, res, {
+  const cookies = new Cookies(req as any, res as any, {
     keys: envConfig.cookies.keys
   })
 

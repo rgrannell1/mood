@@ -21,7 +21,7 @@ import {
  */
 const deleteMoods = async (username: string, ctx, opts: FirebaseOpts) => {
   if (!username) {
-    throw errors.unauthorized('username not present.')
+    throw errors.unauthorized('username not present.', 401)
   }
 
   const db = getDatabase()
@@ -30,7 +30,7 @@ const deleteMoods = async (username: string, ctx, opts: FirebaseOpts) => {
 
   const profileExists = doc.exists
   if (!profileExists) {
-    throw errors.notFound('cannot authorize deletion; user profile not found')
+    throw errors.notFound('cannot authorize deletion; user profile not found', 404)
   }
 
   // -- create an empty user-profile.
