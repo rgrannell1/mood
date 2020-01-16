@@ -10,6 +10,6 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
-export default  () => {
+export default () => {
   return db
 }

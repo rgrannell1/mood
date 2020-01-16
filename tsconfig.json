@@ -3,9 +3,10 @@
     "outDir": ".",
     "allowJs": true,
     "moduleResolution": "node",
-    "module": "ES2015",
+    "module": "ESNext",
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "target": "ES2018"
   },
   "include": [
     "./server/**/*"

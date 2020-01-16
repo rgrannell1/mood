@@ -143,7 +143,7 @@ const validate = {
   },
   log,
   db: {
-    session: (session:any) => {
+    session: (session: any): MoodSession => {
       checkSchema(session, schemas.session)
 
       return session
