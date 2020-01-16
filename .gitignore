@@ -8,3 +8,5 @@ public/
 coverage
 routes/
 api/
+!server/routes/
+!server/api/
