@@ -4,7 +4,7 @@
  *
  * @param {Array<string>} names an array of variable names
  */
-const expectVariables = names => {
+const expectVariables = (names:string[]) => {
   const vars = Object.keys(process.env).join('\n')
 
   for (const name of names) {
@@ -33,7 +33,7 @@ const parseGooglePrivateKey = (content:string) => {
  *
  * @param {string} name the name of the environmental variable
  */
-const readVariable = name => {
+const readVariable = (name:string):string => {
   return process.env[name] || process.env[name.toLowerCase()]
 }
 

@@ -17,7 +17,7 @@ import {
  *
  * @returns {Promise<*>}
  */
-const saveMoods = async (userId:string, ctx:RequestState, moods:any, opts:{key:string}) => {
+const saveMoods = async (userId: string, ctx: RequestState, moods: any, opts: FirebaseOpts) => {
   const db = getDatabase()
   const ref = db.collection('userdata').doc(userId)
   const doc = await ref.get()

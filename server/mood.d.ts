@@ -30,4 +30,12 @@ declare global {
     username: string,
     password: string
   }
+
+  interface FirebaseOpts {
+    key: string
+  }
+
+  interface ArbitraryObject {
+    [key: string]: any
+  }
 }

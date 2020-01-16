@@ -13,7 +13,7 @@ import { dataRoles, sessionId } from '../utils'
  *
  * @returns {Promise<Object>} session information
  */
-const createSession = async (username:string, ctx:RequestState, opts:{key: string}) => {
+const createSession = async (username: string, ctx: RequestState, opts: FirebaseOpts) => {
   const db = getDatabase()
   const ref = db.collection('sessions').doc(username)
   const doc = await ref.get()

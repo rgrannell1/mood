@@ -68,7 +68,7 @@ const updateUser = async (ref:any, doc:any, ctx: RequestState, opts: {key: strin
  *
  * @returns {Promise<>} a result promise
  */
-const createNewUser = async (ref:any, credentials: {username: string, hash: string}, ctx:RequestState, opts:{key: string}) => {
+const createNewUser = async (ref: any, credentials: { username: string, hash: string }, ctx: RequestState, opts: FirebaseOpts) => {
   const id = userId()
   log.debug(ctx, `storing information for new user ${id}`)
 

@@ -26,7 +26,7 @@ const phonemes = [
   'gry', 'pra', 'pre', 'pri', 'pro', 'pru', 'pry', 'sta', 'ste', 'sti', 'sto',
   'stu', 'sty', 'tra', 'tre']
 
-export const sessionId = () => {
+export const sessionId = ():string => {
   return nanoid(constants.sizes.sessionId)
 }
 
@@ -35,7 +35,7 @@ export const sessionId = () => {
  *
  * @returns {string} a random-id
  */
-export const userId = () => {
+export const userId = ():string => {
   const chars = []
 
   for (let ith = 0; ith < 8; ++ith) {
@@ -53,7 +53,7 @@ export const userId = () => {
  *
  * @returns {string} a hashed string
  */
-export const hash = string => {
+export const hash = (string:string):string => {
   return crypto.createHash('sha512').update(string).digest('base64')
 }
 

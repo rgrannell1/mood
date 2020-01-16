@@ -13,7 +13,7 @@ import bcrypt from 'bcrypt'
  *
  * @returns {Promise<boolean>} are the passwords the same?
  */
-export const checkPassword = async (hash:string, password:string) => {
+export const checkPassword = async (hash:string, password:string):Promise<boolean> => {
   const isSame = await new Promise((resolve, reject) => {
     bcrypt.compare(password, hash, (err:Error, result:boolean) => {
       err ? reject(err) : resolve(result)

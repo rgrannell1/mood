@@ -13,7 +13,7 @@ import errors from '@rgrannell/errors'
  *
  * @returns {Object} session information
  */
-const getSession = async (sessionId:string, ctx:RequestState, opts:object) => {
+const getSession = async (sessionId: string, ctx: RequestState, opts: FirebaseOpts) => {
   const db = getDatabase()
   const ref = db.collection('sessions').where('sessionId', '==', sessionId)
   const doc = await ref.get()

@@ -15,7 +15,7 @@ import getDatabase from '../database'
  *
  * @returns {Promise<*>}
  */
-const getMoods = async (userId, ctx, opts) => {
+const getMoods = async (userId:string, ctx, opts: FirebaseOpts) => {
   const db = getDatabase()
 
   const ref = db.collection('userdata').doc(userId)

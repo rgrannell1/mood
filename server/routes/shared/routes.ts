@@ -8,15 +8,6 @@ import errors from '@rgrannell/errors'
 import * as log from './log'
 
 /**
- * What internal type is a value
- *
- * @param {any} val
- */
-const is = (val:any) => {
-  return Object.prototype.toString.call(val).slice(8, -1).toLowerCase()
-}
-
-/**
  * Convert error conditions into HTTP responses
  *
  * @param {Error} err an error (usually a network-error) thrown in the request chain
@@ -48,7 +39,7 @@ const handleErrors = async (err: MoodError, req: MoodRequest, res: MoodResponse)
  *
  * @param {Request} req a request object
  */
-const attachMetadata = (req: MoodRequest, metadata) => {
+const attachMetadata = (req: MoodRequest, metadata):RequestState => {
   const state:RequestState = {}
 
   state.trackingId = trackingId()
@@ -65,12 +56,8 @@ const attachMetadata = (req: MoodRequest, metadata) => {
  *
  * @param {Map<string, function>} methods the available methods for this request.
  */
-export const routeMethod = (methods: Map<string, Function>, metadata: { [key: string]: any }) => async (req: MoodRequest, res: MoodResponse) => {
+export const routeMethod = (methods: Map<string, Function>, metadata: ArbitraryObject) => async (req: MoodRequest, res: MoodResponse) => {
   req.state = attachMetadata(req, metadata)
-
-  if (is(methods) !== 'map') {
-    throw new TypeError(`methods supplied were invalid, as it had type ${is(methods)}`)
-  }
 
   signale.debug(`received request ${req.method} ${req.state.url}`)
 
