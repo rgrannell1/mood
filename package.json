@@ -9,6 +9,7 @@
     "@rgrannell/index": "8.2.0",
     "@rgrannell/pulp": "8.4.0",
     "@rgrannell/ssl-labs": "^9.1.0",
+    "@types/bcrypt": "^3.0.0",
     "@types/node": "^13.1.7",
     "@types/signale": "^1.2.1",
     "@types/source-map": "^0.5.2",
