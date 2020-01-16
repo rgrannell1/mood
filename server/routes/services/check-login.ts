@@ -22,7 +22,7 @@ const checkLogin = async (req: MoodRequest, res: Response, opts: FirebaseOpts) =
   })
 
   // Set the cookie to a value
-  const sessionId = cookies.get(constants.cookies.session, {
+  const sessionId:string | undefined = cookies.get(constants.cookies.session, {
     signed: true
   })
 
