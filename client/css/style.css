@@ -155,6 +155,10 @@ label[for="mood-password-repeat"] {
   cursor: pointer;
 }
 
+.menu-item a {
+  color: inherit;
+}
+
 .menu-item:hover {
   color: var(--emoji-hover);
 }

@@ -111,6 +111,10 @@ components.menuDarkMode = (pages, state) => {
   return html`<li class="menu-item" id="menu-dark-mode-toggle" @click=${ toggleTheme(state) }>🌙 Dark Mode </li>`
 }
 
+components.githubLink = (pages, state) => {
+  return html`<li class="menu-item"><a target="_blank" rel="noopener noreferrer" href="https://github.com/rgrannell1/mood">💻 Github</a></li>`
+}
+
 components.menuVersion = (pages, state) => {
   return html`<li class="menu-item" id="menu-version"><p>mood version ${constants.version}</p></li>`
 }
@@ -148,6 +152,7 @@ components.menu = (pages, state) => {
       components.menuPrivacy(pages, state),
       components.menuDivider(),
       components.menuDarkMode(pages, state),
+      components.githubLink(pages, state),
       components.menuVersion(pages, state)
     ]
   } else {
@@ -157,6 +162,7 @@ components.menu = (pages, state) => {
       components.menuPrivacy(pages, state),
       components.menuDivider(),
       components.menuDarkMode(pages, state),
+      components.githubLink(pages, state),
       components.menuVersion(pages, state)
     ]
   }

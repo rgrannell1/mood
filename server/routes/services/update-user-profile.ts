@@ -1,4 +1,5 @@
-import { trackingId } from "../shared/utils"
+
+import * as log from '../shared/log'
 
 const addCurrentIp = (old:string[] | undefined, current:string | undefined) => {
   const ips = old || []
@@ -18,14 +19,26 @@ const addCurrentForwardedFor = (old: string[] | undefined, current: string | und
   return forwardedFor
 }
 
-const updateTrackingIdCount = (trackingIdCount:number | undefined) => {
+/**
+ * Update the user's tracking-id count
+ *
+ * @param trackingIdCount {number} the current tracking id count
+ * @param ctx {object} the request state
+ */
+const updateTrackingIdCount = (trackingIdCount:number | undefined, ctx: RequestState) => {
   if (typeof trackingIdCount === 'undefined' || isNaN(trackingIdCount)) {
+    log.debug(ctx, `trackingIdCount was undefined / NaN (${trackingIdCount})`)
     return 1
   } else {
-    return trackingIdCount++
+    return trackingIdCount + 1
   }
 }
 
+/**
+ * Return a registration date for the user
+ *
+ * @param current {Date} the current date
+ */
 const getRegistrationDate = (current:Date) => {
   return current || new Date()
 }
@@ -40,7 +53,7 @@ const updateUserProfile = (data: any, ctx: RequestState): MoodUser => {
   const updatedUserData = {
     ips: addCurrentIp(data.ips, ctx.ip),
     forwardedFor: addCurrentForwardedFor(data.forwardedFor, ctx.forwardedFor),
-    trackingIdCount: updateTrackingIdCount(data.trackingId),
+    trackingIdCount: updateTrackingIdCount(data.trackingIdCount, ctx),
     registeredOn: getRegistrationDate(data.registeredOn),
     userName: data.userName,
     password: data.password,
