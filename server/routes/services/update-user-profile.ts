@@ -1,6 +1,14 @@
 
 import * as log from '../shared/log'
 
+/**
+ * Add ip addresses
+ *
+ * @param old {string[]} saved ip addresses
+ * @param current {string?} the current ip address
+ *
+ * @returns {string[]} the ip addresses
+ */
 const addCurrentIp = (old:string[] | undefined, current:string | undefined) => {
   const ips = old || []
   if (current && !ips.includes(current)) {
@@ -10,6 +18,14 @@ const addCurrentIp = (old:string[] | undefined, current:string | undefined) => {
   return ips
 }
 
+/**
+ * Add forwarded-for addresses
+ *
+ * @param old {string[]} saved forwarded-for addresses
+ * @param current {string?} the current forwarded for address
+ *
+ * @returns {string[]} the forwarded for addresses
+ */
 const addCurrentForwardedFor = (old: string[] | undefined, current: string | undefined) => {
   const forwardedFor = old || []
   if (current && !forwardedFor.includes(current)) {
