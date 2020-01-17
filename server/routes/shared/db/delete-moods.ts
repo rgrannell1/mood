@@ -1,4 +1,5 @@
 
+import updateUserProfile from '../../services/update-user-profile'
 import * as errors from '@rgrannell/errors'
 
 import * as log from '../log'
@@ -36,11 +37,10 @@ const deleteMoods = async (username: string, ctx: RequestState, opts: FirebaseOp
   // -- create an empty user-profile.
   const encryptedData = validate.db.user(doc.data())
   const existingData = security.user.decrypt(encryptedData, opts.key)
-  const updated = {
-    ...existingData,
-    moods: [],
-    roles: dataRoles.reader(username)
-  }
+  const updated = updateUserProfile(existingData, ctx)
+
+  updated.moods = []
+
 
   log.debug(ctx, 'removing mood-data for user')
   const encrypted = security.user.encrypt(updated, opts.key)

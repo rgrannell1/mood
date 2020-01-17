@@ -3,6 +3,7 @@ import * as log from '../log'
 import * as security from '../security'
 import validate from '../validate'
 import getDatabase from '../database'
+import updateUserProfile from '../../services/update-user-profile'
 import {
   dataRoles,
   userId
@@ -24,37 +25,8 @@ const updateUser = async (ref:any, doc:any, ctx: RequestState, opts: {key: strin
   const data = doc.data()
   const user = validate.db.user(data)
 
-  let trackingIdCount = 1
-  if (user.trackingIdCount && !isNaN(user.updatedTrackingIdCount)) {
-    trackingIdCount = user.trackingIdCount + 1
-  } else {
-    log.warn(ctx, 'userId tracking count was non-existent or NaN')
-  }
-
-  const ips = [...data.ips]
-  if (ctx.ip && !ips.includes(ctx.ip)) {
-    ips.push(ctx.ip)
-  }
-  const forwardedFor = [...data.forwardedFor]
-  if (ctx.forwardedFor && !forwardedFor.includes(ctx.forwardedFor)) {
-    forwardedFor.push(ctx.forwardedFor)
-  }
-
-  const roles = dataRoles.reader(data.username)
-  const registeredOn = data.registeredOn || new Date()
-
-  const updatedUserData = {
-    username: data.username,
-    password: data.password,
-    userId: data.userId,
-    registeredOn,
-    ips,
-    forwardedFor,
-    trackingIdCount,
-    roles
-  }
-
-  const encrypted = security.user.encrypt(updatedUserData, opts.key)
+  const updated = updateUserProfile(data, ctx)
+  const encrypted = security.user.encrypt(updated, opts.key)
 
   return ref.update(encrypted)
 }

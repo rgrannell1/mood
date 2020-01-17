@@ -1,4 +1,5 @@
 
+import updateUserProfile from '../../services/update-user-profile'
 import day from 'dayjs'
 
 import validate from '../validate'
@@ -58,6 +59,12 @@ const getMoods = async (userId: string, ctx: RequestState, opts: FirebaseOpts) =
       }
     }
   }
+
+  const updated = updateUserProfile(userData, ctx)
+
+  const encrypted = security.user.encrypt(updated, opts.key)
+
+  await db.collection('userdata').doc(userId).update(encrypted)
 
   return {
     moods: userData.moods,

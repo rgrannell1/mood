@@ -56,10 +56,15 @@ declare global {
     username: string,
     sessionId: string
   }
-
   interface MoodUser {
-    forwardedFor: string[],
-    ips: string[],
-    moods: Mood[]
+    ips: string[]
+    forwardedFor: string[]
+    trackingIdCount: number
+    registeredOn: Date
+    userName: string
+    password: string
+    userId: string
+    roles: { [key: string]: string }
+    moods: ArbitraryObject[]
   }
 }
