@@ -1,12 +1,5 @@
 
 export {}
-interface Mood {
-  id?: string
-  mood: string,
-  timestamp: number,
-  type: string
-}
-
 declare global {
   type MoodRequest = RequestState & { state:RequestState } & {
     body: any,
@@ -16,6 +9,7 @@ declare global {
   type MoodError = Error & {
     code?: string | number
   }
+
   type MoodResponse = Response & ResponseMethods
   interface RequestState {
     trackingId?: string,
@@ -25,9 +19,9 @@ declare global {
     url?: string,
     userId?: string
   }
-  interface Mood {
+  interface MoodEntry {
     id?: string
-    mood: string,
+    mood: 'Stellar' | 'Fine' | 'Decent' | 'Neutral' | 'Bad' | 'Ennui' | 'In pain' | 'Atrocious',
     timestamp: number,
     type: string
   }
@@ -65,6 +59,6 @@ declare global {
     password: string
     userId: string
     roles: { [key: string]: string }
-    moods: ArbitraryObject[]
+    moods: MoodEntry[]
   }
 }

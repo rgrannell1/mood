@@ -3,6 +3,8 @@ import * as log from '../log'
 import validate from '../validate'
 import * as security from '../security'
 import getDatabase from '../database'
+import updateUserProfile from '../../services/update-user-profile'
+
 import {
   dataRoles
 } from '../utils'
@@ -61,6 +63,8 @@ const saveMoods = async (userId: string, ctx: RequestState, moods: any, opts: Fi
     : filterMoodFields(moods)
 
   log.debug(ctx, 'adding moods for user')
+
+  const updated = updateUserProfile(user, ctx)
 
   const encrypted = security.user.encrypt(user, opts.key)
 

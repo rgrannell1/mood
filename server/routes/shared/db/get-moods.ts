@@ -38,7 +38,7 @@ const getMoods = async (userId: string, ctx: RequestState, opts: FirebaseOpts) =
     userData.moods = []
   }
 
-  userData.moods.sort((datum0: Mood, datum1: Mood) => datum0.timestamp - datum1.timestamp)
+  userData.moods.sort((datum0: MoodEntry, datum1: MoodEntry) => datum0.timestamp - datum1.timestamp)
 
   let stats
 
