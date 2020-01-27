@@ -30,9 +30,12 @@ const checkLogin = async (req: MoodRequest, res: MoodResponse, opts: FirebaseOpt
     throw errors.authorization('no session-id found in session-cookie', 401)
   }
 
-  const session = await firebase.session.get(sessionId, req.state, opts)
+  const {
+    session,
+    profile
+  } = await firebase.session.get(sessionId, req.state, opts)
 
-  log.debug(req.state, `session cookie received for ${session.username}`)
+  log.debug(req.state, `session cookie received for ${profile.userId}`)
 
   return session
 }

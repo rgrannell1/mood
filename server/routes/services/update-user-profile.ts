@@ -71,7 +71,7 @@ const updateUserProfile = (data: any, ctx: RequestState): MoodUser => {
     forwardedFor: addCurrentForwardedFor(data.forwardedFor, ctx.forwardedFor),
     trackingIdCount: updateTrackingIdCount(data.trackingIdCount, ctx),
     registeredOn: getRegistrationDate(data.registeredOn),
-    userName: data.userName,
+    username: data.username,
     password: data.password,
     userId: data.userId,
     roles: data.roles,

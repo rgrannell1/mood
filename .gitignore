@@ -10,3 +10,4 @@ routes/
 api/
 !server/routes/
 !server/api/
+demo

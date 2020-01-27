@@ -11,6 +11,7 @@ import validate from './shared/validate'
  */
 const getMetadata = async (req: MoodRequest, res: MoodResponse) => {
   const body = {
+    // -- TODO update
     version: `v${nanoid()}`
   }
 

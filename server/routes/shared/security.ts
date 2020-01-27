@@ -73,12 +73,11 @@ export const decrypt = (string:string, key:string) => {
 }
 
 export const user = {
-  // UNIMPLEMENTED
-  encrypt: (obj:any, key:string) => {
+  encrypt: (obj: MoodUser, key: string): MoodUser => {
     return obj
   },
   // UNIMPLEMENTED
-  decrypt: (obj:any, key:string) => {
+  decrypt: (obj: any, key: string) => {
     return obj
   }
 }

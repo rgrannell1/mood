@@ -79,6 +79,30 @@ moodGraphs.heatplot = async data => {
     data: {
       values: data.moods
     },
+    signals: [
+      {
+        name: 'width',
+        value: '',
+        on: [{
+          events: {
+            source: 'window',
+            type: 'resize'
+          },
+          update: 'containerSize()[0] * 0.95'
+        }]
+      },
+      {
+        name: 'height',
+        value: '',
+        on: [{
+          events: {
+            source: 'window',
+            type: 'resize'
+          },
+          update: 'containerSize()[1] * 0.95'
+        }]
+      }
+    ],
     mark: 'rect',
     config: getHeatplotConfig(theme),
     encoding: {

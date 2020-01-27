@@ -61,7 +61,8 @@ const createNewUser = async (ref: any, credentials: { username: string, hash: st
     ips,
     forwardedFor,
     trackingIdCount,
-    roles
+    roles,
+    moods: []
   }
 
   const encrypted = security.user.encrypt(newUserData, opts.key)

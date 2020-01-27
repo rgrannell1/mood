@@ -2,6 +2,7 @@
 import * as log from '../log'
 import validate from '../validate'
 import getDatabase from '../database'
+import getUser from './get-profile'
 import * as errors from '@rgrannell/errors'
 
 /**
@@ -28,7 +29,15 @@ const getSession = async (sessionId: string, ctx: RequestState, opts: FirebaseOp
 
   const [session] = doc.docs
 
-  return validate.db.session(session.data())
+  const sessionData = validate.db.session(session.data())
+  const profile = await getUser(sessionData.username, ctx, opts)
+
+  console.log(profile)
+
+  return {
+    session: sessionData,
+    profile
+  }
 }
 
 export default getSession

@@ -55,7 +55,7 @@ declare global {
     forwardedFor: string[]
     trackingIdCount: number
     registeredOn: Date
-    userName: string
+    username: string
     password: string
     userId: string
     roles: { [key: string]: string }
