@@ -25,7 +25,7 @@ const createSession = async (username: string, ctx: RequestState, opts: Firebase
   }
 
   if (sessionExists) {
-    log.debug(ctx, `session already exists for ${ctx.userId}`)
+    log.debug(ctx, `using existing session for user ${ctx.userId}`)
 
     return validate.db.session(doc.data())
   } else {
