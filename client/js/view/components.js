@@ -1,5 +1,6 @@
 
 import moodGraphs from '../view/mood-graphs.js'
+import * as auth from '../shared/auth.js'
 import { render, html } from 'lit-html'
 import {
   local,
@@ -124,15 +125,6 @@ components.menuDivider = () =>{
 }
 
 /**
- * Is there an existing session on this page?
- *
- * @returns {boolean}
- */
-const isAuthenticated = () => {
-  return document.cookie.includes('mood-session.sig')
-}
-
-/**
  * Construct the side-menu (hidden by default)
  *
  * @param {Object} pages a reference to the other pages
@@ -141,7 +133,7 @@ const isAuthenticated = () => {
 components.menu = (pages, state) => {
   let listItems = []
 
-  state.isLoggedIn = isAuthenticated()
+  state.isLoggedIn = auth.isAuthenticated()
 
   if (state.isLoggedIn) {
     listItems = [

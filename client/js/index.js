@@ -1,6 +1,7 @@
 
 import { render } from 'lit-html'
 
+import * as auth from './shared/auth.js'
 import pages from './view/pages/index.js'
 import moodGraphs from './view/mood-graphs.js'
 
@@ -25,6 +26,8 @@ const state = {
  */
 const renderMoodLandingPage = async () => {
   await registerServiceWorker()
+
+  state.isLoggedIn = auth.isAuthenticated()
 
   if (state.isLoggedIn) {
     render(pages.main(pages, state), document.body)
