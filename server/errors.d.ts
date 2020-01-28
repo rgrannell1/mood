@@ -1,6 +1,4 @@
 
-type errss = number
-
 declare module '@rgrannell/errors' {
   export function authorization(message:string, code:number):Error
   export function badRequest(message:string, code:number):Error

@@ -10,17 +10,17 @@ import getDatabase from '../database'
 /**
  * Retrieve mood data from the database
  *
- * @param {string} userId the user-id
+ * @param {string} username the user-id
  * @param {object} ctx request metadata
  * @param {array} moods a list of mood objects
  * @param {object} opts an object with a key
  *
  * @returns {Promise<*>}
  */
-const getProfile = async (userId: string, ctx: RequestState, opts: FirebaseOpts) => {
+const getProfile = async (username: string, ctx: RequestState, opts: FirebaseOpts) => {
   const db = getDatabase()
 
-  const ref = db.collection('userdata').doc(userId)
+  const ref = db.collection('userdata').doc(username)
   const doc = await ref.get()
 
   if (!doc.exists) {

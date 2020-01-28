@@ -3,6 +3,7 @@ import firebase from '../shared/db'
 import * as security from '../shared/security'
 import { userId } from '../shared/utils'
 import config from '../shared/config'
+import * as log from '../shared/log'
 
 const envConfig = config()
 
@@ -27,12 +28,16 @@ const signinUser = async ({ username, password }: UserCredentials, ctx: RequestS
     throw errors.unauthorized('user does not exist', 401)
   }
 
+  const profile = await firebase.profile.get(username, ctx, {
+    key: envConfig.encryption.key
+  })
   const isSame = await security.checkPassword(data.password, password)
 
   if (isSame) {
-    ctx.userId = userId()
+    ctx.userId = profile.userId
+    log.success(ctx, `user ${profile.userId} signed in successfully`)
   } else {
-    throw errors.unauthorized('invalid password provided', 401)
+    throw errors.unauthorized(`invalid password provided for user ${profile.userId}`, 401)
   }
 
   return firebase.session.create(username, ctx, {
