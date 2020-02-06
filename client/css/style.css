@@ -310,6 +310,7 @@ main {
 /* MOOD GRAPH PANEL */
 
 #mood-graph {
+  overflow: scroll;
   grid-row: 2;
   grid-template-columns: 1fr 6fr 1fr;
 }

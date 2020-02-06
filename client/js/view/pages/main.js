@@ -72,7 +72,7 @@ const mainPage = (pages, state) => {
 
   const indexMain = html`
     ${components.moodPanel()}
-    ${components.moodGraph()}
+    ${components.moodOverTime()}
   `
   return components.page(indexMain, pages, state)
 }

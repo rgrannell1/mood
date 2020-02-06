@@ -202,7 +202,7 @@ const toggleTheme = state => () => {
  *
  * @param {Object} state the application state
  */
-components.moodGraph = () => {
+components.moodOverTime = () => {
   return html`
     <section id="mood-graph" class="mood-panel">
       ${components.h2('Timeline')}

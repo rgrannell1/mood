@@ -28,7 +28,7 @@ const signinUser = async ({ username, password }: UserCredentials, ctx: RequestS
     throw errors.unauthorized('user does not exist', 401)
   }
 
-  const profile = await firebase.profile.get(username, ctx, {
+  const profile = await firebase.user.get(username, ctx, {
     key: envConfig.encryption.key
   })
   const isSame = await security.checkPassword(data.password, password)

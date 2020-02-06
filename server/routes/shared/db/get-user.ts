@@ -17,7 +17,7 @@ import getDatabase from '../database'
  *
  * @returns {Promise<*>}
  */
-const getProfile = async (username: string, ctx: RequestState, opts: FirebaseOpts) => {
+const getUser = async (username: string, ctx: RequestState, opts: FirebaseOpts) => {
   const db = getDatabase()
 
   const ref = db.collection('userdata').doc(username)
@@ -37,4 +37,4 @@ const getProfile = async (username: string, ctx: RequestState, opts: FirebaseOpt
   }
 }
 
-export default getProfile
+export default getUser

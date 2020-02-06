@@ -15,7 +15,7 @@ import createUser from './db/create-user'
 import deleteMoods from './db/delete-moods'
 import getMoods from './db/get-moods'
 import saveMoods from './db/save-moods'
-import getProfile from './db/get-profile'
+import getUser from './db/get-user'
 
 import getDatabase from './database'
 const db = getDatabase()
@@ -27,10 +27,8 @@ const firebase = {
 
   },
   user: {
-    create: createUser
-  },
-  profile: {
-    get: getProfile
+    create: createUser,
+    get: getUser
   },
   moods: {
     delete: deleteMoods,
