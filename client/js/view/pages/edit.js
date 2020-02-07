@@ -7,9 +7,10 @@ import { api } from '../../shared/api'
 import components from '../components'
 
 components.moodGroup = (date, dayMoods) => {
-  const moodRows = dayMoods.map(mood => {
+  const moodRows = dayMoods.map((mood, ith) => {
     return html`
     <div class="mood-edit-row">
+      <input class="mood-edit-select" type="checkbox"></input>
       <span class="mood-edit-mood">${mood.mood}</span>
       <span class="mood-edit-delete">x</span>
     </div>
@@ -20,6 +21,9 @@ components.moodGroup = (date, dayMoods) => {
   <li class="mood-history-item">
     <h3 class="mood-edit-time">${date}</h3>
     <div class="mood-edit-group">
+      <div class="mood-edit-row">
+        <input class="mood-edit-select" type="checkbox"></input>
+      </div>
       ${moodRows}
     </div>
   `
