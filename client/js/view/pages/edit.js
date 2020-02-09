@@ -1,59 +1,71 @@
 
-import dayjs from 'dayjs'
-import { html } from 'lit-html'
+import { html, render } from 'lit-html'
 import { until } from 'lit-html/directives/until.js'
+import dayjs from 'dayjs'
 
-import { api } from '../../shared/api'
+const getTime = date => {
+  return `${dayjs(date).format('HH:mm:ss')}`
+}
+
 import components from '../components'
 
-components.moodGroup = (date, dayMoods) => {
+import getMoodsByDate from '../../services/get-moods-by-date'
+
+const services = {
+  getMoodsByDate
+}
+
+components.moodGroup = (pages, state, date, dayMoods) => {
+  const isBulkChecked = state.edit[date] && state.edit[date].bulk
+
   const moodRows = dayMoods.map((mood, ith) => {
+    const checkbox = isBulkChecked
+      ? html`<input class="mood-edit-select" type="checkbox" checked="checked"></input>`
+      : html`<input class="mood-edit-select" type="checkbox"></input>`
+
+    const time = getTime(mood.timestamp)
+
     return html`
     <div class="mood-edit-row">
-      <input class="mood-edit-select" type="checkbox"></input>
-      <span class="mood-edit-mood">${mood.mood}</span>
+      ${checkbox}
+      <span class="mood-edit-mood">${mood.mood} @ ${time}</span>
       <span class="mood-edit-delete">x</span>
     </div>
     `
   })
+
+  const onSelectAll = () => components.moodGroup.groupSelect(pages, date, state)
+
+  const checkbox = isBulkChecked
+    ? html`<input class="mood-edit-select" type="checkbox" checked="checked"  @change=${onSelectAll()}></input>`
+    : html`<input class="mood-edit-select" type="checkbox"  @change=${onSelectAll()}></input>`
 
   return html`
   <li class="mood-history-item">
     <h3 class="mood-edit-time">${date}</h3>
     <div class="mood-edit-group">
       <div class="mood-edit-row">
-        <input class="mood-edit-select" type="checkbox"></input>
+        ${checkbox}
       </div>
       ${moodRows}
     </div>
   `
 }
 
-const getDateString = date => {
-  const isSameYear = dayjs(date).format('YYYY') === `${dayjs().year()}`
-
-  if (isSameYear) {
-    return `${dayjs(date).format('ddd MMM D')}`
-  } else {
-    return `${dayjs(date).format('MMM D YYYY')}`
-  }
-}
-
-const groupedByDate = moods => {
-  const grouped = {}
-
-  for (const datum of moods) {
-    const date = dayjs(new Date(datum.timestamp))
-    const current = getDateString(date)
-
-    if (!grouped[current]) {
-      grouped[current] = [datum]
-    } else {
-      grouped[current].push(datum)
+components.moodGroup.groupSelect = (pages, date, state) => () => {
+  if (!state.edit[date]) {
+    state.edit[date] = {
+      bulk: false
     }
   }
 
-  return grouped
+  if (state.edit[date].bulk) {
+    state.edit[date].bulk = false
+  } else {
+    state.edit[date].bulk = true
+  }
+
+  render(editPage(pages, state, { fresh: false }), document.body)
 }
 
 /**
@@ -61,19 +73,25 @@ const groupedByDate = moods => {
  *
  * @param {Object} state the application state
  */
-components.edit = state => {
+components.edit = (pages, state, opts) => {
   state.page = 'edit'
 
-  const moods = api.moods.get()
-    .then(res => res.json())
-    .then(data => groupedByDate(data.moods.reverse()))
+  if (opts.fresh) {
+    delete state.moods
+  }
+
+  if (!state.moods) {
+    state.moods = services.getMoodsByDate()
+  }
+
+  const moodComponenets = state.moods
     .then(groups => {
       return Object
         .entries(groups)
-        .map( ([date, dayMoods]) => components.moodGroup(date, dayMoods))
+        .map( ([date, dayMoods]) => components.moodGroup(pages, state, date, dayMoods))
     })
 
-  const moodComponents = html`${until(moods, html`<span>Loading</span>`)}`
+  const moodComponents = html`${until(moodComponenets, html`<span>Loading</span>`)}`
 
   return html`<section id="mood-edit" class="mood-panel">
     ${components.h2('History')}
@@ -88,14 +106,14 @@ components.edit = state => {
  *
  * @returns {HTML} index-page
  */
-const editPage = (pages, state) => {
+const editPage = (pages, state, opts = {fresh: true}) => {
   if (!state.edit) {
     state.edit = {}
   }
 
   state.currentPage = editPage
 
-  return components.page(html`${components.edit(state)}`, pages, state)
+  return components.page(html`${components.edit(pages, state, opts)}`, pages, state)
 }
 
 export default editPage
