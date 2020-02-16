@@ -28,8 +28,7 @@ components.moodGroup = (pages, state, date, dayMoods) => {
     return html`
     <div class="mood-edit-row">
       ${checkbox}
-      <span class="mood-edit-mood">${mood.mood} @ ${time}</span>
-      <span class="mood-edit-delete">x</span>
+      <span class="mood-edit-mood" title="${time}">${mood.mood}</span>
     </div>
     `
   })
@@ -37,8 +36,8 @@ components.moodGroup = (pages, state, date, dayMoods) => {
   const onSelectAll = () => components.moodGroup.groupSelect(pages, date, state)
 
   const checkbox = isBulkChecked
-    ? html`<input class="mood-edit-select" type="checkbox" checked="checked"  @change=${onSelectAll()}></input>`
-    : html`<input class="mood-edit-select" type="checkbox"  @change=${onSelectAll()}></input>`
+    ? html`<input class="mood-edit-bulk-select mood-edit-select" type="checkbox" checked="checked"  @change=${onSelectAll()}></input>`
+    : html`<input class="mood-edit-bulk-select mood-edit-select" type="checkbox"  @change=${onSelectAll()}></input>`
 
   return html`
   <li class="mood-history-item">
@@ -46,6 +45,9 @@ components.moodGroup = (pages, state, date, dayMoods) => {
     <div class="mood-edit-group">
       <div class="mood-edit-row">
         ${checkbox}
+        <div class="mood-edit-delete">
+          <span class="mood-edit-delete-icon">x </span>
+        </div>
       </div>
       ${moodRows}
     </div>
