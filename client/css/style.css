@@ -20,6 +20,7 @@
   --button-colour: white;
   --graph-heatmap-to: #fc76af;
   --graph-heatmap-from: #fef1f7;
+  --graph-line: #0e080a;
 
   font-size: 62.5%;
 }
@@ -43,6 +44,7 @@
   --graph-medium: #363636;
   --graph-background: #2b2b2b;
   --graph-heatmap-to: #3bf4b0;
+  --graph-line: #3bf4b0;
   --graph-heatmap-from: #ebfdf7;
 }
 

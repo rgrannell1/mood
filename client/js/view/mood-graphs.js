@@ -54,21 +54,12 @@ const getHeatplotConfig = theme => {
   return config
 }
 
-/**
- * Plot a heatplot of moods over time
- *
- * @param {Object} data the user's mood data
- */
 moodGraphs.heatplot = async data => {
   if (!data.hasOwnProperty('moods')) {
     throw new Error('data did not have moods property')
   }
 
-  let timeUnit = 'monthdate'
-
-  if (data.stats && data.stats.timeInterval && data.stats.timeInterval.days > 30) {
-    timeUnit = 'yearmonth'
-  }
+  const timeUnit = selectTimeBin(data)
 
   const [$html] = document.getElementsByTagName('html')
   const theme = $html.getAttribute('data-theme') || 'light'
@@ -132,6 +123,137 @@ moodGraphs.heatplot = async data => {
 
   // eslint-disable-next-line no-undef
   vegaEmbed('#mood-over-time', spec, {
+    theme: 'ggplot2',
+    renderer: 'svg',
+    height: 200,
+    width: 400
+  })
+}
+
+/**
+ * Select a time bin
+ *
+ * @param {Object} data
+ *
+ * @returns {string} a time unit for vega
+ */
+const selectTimeBin = data => {
+  let timeUnit = 'monthdate'
+
+  if (data.stats && data.stats.timeInterval && data.stats.timeInterval.days > 30) {
+    timeUnit = 'yearmonthdate'
+  }
+
+  return timeUnit
+}
+
+/**
+ * Plot a heatplot of moods over time
+ *
+ * @param {Object} data the user's mood data
+ */
+moodGraphs.line = async data => {
+  if (!data.hasOwnProperty('moods')) {
+    throw new Error('data did not have moods property')
+  }
+
+  const timeUnit = selectTimeBin(data)
+
+  const [$html] = document.getElementsByTagName('html')
+  const theme = $html.getAttribute('data-theme') || 'light'
+
+  const moodRanking = [...constants.moodOrdering].reverse()
+
+  const spec = {
+    $schema: 'https://vega.github.io/schema/vega-lite/v4.0.0-beta.9.json',
+    autosize: { type: 'fit', resize: true },
+    data: {
+      values: data.moods.map(datum => {
+        datum.value = moodRanking.indexOf(datum.mood)
+        return datum
+      })
+    },
+    signals: [
+      {
+        name: 'width',
+        value: '',
+        on: [{
+          events: {
+            source: 'window',
+            type: 'resize'
+          },
+          update: 'containerSize()[0] * 0.95'
+        }]
+      },
+      {
+        name: 'height',
+        value: '',
+        on: [{
+          events: {
+            source: 'window',
+            type: 'resize'
+          },
+          update: 'containerSize()[1] * 0.95'
+        }]
+      }
+    ],
+    config: getHeatplotConfig(theme),
+    layer: [
+      {
+        mark: {
+          type: 'point',
+          opacity: 0.2,
+          color: getCssVariable('graph-line')
+        },
+        encoding: {
+          y: {
+            aggregate: 'average',
+            field: 'value',
+            type: 'quantitative',
+            axis: {
+              title: '',
+              labelExpr: `${JSON.stringify(moodRanking)}[datum.label]`
+            }
+          },
+          x: {
+            timeUnit,
+            field: 'timestamp',
+            type: 'temporal'
+          }
+        }
+      },
+      {
+        mark: {
+          type: 'line',
+          color: getCssVariable('graph-line')
+        },
+        transform: [
+          {
+            loess: 'value',
+            on: 'timestamp'
+          }
+        ],
+        encoding: {
+          y: {
+            field: 'value',
+            type: 'quantitative',
+            axis: {
+              title: '',
+              labelExpr: `${JSON.stringify(moodRanking)}[datum.label]`
+            }
+          },
+          x: {
+            timeUnit,
+            field: 'timestamp',
+            type: 'temporal'
+          }
+        }
+      }
+    ]
+  }
+
+  // eslint-disable-next-line no-undef
+  vegaEmbed('#mood-over-time', spec, {
     renderer: 'svg',
     height: 200,
     width: 400
@@ -148,7 +270,7 @@ moodGraphs.refreshMoodGraphs = async state => {
 
     state.moods = moods
 
-    await moodGraphs.heatplot(moodData)
+    await moodGraphs.line(moodData)
   } catch (err) {
     console.error('failed to render graph.')
     throw err
