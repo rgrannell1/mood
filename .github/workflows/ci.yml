@@ -22,10 +22,10 @@ jobs:
     - name: Install Dependencies
       run: sudo npm i -g now
 
-    - name: Run Tests
-      run: |
-        npm install
-        npm test
+#    - name: Run Tests
+#      run: |
+#        npm install
+#        npm test
 
     # -- detect the current mood version and set as a variable
     - name: Detect Old Mood Version

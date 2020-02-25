@@ -1,7 +1,7 @@
 
-import vegaEmbed from 'vega-embed'
 import { api } from '../shared/api'
 import constants from '../shared/constants'
+import * as vega from 'vega'
 
 const moodGraphs = {}
 
@@ -121,13 +121,12 @@ moodGraphs.heatplot = async data => {
     }
   }
 
-  // eslint-disable-next-line no-undef
-  vegaEmbed('#mood-over-time', spec, {
-    theme: 'ggplot2',
+  const view = new vega.View(vega.parse(spec), {
     renderer: 'svg',
-    height: 200,
-    width: 400
+    container: '#mood-over-time'
   })
+
+  return view.runAsync();
 }
 
 /**
@@ -173,30 +172,6 @@ moodGraphs.line = async data => {
         return datum
       })
     },
-    signals: [
-      {
-        name: 'width',
-        value: '',
-        on: [{
-          events: {
-            source: 'window',
-            type: 'resize'
-          },
-          update: 'containerSize()[0] * 0.95'
-        }]
-      },
-      {
-        name: 'height',
-        value: '',
-        on: [{
-          events: {
-            source: 'window',
-            type: 'resize'
-          },
-          update: 'containerSize()[1] * 0.95'
-        }]
-      }
-    ],
     config: getHeatplotConfig(theme),
     layer: [
       {
@@ -251,13 +226,6 @@ moodGraphs.line = async data => {
       }
     ]
   }
-
-  // eslint-disable-next-line no-undef
-  vegaEmbed('#mood-over-time', spec, {
-    renderer: 'svg',
-    height: 200,
-    width: 400
-  })
 }
 
 /**
