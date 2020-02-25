@@ -108,3 +108,52 @@ export const toggleVisibility = $elem => {
     $elem.style.visibility = 'hidden'
   }
 }
+
+/**
+ * get the heatplot configuration for a theme
+ *
+ * @param {string} theme the theme to use
+ *
+ * @returns {object} Vega configuration
+ */
+export const getGraphConfig = theme => {
+  const config = {}
+
+  if (theme === 'dark') {
+    Object.assign(config, {
+      background: getCssVariable('graph-background'),
+      title: {
+        color: getCssVariable('graph-light')
+      },
+      style: {
+        'guide-label': {
+          fill: getCssVariable('graph-light')
+        },
+        'guide-title': {
+          fill: getCssVariable('graph-light')
+        }
+      },
+      axis: {
+        domainColor: getCssVariable('graph-light'),
+        gridColor: getCssVariable('graph-medium'),
+        tickColor: getCssVariable('graph-light')
+      }
+    })
+  } else {
+    Object.assign(config, {})
+  }
+
+  return config
+}
+
+/**
+ *
+ * get the value of a css property.
+ *
+ * @param {string} variable the css variable name
+ *
+ * @returns {any} the css property value
+ */
+export const getCssVariable = variable => {
+  return window.getComputedStyle(document.body).getPropertyValue(`--${variable}`)
+}
