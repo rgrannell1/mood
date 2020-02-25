@@ -1,23 +1,12 @@
 
 import { api } from '../shared/api'
-import constants from '../shared/constants'
-import * as vega from 'vega'
 
 import moodOverTime from './graphs/mood-over-time'
+import pixels from './graphs/pixels'
 
 const moodGraphs = {}
 
-/**
- *
- * get the value of a css property.
- *
- * @param {string} variable the css variable name
- *
- * @returns {any} the css property value
- */
-const getCssVariable = variable => {
-  return window.getComputedStyle(document.body).getPropertyValue(`--${variable}`)
-}
+moodGraphs.pixels = pixels
 
 moodGraphs.line = moodOverTime
 /**
