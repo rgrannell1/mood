@@ -62,7 +62,7 @@
   "devDependencies": {
     "replace-require-with-import": "^2.1.0",
     "source-map": "^0.7.3",
-    "webpack": "^4.41.5"
+    "webpack": "^4.42.0"
   },
   "scripts": {
     "build": "node --experimental-modules -r dotenv/config --no-warnings pulpfile.mjs build",

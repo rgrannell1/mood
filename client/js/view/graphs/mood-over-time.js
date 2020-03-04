@@ -1,4 +1,6 @@
 
+
+import vegaEmbed from 'vega-embed'
 import constants from '../../shared/constants'
 
 import {
@@ -40,7 +42,7 @@ export default async data => {
   const [$html] = document.getElementsByTagName('html')
   const theme = $html.getAttribute('data-theme') || 'light'
 
-  const moodRanking = [...constants.moodOrdering].reverse()
+  const moodRanking = constants.moods.map(data => data.name)
 
   const spec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v4.0.0-beta.9.json',
@@ -57,6 +59,7 @@ export default async data => {
         mark: {
           type: 'point',
           opacity: 0.2,
+          filled: true,
           color: getCssVariable('graph-line')
         },
         encoding: {
@@ -106,6 +109,10 @@ export default async data => {
     ]
   }
 
-  return spec
+  vegaEmbed('#mood-over-time', spec, {
+    renderer: 'svg',
+    height: 200,
+    width: 400
+  })
 }
 

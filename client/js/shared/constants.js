@@ -15,6 +15,32 @@ const constants = {
     refreshToken: 'GOOGLE_REFRESH_TOKEN',
     cachedEvents: 'cached-events'
   },
+  moods: [
+    {
+      name: 'Atrocious'
+    },
+    {
+      name: 'In Pain'
+    },
+    {
+      name: 'Ennui'
+    },
+    {
+      name: 'Bad'
+    },
+    {
+      name: 'Neutral'
+    },
+    {
+      name: 'Decent'
+    },
+    {
+      name: 'Fine'
+    },
+    {
+      name: 'Stellar'
+    }
+  ],
   moodOrdering: [
     'Stellar',
     'Fine',

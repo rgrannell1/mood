@@ -30,9 +30,13 @@ const renderMoodLandingPage = async () => {
   state.isLoggedIn = auth.isAuthenticated()
 
   if (state.isLoggedIn) {
+    console.log('user login detected.')
+
     render(pages.main(pages, state), document.body)
     moodGraphs.refreshMoodGraphs(state)
   } else {
+    console.log('user login not detected.')
+
     render(pages.signin(pages, state), document.body)
   }
 }

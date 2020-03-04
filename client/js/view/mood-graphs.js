@@ -8,7 +8,6 @@ const moodGraphs = {}
 
 moodGraphs.pixels = pixels
 
-moodGraphs.line = moodOverTime
 /**
  * Draw a mood heatplot to the page
  */
@@ -19,7 +18,9 @@ moodGraphs.refreshMoodGraphs = async state => {
 
     state.moods = moods
 
-    await moodGraphs.line(moodData)
+    await moodOverTime(moodData)
+//    await pixels(moodData)
+
   } catch (err) {
     console.error('failed to render graph.')
     throw err

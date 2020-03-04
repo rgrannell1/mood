@@ -210,4 +210,37 @@ components.moodOverTime = () => {
     </section>`
 }
 
+/**
+ * Create a pixel graph of the year
+ *
+ */
+components.pixels = () => {
+  return html`
+    <section id="mood-pixels" class="mood-panel">
+      ${components.h2('Year Mood')}
+      <canvas width="900" height="4000" id="mood-pixels-graph"></canvas>
+    </section>`
+}
+
+/**
+ * Create a toast element
+ *
+ * @param {Object} state the application state
+ */
+components.toast = state => {
+  const klass = state.toast
+    ? 'toast'
+    : 'toast hidden'
+
+  const text = state.toast
+    ? state.toast.text
+    : ''
+
+  return html`<div class="${klass}">
+  ${text}
+  <a class="toast-link">Undo</a>
+  </div>`
+
+}
+
 export default components

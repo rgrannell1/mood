@@ -378,3 +378,25 @@ main {
 .mood-edit-delete-icon:hover {
   background: rgb(188, 0, 56);
 }
+
+.toast {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  padding: 20px;
+  background: white;
+  color: black;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  transition: opacity 3s ease-in-out;
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.toast-link {
+  padding-left: 2em;
+  color: var(--font-colour);
+}
