@@ -11,6 +11,7 @@
   --emoji-hover: #db8787;
   --emoji-click: #744646;
   --font-colour: #e10564;
+  --font-colour-hover: #af044e;
   --dark-mode-font-colour: black;
   --brand-colour: #e10564;
   --divider-colour: #bfbfbf;
@@ -31,6 +32,7 @@
   --emoji-hover: #4d4d4d;
   --emoji-click: #744646;
   --font-colour: #3bf4b0;
+  --font-colour-hover: #9cf9d7;
   --dark-mode-font-colour: white;
   --brand-colour: #3bf4b0;
   --divider-colour: #333;
@@ -133,8 +135,13 @@ label[for="mood-password-repeat"] {
 
 #menu-version {
   margin-top: auto !important;
+  margin-right: 0;
   overflow-wrap: break-word;
   color: var(--divider-colour) !important;
+}
+
+#menu-version::first-letter {
+  margin-right: 0;
 }
 
 #screen-opacity {
@@ -189,6 +196,10 @@ label[for="mood-password-repeat"] {
 #menu ul li {
   color: var(--dark-mode-font-colour);
   margin-top: 2em;
+}
+
+.menu-item::first-letter {
+  margin-right: 1em;
 }
 
 #brand {
@@ -326,6 +337,10 @@ main {
   height: calc(width);
 }
 
+#mood-over-time::-webkit-scrollbar {
+  width: 1em;
+}
+
 .mood-history-list {
   list-style: none;
 }
@@ -388,7 +403,7 @@ main {
   color: black;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
-  transition: opacity 3s ease-in-out;
+  transition: opacity 3s ease-out;
   opacity: 1;
 }
 
@@ -399,4 +414,9 @@ main {
 .toast-link {
   padding-left: 2em;
   color: var(--font-colour);
+  cursor: pointer;
+}
+
+.toast-link:hover {
+  color: var(--font-colour-hover);
 }
