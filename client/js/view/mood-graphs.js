@@ -19,7 +19,6 @@ moodGraphs.refreshMoodGraphs = async state => {
     state.moods = moods
 
     await moodOverTime(moodData)
-//    await pixels(moodData)
 
   } catch (err) {
     console.error('failed to render graph.')
