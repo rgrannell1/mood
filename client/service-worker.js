@@ -21,12 +21,20 @@ api.sendEvents = () => {
   })
 }
 
+const cacheable = {}
+
+cacheable.css = [
+  '/css/style.css',
+  '/css/shared/variables.css',
+  '/css/device-sizing.css',
+  '/css/componenets/toast.css'
+]
+
 // -- todo expand caceable
 const cached = [
   '/',
   '/js/index.js',
-  '/css/style.css',
-  '/css/device-sizing.css',
+  ...cacheable,
   '/fonts/open-sans.woff2',
   '/favicon.ico',
   '/manifest.webmanifest',
