@@ -119,6 +119,10 @@ label[for="mood-password-repeat"] {
   cursor: pointer;
 }
 
+a {
+  text-decoration: none;
+}
+
 .menu-item a {
   color: inherit;
 }
@@ -200,10 +204,6 @@ header {
 }
 
 /* GENERIC */
-
-a {
-  text-decoration: none;
-}
 
 main {
   grid-column-start: 2;
@@ -294,84 +294,4 @@ main {
 
 #mood-over-time::-webkit-scrollbar {
   width: 1em;
-}
-
-.mood-history-list {
-  list-style: none;
-}
-
-.mood-edit-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 3fr 1fr;
-}
-
-.mood-history-item {
-  padding: 1.5em;
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid var(--divider-colour);
-}
-
-.mood-edit-time {
-  margin-bottom: 0.5em;
-}
-
-.mood-edit-mood {
-  grid-row: 1;
-  grid-column: 2;
-}
-
-.mood-edit-select {
-  grid-row: 1;
-  grid-column: 1;
-  min-height: 1.5em;
-}
-
-.mood-edit-bulk-select {
-  margin-bottom: 1em;
-}
-
-.mood-edit-delete {
-  grid-row: 1;
-  grid-column: 4;
-}
-
-.mood-edit-delete-icon {
-  background: rgb(220, 0, 78);
-  color: #fff;
-  padding: 0 10px;
-  font-weight: bold;
-  border-radius: 4px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  cursor: pointer;
-}
-
-.mood-edit-delete-icon:hover {
-  background: rgb(188, 0, 56);
-}
-
-.toast {
-  position: absolute;
-  bottom: 50px;
-  right: 50px;
-  padding: 20px;
-  background: var(--header-colour);
-  color: var(--dark-mode-font-colour);
-  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.35);
-  border-radius: 4px;
-  transition: opacity 3s ease-out;
-  opacity: 1;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-.toast-link {
-  padding-left: 2em;
-  color: var(--font-colour);
-  cursor: pointer;
-}
-
-.toast-link:hover {
-  color: var(--font-colour-hover);
 }

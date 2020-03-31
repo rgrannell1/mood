@@ -1,0 +1,27 @@
+
+.toast {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  padding: 20px;
+  background: var(--header-colour);
+  color: var(--dark-mode-font-colour);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  transition: opacity 3s ease-out;
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.toast-link {
+  padding-left: 2em;
+  color: var(--font-colour);
+  cursor: pointer;
+}
+
+.toast-link:hover {
+  color: var(--font-colour-hover);
+}

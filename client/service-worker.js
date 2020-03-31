@@ -27,7 +27,8 @@ cacheable.css = [
   '/css/style.css',
   '/css/shared/variables.css',
   '/css/device-sizing.css',
-  '/css/componenets/toast.css'
+  '/css/componenets/toast.css',
+  '/css/componenets/edit.css'
 ]
 
 // -- todo expand caceable
