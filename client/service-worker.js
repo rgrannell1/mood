@@ -31,15 +31,7 @@ cacheable.css = [
   '/css/componenets/edit.css'
 ]
 
-// -- todo expand caceable
-const cached = [
-  '/',
-  '/js/index.js',
-  ...cacheable,
-  '/fonts/open-sans.woff2',
-  '/favicon.ico',
-  '/manifest.webmanifest',
-  '/icons/icon-144x144.png',
+cacheable.svg = [
   '/svg/atrocious.svg',
   '/svg/bad.svg',
   '/svg/decent.svg',
@@ -48,6 +40,18 @@ const cached = [
   '/svg/in-pain.svg',
   '/svg/neutral.svg',
   '/svg/stellar.svg'
+]
+
+// -- todo expand caceable
+const cached = [
+  '/',
+  '/js/index.js',
+  ...cacheable.css,
+  ...cacheable.svg,
+  '/fonts/open-sans.woff2',
+  '/favicon.ico',
+  '/manifest.webmanifest',
+  '/icons/icon-144x144.png'
 ]
 
 const install = async () => {

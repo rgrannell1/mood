@@ -189,15 +189,6 @@ header {
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
 }
 
-#google-signin {
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  grid-column-start: 4;
-  grid-column-end: 5;
-}
-
 #mood-header {
   display: grid;
   grid-template-columns: 1fr 5fr 1fr 1fr;
