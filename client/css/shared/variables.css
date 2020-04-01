@@ -6,7 +6,7 @@
   --emoji-click: #744646;
   --font-colour: #e10564;
   --font-colour-hover: #af044e;
-  --dark-mode-font-colour: black;
+  --plain-font: black;
   --brand-colour: #e10564;
   --divider-colour: #bfbfbf;
   --navbar-minor-colour: #bfbfbf;
@@ -28,7 +28,7 @@
   --emoji-click: #744646;
   --font-colour: #3bf4b0;
   --font-colour-hover: #9cf9d7;
-  --dark-mode-font-colour: white;
+  --plain-font: white;
   --brand-colour: #3bf4b0;
   --divider-colour: #333;
   --navbar-minor-colour: #555;

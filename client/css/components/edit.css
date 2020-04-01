@@ -1,3 +1,8 @@
+
+.loader {
+  color: var(--plain-font);
+}
+
 .mood-history-list {
   list-style: none;
 }
@@ -11,6 +16,7 @@
   padding: 1.5em;
   padding-bottom: 0.5em;
   border-bottom: 1px solid var(--divider-colour);
+  color: var(--plain-font);
 }
 
 .mood-edit-time {

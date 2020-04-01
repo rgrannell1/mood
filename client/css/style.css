@@ -74,7 +74,7 @@ label[for="mood-password-repeat"] {
 /* HEADER CSS */
 
 #nav-menu {
-  color: var(--dark-mode-font-colour);
+  color: var(--plain-font);
   grid-column-start: 1;
   grid-column-end: 2;
   margin-left: 20px;
@@ -136,7 +136,7 @@ a {
   position: absolute;
   top: 58px;
   left: 0;
-  color: var(--dark-mode-font-colour);
+  color: var(--plain-font);
   width: 240px;
   height: calc(100vh - 59px);
   background: var(--header-colour);
@@ -153,7 +153,7 @@ a {
 }
 
 #menu ul li {
-  color: var(--dark-mode-font-colour);
+  color: var(--plain-font);
   margin-top: 2em;
 }
 
@@ -177,7 +177,7 @@ a {
   grid-column-start: 4;
   grid-column-end: 5;
   font-size: 1.4em;
-  color: var(--dark-mode-font-colour);
+  color: var(--plain-font);
   cursor: pointer;
   user-select: none;
 }
@@ -253,7 +253,7 @@ main {
 }
 
 #mood-policy {
-  color: var(--dark-mode-font-colour);
+  color: var(--plain-font);
 }
 
 #mood-policy h3 {

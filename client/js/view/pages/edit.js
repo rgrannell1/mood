@@ -93,7 +93,7 @@ components.edit = (pages, state, opts) => {
         .map( ([date, dayMoods]) => components.moodGroup(pages, state, date, dayMoods))
     })
 
-  const moodComponents = html`${until(moodComponenets, html`<span>Loading</span>`)}`
+  const moodComponents = html`${until(moodComponenets, html`<span class="loader">Loading</span>`)}`
 
   return html`<section id="mood-edit" class="mood-panel">
     ${components.h2('History')}

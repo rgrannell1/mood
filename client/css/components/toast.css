@@ -5,7 +5,7 @@
   right: 50px;
   padding: 20px;
   background: var(--header-colour);
-  color: var(--dark-mode-font-colour);
+  color: var(--plain-font);
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   transition: opacity 3s ease-out;
