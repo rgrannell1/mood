@@ -38,6 +38,7 @@ jobs:
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       run: >
         now deploy
+        --confirm
         --local-config=./now.json
         --build-env NODE_ENV=production
         --env NODE_ENV=production
