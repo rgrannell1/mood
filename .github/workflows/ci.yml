@@ -77,9 +77,37 @@ jobs:
         TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
         TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
 
+    # -- TODO implement aliasing
+     - name: Revert to an older version
+       if: failure()
+       run: echo $status
+       env:
+         status: ${{job.status}}
+
+     - name:
+       if: success()
+       run:
+
+    - name: Mark this deployment as stable
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      run: >
+        now alias set SOMEBUILDNAME https://mood-$BUILD_ID.rgrannell2.now.sh/
+        --confirm
+        --local-config=./now.json
+        --build-env NODE_ENV=production
+        --env NODE_ENV=production
+        --token ${ZEIT_TOKEN}
+
+
+
+
+
     # on success:
     #   alias this run as stable!
 
    # on failure:
    #   deploy the stable version
    #   alias this as unstable
+
