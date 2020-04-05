@@ -89,6 +89,7 @@ command.task = async args => {
     throw new Error(`wrong environment ${nodeEnv}`)
   }
 
+  const start = Date.now()
   const now = cp.spawn('./node_modules/.bin/now')
 
   const report = reportAnalysis(await dirStats('public'))
@@ -105,6 +106,14 @@ command.task = async args => {
     if (code !== 0) {
       throw new Error(`spawn exited with status ${code}`)
     }
+
+    const end = Date.now()
+
+    const elapsed = Math.round((end - start) / 1000)
+
+    console.log(chalk.green(`Deployment suceeded in ${elapsed} seconds!`))
+
+    console.log(`Run "npm run monitoring:prod" to validate the deployment.\n`)
   })
 }
 
