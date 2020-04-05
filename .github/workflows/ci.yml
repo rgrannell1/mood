@@ -22,19 +22,20 @@ jobs:
     - name: Install Dependencies
       run: sudo npm i -g now
 
-#    - name: Run Tests
+#    - name: Run Unit Tests. These are broken due to the Typescript update and need to be rewritten.
 #      run: |
 #        npm install
 #        npm test
 
-    # -- detect the current mood version and set as a variable
+    # -- detect the current mood version and set as a variable.
+
     - name: Detect Old Mood Version
       run: echo ::set-env name=OLD_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
 
-    - name: Build Site
-      run: npm run build
+    #- name: Build The Site
+     # run: npm run build
 
-    # -- deploy to Zeit
+    # -- deploy to Zeit.
     - name: Deploy Mood Website
       env:
         BUILD_ID: ${{ github.sha }}
@@ -75,3 +76,10 @@ jobs:
         TEST_ACCOUNT_CREDENTIAL: ${{ secrets.TEST_ACCOUNT_CREDENTIAL }}
         TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
         TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
+
+    # on success:
+    #   alias this run as stable!
+
+   # on failure:
+   #   deploy the stable version
+   #   alias this as unstable
