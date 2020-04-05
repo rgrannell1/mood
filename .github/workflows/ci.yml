@@ -32,8 +32,8 @@ jobs:
     - name: Detect Old Mood Version
       run: echo ::set-env name=OLD_MOOD_VERSION::$(curl -s https://mood.rgrannell2.now.sh/api/metadata | egrep -o '"[^"]+"$' | sed 's/"//g')
 
-    #- name: Build The Site
-     # run: npm run build
+    - name: Build The Site
+      run: npm run build
 
     # -- deploy to Zeit.
     - name: Deploy Mood Website
@@ -78,7 +78,7 @@ jobs:
         TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
 
       # -- TODO implement aliasing
-    - name: Mark this deployment as stable
+    - name: Mark Deployment as Stable
       if: success()
       env:
         BUILD_ID: ${{ github.sha }}
@@ -90,15 +90,3 @@ jobs:
         --build-env NODE_ENV=production
         --env NODE_ENV=production
         --token ${ZEIT_TOKEN}
-
-
-
-
-
-    # on success:
-    #   alias this run as stable!
-
-   # on failure:
-   #   deploy the stable version
-   #   alias this as unstable
-
