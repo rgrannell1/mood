@@ -83,7 +83,7 @@ jobs:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       run: >
-        now alias set https://mood-$BUILD_ID.rgrannell2.now.sh/ https://mood-stable.rgrannell2.now.sh/
+        [ -z "${ZEIT_TOKEN}" ] && echo "Token Missing" || now alias set https://mood-$BUILD_ID.rgrannell2.now.sh/ https://mood-stable.rgrannell2.now.sh/
           --token ${ZEIT_TOKEN}
           --local-config=./now.json
           --build-env NODE_ENV=production
