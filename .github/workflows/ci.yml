@@ -77,18 +77,9 @@ jobs:
         TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
         TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
 
-    # -- TODO implement aliasing
-     - name: Revert to an older version
-       if: failure()
-       run: echo $status
-       env:
-         status: ${{job.status}}
-
-     - name:
-       if: success()
-       run:
-
+      # -- TODO implement aliasing
     - name: Mark this deployment as stable
+      if: success()
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
