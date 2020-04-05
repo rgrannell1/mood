@@ -77,7 +77,6 @@ jobs:
         TEST_ACCOUNT_USER: ${{ secrets.TEST_ACCOUNT_USER }}
         TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
 
-      # -- TODO implement aliasing
     - name: Mark Deployment as Stable
       if: success()
       env:
@@ -85,8 +84,7 @@ jobs:
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       run: >
         now alias set SOMEBUILDNAME https://mood-$BUILD_ID.rgrannell2.now.sh/
-        --confirm
-        --local-config=./now.json
-        --build-env NODE_ENV=production
-        --env NODE_ENV=production
-        --token ${ZEIT_TOKEN}
+          --local-config=./now.json
+          --build-env NODE_ENV=production
+          --env NODE_ENV=production
+          --token ${ZEIT_TOKEN}
